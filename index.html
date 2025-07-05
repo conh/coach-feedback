@@ -211,52 +211,10 @@
             margin-top: 20px;
         }
         
-        .recording-section {
-            text-align: center;
-            margin: 30px 0;
-            padding: 30px;
-            background: #f8f9fa;
-            border-radius: 15px;
-        }
-        
-        .record-btn {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: none;
-            background: #e74c3c;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px auto;
-        }
-        
-        .record-btn:hover {
-            background: #c0392b;
-            transform: scale(1.05);
-        }
-        
-        .record-btn.recording {
-            background: #27ae60;
-            animation: pulse 1.5s infinite;
-        }
-        
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
-        }
-        
-        .status {
-            margin: 20px 0;
-            font-weight: 600;
-            color: #2c3e50;
         }
         
         .feedback-list {
@@ -681,14 +639,11 @@ For production: Use OAuth2 instead of API key for security.`);
                 // Prepare data for Google Sheets
                 const sheetData = prepareSheetData();
                 
-                // First, try to clear existing data (optional)
-                // await clearSheet();
-                
-                // Then append new data
+                // Append new data
                 const success = await appendToSheet(sheetData);
                 
                 if (success) {
-                    showStatus('syncStatus', `✅ Successfully synced ${sheetData.length} records to Google Sheets!`, 'success');
+                    showStatus('syncStatus', `✅ Successfully synced ${sheetData.length - 1} records to Google Sheets!`, 'success');
                     
                     // Mark all feedback as synced
                     feedbackData.forEach(item => item.synced = true);
@@ -801,10 +756,337 @@ For production: Use OAuth2 instead of API key for security.`);
             }
         }
 
-        // Auto-sync after saving feedback
+        // Load existing feedback from memory
+        function loadFeedback() {
+            const saved = feedbackData;
+            displayFeedback(saved);
+        }
+
+        // Attendance tracking (Step 1)
+        document.querySelectorAll('.attendance-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const playerName = btn.dataset.player;
+                
+                // Toggle attendance
+                if (attendanceData.has(playerName)) {
+                    attendanceData.delete(playerName);
+                    btn.classList.remove('present');
+                    btn.querySelector('.attendance-badge').style.display = 'none';
+                } else {
+                    attendanceData.add(playerName);
+                    btn.classList.add('present');
+                    btn.querySelector('.attendance-badge').style.display = 'flex';
+                }
+                
+                updateStatus();
+            });
+        });
+
+        // Feedback selection (Step 2)
+        document.querySelectorAll('.feedback-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.feedback-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedPlayer = btn.dataset.player;
+                
+                // Show feedback categories
+                document.getElementById('feedbackCategories').style.display = 'block';
+                document.getElementById('selectedPlayerName').textContent = selectedPlayer;
+                
+                // Reset feedback form
+                resetFeedbackForm();
+                updateStatus();
+            });
+        });
+        
+        function resetFeedbackForm() {
+            currentFeedback = {};
+            document.getElementById('overallRating').value = '';
+            document.getElementById('specialMention').checked = false;
+            document.getElementById('playerOfSession').checked = false;
+            document.querySelectorAll('.audio-status').forEach(status => status.textContent = '');
+        }
+        
+        function updateStatus() {
+            if (selectedPlayer) {
+                const attendanceStatus = attendanceData.has(selectedPlayer) ? ' (Present)' : ' (Absent)';
+                // Status shown in feedback categories section now
+            } else {
+                const attendanceCount = attendanceData.size;
+                // Could show attendance count if needed
+            }
+        }
+
+        // Recording functionality for categories
+        document.querySelectorAll('.record-mini-btn').forEach(btn => {
+            btn.addEventListener('mousedown', () => startCategoryRecording(btn));
+            btn.addEventListener('mouseup', () => stopCategoryRecording(btn));
+            btn.addEventListener('touchstart', () => startCategoryRecording(btn));
+            btn.addEventListener('touchend', () => stopCategoryRecording(btn));
+        });
+
+        async function startCategoryRecording(btn) {
+            const category = btn.dataset.category;
+            
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                recordedChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: 'audio/wav' });
+                    const audioUrl = URL.createObjectURL(blob);
+                    
+                    currentFeedback[category] = audioUrl;
+                    document.getElementById(category + 'Status').textContent = '✅ Recorded';
+                    btn.classList.remove('recording');
+                    
+                    // Stop all tracks
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                mediaRecorder.start();
+                btn.classList.add('recording');
+                document.getElementById(category + 'Status').textContent = '🔴 Recording...';
+
+            } catch (error) {
+                console.error('Error accessing microphone:', error);
+                document.getElementById(category + 'Status').textContent = 'Error: Cannot access microphone';
+            }
+        }
+
+        function stopCategoryRecording(btn) {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+            }
+        }
+
         async function saveFeedback() {
             if (!selectedPlayer) return;
             
             // Get session details
             const sessionDate = document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0];
-            const club =
+            const club = document.getElementById('clubSelect').value || 'Not specified';
+            const ageGroup = document.getElementById('ageGroupSelect').value || 'Not specified';
+            const team = document.getElementById('teamSelect').value || 'Not specified';
+            const location = document.getElementById('locationSelect').value || 'Not specified';
+            const sessionTheme = document.getElementById('sessionTheme').value || 'Not specified';
+            const attended = attendanceData.has(selectedPlayer);
+            
+            // Save complete feedback
+            const feedback = {
+                player: selectedPlayer,
+                sessionDate: sessionDate,
+                club: club,
+                ageGroup: ageGroup,
+                team: team,
+                location: location,
+                sessionTheme: sessionTheme,
+                attended: attended,
+                overallRating: document.getElementById('overallRating').value || 'Not rated',
+                strengths: currentFeedback.strengths || null,
+                improvements: currentFeedback.improvements || null,
+                general: currentFeedback.general || null,
+                specialMention: document.getElementById('specialMention').checked,
+                playerOfSession: document.getElementById('playerOfSession').checked,
+                timestamp: new Date().toLocaleString(),
+                id: Date.now()
+            };
+            
+            feedbackData.push(feedback);
+            displayFeedback(feedbackData);
+            
+            // Auto-sync to Google Sheets if connected
+            if (sheetsConfig.connected) {
+                try {
+                    showStatus('syncStatus', 'Auto-syncing to Google Sheets...', 'syncing');
+                    const sheetData = [
+                        [
+                            feedback.sessionDate,
+                            feedback.player,
+                            feedback.club,
+                            feedback.ageGroup,
+                            feedback.team,
+                            feedback.location,
+                            feedback.sessionTheme,
+                            feedback.attended ? 'Yes' : 'No',
+                            feedback.overallRating,
+                            feedback.specialMention ? 'Yes' : 'No',
+                            feedback.playerOfSession ? 'Yes' : 'No',
+                            feedback.strengths ? 'Yes' : 'No',
+                            feedback.improvements ? 'Yes' : 'No',
+                            feedback.general ? 'Yes' : 'No',
+                            feedback.timestamp
+                        ]
+                    ];
+                    
+                    const success = await appendToSheet(sheetData);
+                    if (success) {
+                        showStatus('syncStatus', '✅ Auto-synced to Google Sheets!', 'success');
+                        feedback.synced = true;
+                    } else {
+                        showStatus('syncStatus', '❌ Auto-sync failed', 'error');
+                    }
+                } catch (error) {
+                    showStatus('syncStatus', `❌ Auto-sync error: ${error.message}`, 'error');
+                }
+            }
+            
+            // Reset and hide form
+            document.getElementById('feedbackCategories').style.display = 'none';
+            document.querySelectorAll('.feedback-btn').forEach(b => b.classList.remove('selected'));
+            selectedPlayer = null;
+            
+            alert(`Complete feedback saved for ${feedback.player}!`);
+        }
+
+        function displayFeedback(feedback) {
+            const list = document.getElementById('feedbackList');
+            list.innerHTML = '';
+
+            feedback.slice(-10).reverse().forEach(item => {
+                const badges = [];
+                if (item.specialMention) badges.push('🏆 Special Mention');
+                if (item.playerOfSession) badges.push('⭐ Player of Session');
+                if (item.synced) badges.push('☁️ Synced');
+                
+                const div = document.createElement('div');
+                div.className = 'feedback-item';
+                div.innerHTML = `
+                    <div class="feedback-header">
+                        <span class="player-name">${item.player}</span>
+                        <span class="timestamp">${item.sessionDate}</span>
+                    </div>
+                    <div style="font-size: 12px; color: #7f8c8d; margin: 5px 0;">
+                        ${item.club} • ${item.ageGroup} • ${item.team} • ${item.location}<br>
+                        Theme: ${item.sessionTheme} • ${item.attended ? '✅ Present' : '❌ Absent'} • Rating: ${item.overallRating}
+                    </div>
+                    ${badges.length > 0 ? `<div style="margin: 5px 0; font-size: 12px;">${badges.join(' • ')}</div>` : ''}
+                    <div style="margin: 10px 0;">
+                        ${item.strengths ? `<button class="play-btn" onclick="playAudio('${item.strengths}')">▶️ Strengths</button>` : ''}
+                        ${item.improvements ? `<button class="play-btn" onclick="playAudio('${item.improvements}')">▶️ Areas to improve</button>` : ''}
+                        ${item.general ? `<button class="play-btn" onclick="playAudio('${item.general}')">▶️ General feedback</button>` : ''}
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function playAudio(url) {
+            const audio = new Audio(url);
+            audio.play();
+        }
+
+        function clearAllFeedback() {
+            if (confirm('Clear all feedback? This cannot be undone.')) {
+                feedbackData = [];
+                attendanceData.clear();
+                document.querySelectorAll('.attendance-btn').forEach(btn => {
+                    btn.classList.remove('present');
+                    btn.querySelector('.attendance-badge').style.display = 'none';
+                });
+                document.querySelectorAll('.feedback-btn').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                displayFeedback([]);
+                selectedPlayer = null;
+                updateStatus();
+            }
+        }
+
+        // Export functions
+        function exportToConsole() {
+            const sessionData = {
+                session: {
+                    club: document.getElementById('clubSelect').value || 'Not specified',
+                    ageGroup: document.getElementById('ageGroupSelect').value || 'Not specified',
+                    team: document.getElementById('teamSelect').value || 'Not specified',
+                    date: document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0]
+                },
+                attendance: Array.from(attendanceData),
+                feedback: feedbackData.map(f => ({
+                    player: f.player,
+                    club: f.club,
+                    ageGroup: f.ageGroup,
+                    team: f.team,
+                    attended: f.attended,
+                    timestamp: f.timestamp,
+                    hasAudio: !!(f.strengths || f.improvements || f.general)
+                }))
+            };
+            
+            console.log('Session Data:', JSON.stringify(sessionData, null, 2));
+            
+            const preview = document.getElementById('dataPreview');
+            preview.innerHTML = `<pre>${JSON.stringify(sessionData, null, 2)}</pre>`;
+            preview.style.display = 'block';
+            
+            alert('Data logged to console and displayed below. In production, this would auto-sync to Google Sheets.');
+        }
+        
+        function exportCSV() {
+            const headers = ['Date', 'Player', 'Club', 'Age Group', 'Team', 'Location', 'Session Theme', 'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 'Has Strengths Audio', 'Has Improvements Audio', 'Has General Audio', 'Timestamp'];
+            const rows = feedbackData.map(f => [
+                f.sessionDate,
+                f.player,
+                f.club,
+                f.ageGroup,
+                f.team,
+                f.location,
+                f.sessionTheme,
+                f.attended ? 'Yes' : 'No',
+                f.overallRating,
+                f.specialMention ? 'Yes' : 'No',
+                f.playerOfSession ? 'Yes' : 'No',
+                f.strengths ? 'Yes' : 'No',
+                f.improvements ? 'Yes' : 'No',
+                f.general ? 'Yes' : 'No',
+                f.timestamp
+            ]);
+            
+            // Add attendance-only records for players without feedback
+            const sessionDate = document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0];
+            attendanceData.forEach(player => {
+                if (!feedbackData.some(f => f.player === player)) {
+                    rows.push([
+                        sessionDate,
+                        player,
+                        document.getElementById('clubSelect').value || 'Not specified',
+                        document.getElementById('ageGroupSelect').value || 'Not specified',
+                        document.getElementById('teamSelect').value || 'Not specified',
+                        document.getElementById('locationSelect').value || 'Not specified',
+                        document.getElementById('sessionTheme').value || 'Not specified',
+                        'Yes',
+                        'No feedback given',
+                        'No',
+                        'No',
+                        'No',
+                        'No',
+                        'No',
+                        new Date().toLocaleString()
+                    ]);
+                }
+            });
+            
+            const csvContent = [headers, ...rows].map(row => row.join(',')).join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `football_session_${sessionDate}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize
+        loadFeedback();
+        updateStatus();
+    </script>
+</body>
+</html>
