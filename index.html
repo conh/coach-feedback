@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coach Feedback - Google Sheets Integration</title>
+    <title>Coach Feedback - Google Forms Integration</title>
     <style>
         * {
             margin: 0;
@@ -566,23 +566,52 @@
         let feedbackData = [];
         let attendanceData = new Set();
         let currentFeedback = {};
-        let sheetsConfig = {
-            spreadsheetId: '',
-            apiKey: '',
-            webAppUrl: '',
-            connected: false
-        };
 
         // Set today's date by default
         document.getElementById('sessionDate').valueAsDate = new Date();
 
-        // Google Sheets Integration Functions
+        // Google Forms configuration
+        const sheetsConfig = {
+            formUrl: 'https://docs.google.com/forms/d/1d3iIcsetvYJLl_bz8M-2fGw7I156J8ThBhm0WTdicZM/formResponse',
+            connected: true
+        };
+
+        // Handle session theme checkboxes
+        function toggleOtherSessionTheme() {
+            const otherCheckbox = document.getElementById('sessionThemeOther');
+            const otherText = document.getElementById('sessionThemeOtherText');
+            
+            if (otherCheckbox.checked) {
+                otherText.style.display = 'block';
+                otherText.focus();
+            } else {
+                otherText.style.display = 'none';
+                otherText.value = '';
+            }
+        }
+
+        // Get the session themes as comma-separated string
+        function getSessionThemes() {
+            const checkboxes = document.querySelectorAll('input[name="sessionTheme"]:checked');
+            const themes = Array.from(checkboxes).map(cb => cb.value);
+            
+            // Add "Other" text if specified
+            const otherCheckbox = document.getElementById('sessionThemeOther');
+            const otherText = document.getElementById('sessionThemeOtherText').value.trim();
+            if (otherCheckbox.checked && otherText) {
+                themes.push(otherText);
+            }
+            
+            return themes.length > 0 ? themes.join(', ') : 'Not specified';
+        }
+
+        // Google Forms Integration Functions
         function testFormsConnection() {
             showStatus('connectionStatus', 'Testing Google Forms connection...', 'syncing');
             
             // Debug: Check if sheetsConfig exists
             console.log('sheetsConfig:', sheetsConfig);
-            console.log('sheetsConfig.fields:', sheetsConfig.fields);
+            console.log('Form URL:', sheetsConfig.formUrl);
             
             // Test by submitting sample data using the entry field names directly
             const testData = {
@@ -641,265 +670,6 @@
                 return false;
             }
         }
-        function showSheetsSetup() {
-            alert(`Google Apps Script Setup Instructions:
-
-STEP 1: Create Google Apps Script
-1. Go to script.google.com
-2. Create new project
-3. Replace code with:
-
-function doPost(e) {
-  const data = JSON.parse(e.postData.contents);
-  const sheet = SpreadsheetApp.openById('YOUR_SHEET_ID').getActiveSheet();
-  
-  data.values.forEach(row => {
-    sheet.appendRow(row);
-  });
-  
-  return ContentService.createTextOutput(JSON.stringify({success: true}));
-}
-
-4. Replace YOUR_SHEET_ID with your actual Sheet ID
-5. Save the project
-
-STEP 2: Deploy as Web App
-1. Click "Deploy" → "New deployment"
-2. Type: "Web app"
-3. Execute as: "Me"
-4. Who has access: "Anyone"
-5. Click "Deploy"
-6. Copy the Web App URL
-7. Paste it in the field above
-
-STEP 3: Test
-1. Paste Web App URL above
-2. Click "Test Connection"
-3. If successful, sync will work!
-
-No API keys needed with this method!`);
-        }
-
-        function testSheetsConnection() {
-            const webAppUrl = document.getElementById('webAppUrl').value.trim();
-            
-            if (!webAppUrl) {
-                showStatus('connectionStatus', 'Please enter your Google Apps Script Web App URL', 'error');
-                return;
-            }
-            
-            sheetsConfig.webAppUrl = webAppUrl;
-            
-            showStatus('connectionStatus', 'Testing connection...', 'syncing');
-            
-            // Test connection by sending a test row
-            testGoogleAppsScript()
-                .then(success => {
-                    if (success) {
-                        sheetsConfig.connected = true;
-                        showStatus('connectionStatus', '✅ Connected to Google Sheets successfully!', 'success');
-                        document.getElementById('syncBtn').disabled = false;
-                    } else {
-                        sheetsConfig.connected = false;
-                        showStatus('connectionStatus', '❌ Connection failed. Check your Web App URL and deployment settings.', 'error');
-                        document.getElementById('syncBtn').disabled = true;
-                    }
-                })
-                .catch(error => {
-                    sheetsConfig.connected = false;
-                    showStatus('connectionStatus', `❌ Connection error: ${error.message}`, 'error');
-                    document.getElementById('syncBtn').disabled = true;
-                });
-        }
-
-        async function testGoogleAppsScript() {
-            try {
-                const testData = {
-                    values: [['Test', 'Connection', new Date().toLocaleString()]]
-                };
-                
-                const response = await fetch(sheetsConfig.webAppUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(testData)
-                });
-                
-                if (response.ok) {
-                    const result = await response.text();
-                    console.log('Test result:', result);
-                    return true;
-                } else {
-                    console.error('Test failed:', response.status, response.statusText);
-                    return false;
-                }
-            } catch (error) {
-                console.error('Network Error:', error);
-                return false;
-            }
-        }
-
-        async function syncToGoogleSheets() {
-            if (!sheetsConfig.connected) {
-                showStatus('syncStatus', 'Google Forms integration not available', 'error');
-                return;
-            }
-            
-            if (feedbackData.length === 0 && attendanceData.size === 0) {
-                showStatus('syncStatus', 'No data to sync', 'error');
-                return;
-            }
-            
-            showStatus('syncStatus', 'Syncing to Google Sheets...', 'syncing');
-            
-            try {
-                let successCount = 0;
-                
-                // Sync feedback data
-                for (const feedback of feedbackData) {
-                    if (!feedback.synced) {
-                        const formData = {
-                            [sheetsConfig.fields.date]: feedback.sessionDate,
-                            [sheetsConfig.fields.player]: feedback.player,
-                            [sheetsConfig.fields.club]: feedback.club,
-                            [sheetsConfig.fields.ageGroup]: feedback.ageGroup,
-                            [sheetsConfig.fields.team]: feedback.team,
-                            [sheetsConfig.fields.location]: feedback.location,
-                            [sheetsConfig.fields.sessionTheme]: feedback.sessionTheme,
-                            [sheetsConfig.fields.attended]: feedback.attended ? 'Yes' : 'No',
-                            [sheetsConfig.fields.overallRating]: feedback.overallRating,
-                            [sheetsConfig.fields.specialMention]: feedback.specialMention ? 'Yes' : 'No',
-                            [sheetsConfig.fields.playerOfSession]: feedback.playerOfSession ? 'Yes' : 'No',
-                            [sheetsConfig.fields.hasAudioFeedback]: feedback.feedback ? 'Yes' : 'No',
-                            [sheetsConfig.fields.timestamp]: feedback.timestamp
-                        };
-                        
-                        const success = await submitToGoogleForms(formData);
-                        if (success) {
-                            feedback.synced = true;
-                            successCount++;
-                        }
-                        
-                        // Small delay between submissions
-                        await new Promise(resolve => setTimeout(resolve, 500));
-                    }
-                }
-                
-                // Sync attendance-only records
-                const sessionDate = document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0];
-                for (const player of attendanceData) {
-                    if (!feedbackData.some(f => f.player === player)) {
-                        const formData = {
-                            [sheetsConfig.fields.date]: sessionDate,
-                            [sheetsConfig.fields.player]: player,
-                            [sheetsConfig.fields.club]: document.getElementById('clubSelect').value || 'Not specified',
-                            [sheetsConfig.fields.ageGroup]: document.getElementById('ageGroupSelect').value || 'Not specified',
-                            [sheetsConfig.fields.team]: document.getElementById('teamSelect').value || 'Not specified',
-                            [sheetsConfig.fields.location]: document.getElementById('locationSelect').value || 'Not specified',
-                            [sheetsConfig.fields.sessionTheme]: getSessionThemes(),
-                            [sheetsConfig.fields.attended]: 'Yes',
-                            [sheetsConfig.fields.overallRating]: 'No feedback given',
-                            [sheetsConfig.fields.specialMention]: 'No',
-                            [sheetsConfig.fields.playerOfSession]: 'No',
-                            [sheetsConfig.fields.hasAudioFeedback]: 'No',
-                            [sheetsConfig.fields.timestamp]: new Date().toLocaleString()
-                        };
-                        
-                        const success = await submitToGoogleForms(formData);
-                        if (success) successCount++;
-                        
-                        // Small delay between submissions
-                        await new Promise(resolve => setTimeout(resolve, 500));
-                    }
-                }
-                
-                showStatus('syncStatus', `✅ Successfully synced ${successCount} records to Google Sheets!`, 'success');
-                
-            } catch (error) {
-                console.error('Sync error:', error);
-                showStatus('syncStatus', `❌ Sync error: ${error.message}`, 'error');
-            }
-        }
-
-        function prepareSheetData() {
-            const headers = [
-                'Date', 'Player', 'Club', 'Age Group', 'Team', 'Location', 'Session Theme', 
-                'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 
-                'Has Audio Feedback', 'Timestamp'
-            ];
-            
-            const rows = [headers];
-            
-            // Add feedback data
-            feedbackData.forEach(f => {
-                rows.push([
-                    f.sessionDate,
-                    f.player,
-                    f.club,
-                    f.ageGroup,
-                    f.team,
-                    f.location,
-                    f.sessionTheme,
-                    f.attended ? 'Yes' : 'No',
-                    f.overallRating,
-                    f.specialMention ? 'Yes' : 'No',
-                    f.playerOfSession ? 'Yes' : 'No',
-                    f.feedback ? 'Yes' : 'No',
-                    f.timestamp
-                ]);
-            });
-            
-            // Add attendance-only records for players without feedback
-            const sessionDate = document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0];
-            attendanceData.forEach(player => {
-                if (!feedbackData.some(f => f.player === player)) {
-                    rows.push([
-                        sessionDate,
-                        player,
-                        document.getElementById('clubSelect').value || 'Not specified',
-                        document.getElementById('ageGroupSelect').value || 'Not specified',
-                        document.getElementById('teamSelect').value || 'Not specified',
-                        document.getElementById('locationSelect').value || 'Not specified',
-                        getSessionThemes(),
-                        'Yes',
-                        'No feedback given',
-                        'No',
-                        'No',
-                        'No',
-                        new Date().toLocaleString()
-                    ]);
-                }
-            });
-            
-            return rows;
-        }
-
-        async function appendToSheet(data) {
-            try {
-                const response = await fetch(sheetsConfig.webAppUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        values: data
-                    })
-                });
-                
-                if (response.ok) {
-                    const result = await response.text();
-                    console.log('Append result:', result);
-                    return true;
-                } else {
-                    console.error('Append error:', response.status, response.statusText);
-                    return false;
-                }
-            } catch (error) {
-                console.error('Append network error:', error);
-                return false;
-            }
-        }
 
         function showStatus(elementId, message, type) {
             const element = document.getElementById(elementId);
@@ -914,34 +684,6 @@ No API keys needed with this method!`);
             }
         }
 
-        // Handle session theme checkboxes
-        function toggleOtherSessionTheme() {
-            const otherCheckbox = document.getElementById('sessionThemeOther');
-            const otherText = document.getElementById('sessionThemeOtherText');
-            
-            if (otherCheckbox.checked) {
-                otherText.style.display = 'block';
-                otherText.focus();
-            } else {
-                otherText.style.display = 'none';
-                otherText.value = '';
-            }
-        }
-
-        // Get the session themes as comma-separated string
-        function getSessionThemes() {
-            const checkboxes = document.querySelectorAll('input[name="sessionTheme"]:checked');
-            const themes = Array.from(checkboxes).map(cb => cb.value);
-            
-            // Add "Other" text if specified
-            const otherCheckbox = document.getElementById('sessionThemeOther');
-            const otherText = document.getElementById('sessionThemeOtherText').value.trim();
-            if (otherCheckbox.checked && otherText) {
-                themes.push(otherText);
-            }
-            
-            return themes.length > 0 ? themes.join(', ') : 'Not specified';
-        }
         // Load existing feedback from memory
         function loadFeedback() {
             const saved = feedbackData;
@@ -1092,19 +834,19 @@ No API keys needed with this method!`);
                     showStatus('syncStatus', 'Auto-syncing to Google Sheets...', 'syncing');
                     
                     const formData = {
-                        [sheetsConfig.fields.date]: feedback.sessionDate,
-                        [sheetsConfig.fields.player]: feedback.player,
-                        [sheetsConfig.fields.club]: feedback.club,
-                        [sheetsConfig.fields.ageGroup]: feedback.ageGroup,
-                        [sheetsConfig.fields.team]: feedback.team,
-                        [sheetsConfig.fields.location]: feedback.location,
-                        [sheetsConfig.fields.sessionTheme]: feedback.sessionTheme,
-                        [sheetsConfig.fields.attended]: feedback.attended ? 'Yes' : 'No',
-                        [sheetsConfig.fields.overallRating]: feedback.overallRating,
-                        [sheetsConfig.fields.specialMention]: feedback.specialMention ? 'Yes' : 'No',
-                        [sheetsConfig.fields.playerOfSession]: feedback.playerOfSession ? 'Yes' : 'No',
-                        [sheetsConfig.fields.hasAudioFeedback]: feedback.feedback ? 'Yes' : 'No',
-                        [sheetsConfig.fields.timestamp]: feedback.timestamp
+                        'entry.927744891': feedback.sessionDate,
+                        'entry.1435622968': feedback.player,
+                        'entry.1206608925': feedback.club,
+                        'entry.2004883478': feedback.ageGroup,
+                        'entry.1645081746': feedback.team,
+                        'entry.1226288223': feedback.location,
+                        'entry.820282566': feedback.sessionTheme,
+                        'entry.534783448': feedback.attended ? 'Yes' : 'No',
+                        'entry.2024761548': feedback.overallRating,
+                        'entry.1473306623': feedback.specialMention ? 'Yes' : 'No',
+                        'entry.1919403171': feedback.playerOfSession ? 'Yes' : 'No',
+                        'entry.23037945': feedback.feedback ? 'Yes' : 'No',
+                        'entry.440393522': feedback.timestamp
                     };
                     
                     const success = await submitToGoogleForms(formData);
@@ -1179,6 +921,88 @@ No API keys needed with this method!`);
             }
         }
 
+        async function syncToGoogleSheets() {
+            if (!sheetsConfig.connected) {
+                showStatus('syncStatus', 'Google Forms integration not available', 'error');
+                return;
+            }
+            
+            if (feedbackData.length === 0 && attendanceData.size === 0) {
+                showStatus('syncStatus', 'No data to sync', 'error');
+                return;
+            }
+            
+            showStatus('syncStatus', 'Syncing to Google Sheets...', 'syncing');
+            
+            try {
+                let successCount = 0;
+                
+                // Sync feedback data
+                for (const feedback of feedbackData) {
+                    if (!feedback.synced) {
+                        const formData = {
+                            'entry.927744891': feedback.sessionDate,
+                            'entry.1435622968': feedback.player,
+                            'entry.1206608925': feedback.club,
+                            'entry.2004883478': feedback.ageGroup,
+                            'entry.1645081746': feedback.team,
+                            'entry.1226288223': feedback.location,
+                            'entry.820282566': feedback.sessionTheme,
+                            'entry.534783448': feedback.attended ? 'Yes' : 'No',
+                            'entry.2024761548': feedback.overallRating,
+                            'entry.1473306623': feedback.specialMention ? 'Yes' : 'No',
+                            'entry.1919403171': feedback.playerOfSession ? 'Yes' : 'No',
+                            'entry.23037945': feedback.feedback ? 'Yes' : 'No',
+                            'entry.440393522': feedback.timestamp
+                        };
+                        
+                        const success = await submitToGoogleForms(formData);
+                        if (success) {
+                            feedback.synced = true;
+                            successCount++;
+                        }
+                        
+                        // Small delay between submissions
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                    }
+                }
+                
+                // Sync attendance-only records
+                const sessionDate = document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0];
+                for (const player of attendanceData) {
+                    if (!feedbackData.some(f => f.player === player)) {
+                        const formData = {
+                            'entry.927744891': sessionDate,
+                            'entry.1435622968': player,
+                            'entry.1206608925': document.getElementById('clubSelect').value || 'Not specified',
+                            'entry.2004883478': document.getElementById('ageGroupSelect').value || 'Not specified',
+                            'entry.1645081746': document.getElementById('teamSelect').value || 'Not specified',
+                            'entry.1226288223': document.getElementById('locationSelect').value || 'Not specified',
+                            'entry.820282566': getSessionThemes(),
+                            'entry.534783448': 'Yes',
+                            'entry.2024761548': 'No feedback given',
+                            'entry.1473306623': 'No',
+                            'entry.1919403171': 'No',
+                            'entry.23037945': 'No',
+                            'entry.440393522': new Date().toLocaleString()
+                        };
+                        
+                        const success = await submitToGoogleForms(formData);
+                        if (success) successCount++;
+                        
+                        // Small delay between submissions
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                    }
+                }
+                
+                showStatus('syncStatus', `✅ Successfully synced ${successCount} records to Google Sheets!`, 'success');
+                
+            } catch (error) {
+                console.error('Sync error:', error);
+                showStatus('syncStatus', `❌ Sync error: ${error.message}`, 'error');
+            }
+        }
+
         // Export functions
         function exportToConsole() {
             const sessionData = {
@@ -1197,7 +1021,7 @@ No API keys needed with this method!`);
                     team: f.team,
                     attended: f.attended,
                     timestamp: f.timestamp,
-                    hasAudio: !!(f.feedback)
+                    hasAudio: !!f.feedback
                 }))
             };
             
