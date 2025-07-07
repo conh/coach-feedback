@@ -375,27 +375,27 @@
             <div class="workflow-section">
                 <h3 style="margin-bottom: 15px; color: #2c3e50;">Step 1: Mark Attendance</h3>
                 <div class="player-grid">
-                    <button class="player-btn attendance-btn" data-player="Jake Smith">
+                    <button class="player-btn attendance-btn" data-player="Jake Smith" onclick="toggleAttendance('Jake Smith', this)">
                         Jake Smith
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
-                    <button class="player-btn attendance-btn" data-player="Mike Johnson">
+                    <button class="player-btn attendance-btn" data-player="Mike Johnson" onclick="toggleAttendance('Mike Johnson', this)">
                         Mike Johnson
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
-                    <button class="player-btn attendance-btn" data-player="Sam Wilson">
+                    <button class="player-btn attendance-btn" data-player="Sam Wilson" onclick="toggleAttendance('Sam Wilson', this)">
                         Sam Wilson
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
-                    <button class="player-btn attendance-btn" data-player="Tom Brown">
+                    <button class="player-btn attendance-btn" data-player="Tom Brown" onclick="toggleAttendance('Tom Brown', this)">
                         Tom Brown
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
-                    <button class="player-btn attendance-btn" data-player="Alex Davis">
+                    <button class="player-btn attendance-btn" data-player="Alex Davis" onclick="toggleAttendance('Alex Davis', this)">
                         Alex Davis
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
-                    <button class="player-btn attendance-btn" data-player="Ryan Miller">
+                    <button class="player-btn attendance-btn" data-player="Ryan Miller" onclick="toggleAttendance('Ryan Miller', this)">
                         Ryan Miller
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
@@ -405,12 +405,12 @@
             <div class="workflow-section">
                 <h3 style="margin-bottom: 15px; color: #2c3e50;">Step 2: Record Player Feedback</h3>
                 <div class="player-grid">
-                    <button class="player-btn feedback-btn" data-player="Jake Smith">Jake Smith</button>
-                    <button class="player-btn feedback-btn" data-player="Mike Johnson">Mike Johnson</button>
-                    <button class="player-btn feedback-btn" data-player="Sam Wilson">Sam Wilson</button>
-                    <button class="player-btn feedback-btn" data-player="Tom Brown">Tom Brown</button>
-                    <button class="player-btn feedback-btn" data-player="Alex Davis">Alex Davis</button>
-                    <button class="player-btn feedback-btn" data-player="Ryan Miller">Ryan Miller</button>
+                    <button class="player-btn feedback-btn" data-player="Jake Smith" onclick="selectPlayerForFeedback('Jake Smith', this)">Jake Smith</button>
+                    <button class="player-btn feedback-btn" data-player="Mike Johnson" onclick="selectPlayerForFeedback('Mike Johnson', this)">Mike Johnson</button>
+                    <button class="player-btn feedback-btn" data-player="Sam Wilson" onclick="selectPlayerForFeedback('Sam Wilson', this)">Sam Wilson</button>
+                    <button class="player-btn feedback-btn" data-player="Tom Brown" onclick="selectPlayerForFeedback('Tom Brown', this)">Tom Brown</button>
+                    <button class="player-btn feedback-btn" data-player="Alex Davis" onclick="selectPlayerForFeedback('Alex Davis', this)">Alex Davis</button>
+                    <button class="player-btn feedback-btn" data-player="Ryan Miller" onclick="selectPlayerForFeedback('Ryan Miller', this)">Ryan Miller</button>
                 </div>
                 
                 <div class="feedback-categories" id="feedbackCategories" style="display: none;">
@@ -431,7 +431,7 @@
                     <div class="category-section">
                         <label style="font-weight: bold; color: #3498db;">🎤 Voice Feedback:</label>
                         <p style="font-size: 12px; color: #7f8c8d; margin: 5px 0;">Hold to record, release to stop</p>
-                        <button class="record-mini-btn" data-category="feedback">🎤 Record Feedback</button>
+                        <button class="record-mini-btn" data-category="feedback" onmousedown="startCategoryRecording(this)" onmouseup="stopCategoryRecording(this)" ontouchstart="startCategoryRecording(this)" ontouchend="stopCategoryRecording(this)">🎤 Record Feedback</button>
                         <div class="audio-status" id="feedbackStatus"></div>
                     </div>
                     
@@ -503,43 +503,44 @@
             return themes.length > 0 ? themes.join(', ') : 'Not specified';
         }
 
-        // Attendance tracking (Step 1) - Fixed to allow multiple selections
-        document.querySelectorAll('.attendance-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent any default behavior
-                const playerName = btn.dataset.player;
-                
-                // Toggle attendance
-                if (attendanceData.has(playerName)) {
-                    attendanceData.delete(playerName);
-                    btn.classList.remove('present');
-                    btn.querySelector('.attendance-badge').style.display = 'none';
-                } else {
-                    attendanceData.add(playerName);
-                    btn.classList.add('present');
-                    btn.querySelector('.attendance-badge').style.display = 'flex';
-                }
-                
-                // Update display
-                displayFeedback(feedbackData);
-            });
-        });
+        // Simple direct functions - no event listeners needed
+        function toggleAttendance(playerName, buttonElement) {
+            console.log('Toggling attendance for:', playerName);
+            
+            if (attendanceData.has(playerName)) {
+                attendanceData.delete(playerName);
+                buttonElement.classList.remove('present');
+                buttonElement.querySelector('.attendance-badge').style.display = 'none';
+                console.log('Removed from attendance:', playerName);
+            } else {
+                attendanceData.add(playerName);
+                buttonElement.classList.add('present');
+                buttonElement.querySelector('.attendance-badge').style.display = 'flex';
+                console.log('Added to attendance:', playerName);
+            }
+            
+            displayFeedback(feedbackData);
+        }
 
-        // Feedback selection (Step 2)
-        document.querySelectorAll('.feedback-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.feedback-btn').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                selectedPlayer = btn.dataset.player;
-                
-                // Show feedback categories
-                document.getElementById('feedbackCategories').style.display = 'block';
-                document.getElementById('selectedPlayerName').textContent = selectedPlayer;
-                
-                // Reset feedback form
-                resetFeedbackForm();
-            });
-        });
+        function selectPlayerForFeedback(playerName, buttonElement) {
+            console.log('Selecting player for feedback:', playerName);
+            
+            // Clear previous selections
+            document.querySelectorAll('.feedback-btn').forEach(btn => btn.classList.remove('selected'));
+            
+            // Select this player
+            buttonElement.classList.add('selected');
+            selectedPlayer = playerName;
+            
+            // Show feedback categories
+            document.getElementById('feedbackCategories').style.display = 'block';
+            document.getElementById('selectedPlayerName').textContent = selectedPlayer;
+            
+            // Reset feedback form
+            resetFeedbackForm();
+            
+            console.log('Selected player:', selectedPlayer);
+        }
         
         function resetFeedbackForm() {
             currentFeedback = {};
@@ -550,12 +551,9 @@
         }
 
         // Recording functionality for categories
-        document.querySelectorAll('.record-mini-btn').forEach(btn => {
-            btn.addEventListener('mousedown', () => startCategoryRecording(btn));
-            btn.addEventListener('mouseup', () => stopCategoryRecording(btn));
-            btn.addEventListener('touchstart', () => startCategoryRecording(btn));
-            btn.addEventListener('touchend', () => stopCategoryRecording(btn));
-        });
+        function initializeRecordingButtons() {
+            // No longer needed - using inline handlers
+        }
 
         async function startCategoryRecording(btn) {
             const category = btn.dataset.category;
