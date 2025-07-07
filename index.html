@@ -613,10 +613,14 @@
 
         async function submitToGoogleForms(data) {
             try {
+                console.log('Submitting data to Google Forms:', data);
+                console.log('Form URL:', sheetsConfig.formUrl);
+                
                 // Create form data
                 const formData = new FormData();
                 Object.keys(data).forEach(key => {
                     formData.append(key, data[key]);
+                    console.log(`Adding: ${key} = ${data[key]}`);
                 });
                 
                 // Submit to Google Forms
@@ -626,8 +630,10 @@
                     body: formData
                 });
                 
+                console.log('Response status:', response.type);
+                
                 // Since it's no-cors, we can't read the response, but if no error thrown, assume success
-                console.log('Data submitted to Google Forms');
+                console.log('Data submitted to Google Forms - no errors thrown');
                 return true;
                 
             } catch (error) {
