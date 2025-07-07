@@ -464,6 +464,7 @@
     </div>
 
     <script>
+        // Global variables
         let selectedPlayer = null;
         let mediaRecorder = null;
         let recordedChunks = [];
@@ -471,39 +472,7 @@
         let attendanceData = new Set();
         let currentFeedback = {};
 
-        // Set today's date by default
-        document.getElementById('sessionDate').valueAsDate = new Date();
-
-        // Handle session theme checkboxes
-        function toggleOtherSessionTheme() {
-            const otherCheckbox = document.getElementById('sessionThemeOther');
-            const otherText = document.getElementById('sessionThemeOtherText');
-            
-            if (otherCheckbox.checked) {
-                otherText.style.display = 'block';
-                otherText.focus();
-            } else {
-                otherText.style.display = 'none';
-                otherText.value = '';
-            }
-        }
-
-        // Get the session themes as comma-separated string
-        function getSessionThemes() {
-            const checkboxes = document.querySelectorAll('input[name="sessionTheme"]:checked');
-            const themes = Array.from(checkboxes).map(cb => cb.value);
-            
-            // Add "Other" text if specified
-            const otherCheckbox = document.getElementById('sessionThemeOther');
-            const otherText = document.getElementById('sessionThemeOtherText').value.trim();
-            if (otherCheckbox.checked && otherText) {
-                themes.push(otherText);
-            }
-            
-            return themes.length > 0 ? themes.join(', ') : 'Not specified';
-        }
-
-        // Simple direct functions - no event listeners needed
+        // Global functions that can be called from onclick
         function toggleAttendance(playerName, buttonElement) {
             console.log('Toggling attendance for:', playerName);
             
@@ -541,7 +510,42 @@
             
             console.log('Selected player:', selectedPlayer);
         }
-        
+
+        // Set today's date by default
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('sessionDate').valueAsDate = new Date();
+        });
+
+        // Handle session theme checkboxes
+        function toggleOtherSessionTheme() {
+            const otherCheckbox = document.getElementById('sessionThemeOther');
+            const otherText = document.getElementById('sessionThemeOtherText');
+            
+            if (otherCheckbox.checked) {
+                otherText.style.display = 'block';
+                otherText.focus();
+            } else {
+                otherText.style.display = 'none';
+                otherText.value = '';
+            }
+        }
+
+        // Get the session themes as comma-separated string
+        function getSessionThemes() {
+            const checkboxes = document.querySelectorAll('input[name="sessionTheme"]:checked');
+            const themes = Array.from(checkboxes).map(cb => cb.value);
+            
+            // Add "Other" text if specified
+            const otherCheckbox = document.getElementById('sessionThemeOther');
+            const otherText = document.getElementById('sessionThemeOtherText').value.trim();
+            if (otherCheckbox.checked && otherText) {
+                themes.push(otherText);
+            }
+            
+            return themes.length > 0 ? themes.join(', ') : 'Not specified';
+        }
+
+        // Simple direct functions - no event listeners needed
         function resetFeedbackForm() {
             currentFeedback = {};
             document.getElementById('overallRating').value = '';
