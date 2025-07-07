@@ -354,17 +354,12 @@
 
         <div class="main">
             <div class="sheets-config" id="sheetsConfig">
-                <h3 style="margin-bottom: 15px; color: #2c3e50;">📊 Google Sheets Configuration</h3>
-                <div class="input-group">
-                    <label for="webAppUrl">Google Apps Script Web App URL:</label>
-                    <input type="text" id="webAppUrl" placeholder="Paste your Web App URL here">
+                <h3 style="margin-bottom: 15px; color: #2c3e50;">📊 Google Forms Integration</h3>
+                <div class="success" style="text-align: center;">
+                    ✅ Connected to Google Forms!<br>
+                    Data will automatically save to your Google Sheet when you record feedback.
                 </div>
-                <div class="input-group">
-                    <label for="spreadsheetId">Spreadsheet ID (for reference):</label>
-                    <input type="text" id="spreadsheetId" placeholder="Your sheet ID (optional)">
-                </div>
-                <button class="export-btn" onclick="testSheetsConnection()">🔗 Test Connection</button>
-                <button class="export-btn" onclick="showSheetsSetup()">❓ Setup Help</button>
+                <button class="export-btn" onclick="testFormsConnection()">🧪 Test Connection</button>
                 <div id="connectionStatus" class="sync-status" style="display: none;"></div>
             </div>
 
@@ -416,8 +411,58 @@
                         <option value="School Grounds">School Grounds</option>
                     </select>
                 </div>
-                <input type="text" id="sessionTheme" placeholder="Session theme (e.g., Passing & Movement, Defending, Match Preparation)" 
-                       style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #bdc3c7; margin-bottom: 10px;">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50;">Session Themes (select all that apply):</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Rondos"> Rondos
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="1v1 Situations"> 1v1 Situations
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="2v2/3v3 and More Situations, Including Overloads"> 2v2/3v3 & Overloads
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Passing & Receiving"> Passing & Receiving
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Dribbling & Ball Control"> Dribbling & Ball Control
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Shooting & Finishing"> Shooting & Finishing
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Defending"> Defending
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Attacking"> Attacking
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Possession"> Possession
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Small Sided Games"> Small Sided Games
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Match Preparation"> Match Preparation
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Speed & Agility"> Speed & Agility
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Set Pieces"> Set Pieces
+                        </label>
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="sessionTheme" value="Games & Activities"> Games & Activities
+                        </label>
+                    </div>
+                    <label style="font-size: 14px; display: flex; align-items: center; gap: 5px; margin-bottom: 10px;">
+                        <input type="checkbox" id="sessionThemeOther" onchange="toggleOtherSessionTheme()"> Other
+                    </label>
+                    <input type="text" id="sessionThemeOtherText" placeholder="Please specify other session theme(s)" 
+                           style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #bdc3c7; display: none;">
+                </div>
                 <input type="date" id="sessionDate" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #bdc3c7;">
             </div>
             
@@ -463,7 +508,7 @@
                 </div>
                 
                 <div class="feedback-categories" id="feedbackCategories" style="display: none;">
-                    <h4 style="margin: 20px 0 10px 0; color: #2c3e50;">Feedback Categories for <span id="selectedPlayerName"></span>:</h4>
+                    <h4 style="margin: 20px 0 10px 0; color: #2c3e50;">Feedback for <span id="selectedPlayerName"></span>:</h4>
                     
                     <div class="category-section">
                         <label style="font-weight: bold; color: #2c3e50;">⭐ Overall Performance:</label>
@@ -478,21 +523,9 @@
                     </div>
                     
                     <div class="category-section">
-                        <label style="font-weight: bold; color: #27ae60;">✅ What they did well:</label>
-                        <button class="record-mini-btn" data-category="strengths">🎤 Record</button>
-                        <div class="audio-status" id="strengthsStatus"></div>
-                    </div>
-                    
-                    <div class="category-section">
-                        <label style="font-weight: bold; color: #e74c3c;">📈 Areas to work on:</label>
-                        <button class="record-mini-btn" data-category="improvements">🎤 Record</button>
-                        <div class="audio-status" id="improvementsStatus"></div>
-                    </div>
-                    
-                    <div class="category-section">
-                        <label style="font-weight: bold; color: #3498db;">💬 General feedback:</label>
-                        <button class="record-mini-btn" data-category="general">🎤 Record</button>
-                        <div class="audio-status" id="generalStatus"></div>
+                        <label style="font-weight: bold; color: #3498db;">🎤 Voice Feedback:</label>
+                        <button class="record-mini-btn" data-category="feedback">🎤 Record Feedback</button>
+                        <div class="audio-status" id="feedbackStatus"></div>
                     </div>
                     
                     <div class="category-section">
@@ -645,7 +678,7 @@ No API keys needed with this method!`);
 
         async function syncToGoogleSheets() {
             if (!sheetsConfig.connected) {
-                showStatus('syncStatus', 'Please configure and test Google Sheets connection first', 'error');
+                showStatus('syncStatus', 'Google Forms integration not available', 'error');
                 return;
             }
             
@@ -657,20 +690,68 @@ No API keys needed with this method!`);
             showStatus('syncStatus', 'Syncing to Google Sheets...', 'syncing');
             
             try {
-                // Prepare data for Google Sheets
-                const sheetData = prepareSheetData();
+                let successCount = 0;
                 
-                // Append new data
-                const success = await appendToSheet(sheetData);
-                
-                if (success) {
-                    showStatus('syncStatus', `✅ Successfully synced ${sheetData.length - 1} records to Google Sheets!`, 'success');
-                    
-                    // Mark all feedback as synced
-                    feedbackData.forEach(item => item.synced = true);
-                } else {
-                    showStatus('syncStatus', '❌ Failed to sync to Google Sheets', 'error');
+                // Sync feedback data
+                for (const feedback of feedbackData) {
+                    if (!feedback.synced) {
+                        const formData = {
+                            [sheetsConfig.fields.date]: feedback.sessionDate,
+                            [sheetsConfig.fields.player]: feedback.player,
+                            [sheetsConfig.fields.club]: feedback.club,
+                            [sheetsConfig.fields.ageGroup]: feedback.ageGroup,
+                            [sheetsConfig.fields.team]: feedback.team,
+                            [sheetsConfig.fields.location]: feedback.location,
+                            [sheetsConfig.fields.sessionTheme]: feedback.sessionTheme,
+                            [sheetsConfig.fields.attended]: feedback.attended ? 'Yes' : 'No',
+                            [sheetsConfig.fields.overallRating]: feedback.overallRating,
+                            [sheetsConfig.fields.specialMention]: feedback.specialMention ? 'Yes' : 'No',
+                            [sheetsConfig.fields.playerOfSession]: feedback.playerOfSession ? 'Yes' : 'No',
+                            [sheetsConfig.fields.hasAudioFeedback]: feedback.feedback ? 'Yes' : 'No',
+                            [sheetsConfig.fields.timestamp]: feedback.timestamp
+                        };
+                        
+                        const success = await submitToGoogleForms(formData);
+                        if (success) {
+                            feedback.synced = true;
+                            successCount++;
+                        }
+                        
+                        // Small delay between submissions
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                    }
                 }
+                
+                // Sync attendance-only records
+                const sessionDate = document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0];
+                for (const player of attendanceData) {
+                    if (!feedbackData.some(f => f.player === player)) {
+                        const formData = {
+                            [sheetsConfig.fields.date]: sessionDate,
+                            [sheetsConfig.fields.player]: player,
+                            [sheetsConfig.fields.club]: document.getElementById('clubSelect').value || 'Not specified',
+                            [sheetsConfig.fields.ageGroup]: document.getElementById('ageGroupSelect').value || 'Not specified',
+                            [sheetsConfig.fields.team]: document.getElementById('teamSelect').value || 'Not specified',
+                            [sheetsConfig.fields.location]: document.getElementById('locationSelect').value || 'Not specified',
+                            [sheetsConfig.fields.sessionTheme]: getSessionThemes(),
+                            [sheetsConfig.fields.attended]: 'Yes',
+                            [sheetsConfig.fields.overallRating]: 'No feedback given',
+                            [sheetsConfig.fields.specialMention]: 'No',
+                            [sheetsConfig.fields.playerOfSession]: 'No',
+                            [sheetsConfig.fields.hasAudioFeedback]: 'No',
+                            [sheetsConfig.fields.timestamp]: new Date().toLocaleString()
+                        };
+                        
+                        const success = await submitToGoogleForms(formData);
+                        if (success) successCount++;
+                        
+                        // Small delay between submissions
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                    }
+                }
+                
+                showStatus('syncStatus', `✅ Successfully synced ${successCount} records to Google Sheets!`, 'success');
+                
             } catch (error) {
                 console.error('Sync error:', error);
                 showStatus('syncStatus', `❌ Sync error: ${error.message}`, 'error');
@@ -681,7 +762,7 @@ No API keys needed with this method!`);
             const headers = [
                 'Date', 'Player', 'Club', 'Age Group', 'Team', 'Location', 'Session Theme', 
                 'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 
-                'Has Strengths Audio', 'Has Improvements Audio', 'Has General Audio', 'Timestamp'
+                'Has Audio Feedback', 'Timestamp'
             ];
             
             const rows = [headers];
@@ -700,9 +781,7 @@ No API keys needed with this method!`);
                     f.overallRating,
                     f.specialMention ? 'Yes' : 'No',
                     f.playerOfSession ? 'Yes' : 'No',
-                    f.strengths ? 'Yes' : 'No',
-                    f.improvements ? 'Yes' : 'No',
-                    f.general ? 'Yes' : 'No',
+                    f.feedback ? 'Yes' : 'No',
                     f.timestamp
                 ]);
             });
@@ -718,11 +797,9 @@ No API keys needed with this method!`);
                         document.getElementById('ageGroupSelect').value || 'Not specified',
                         document.getElementById('teamSelect').value || 'Not specified',
                         document.getElementById('locationSelect').value || 'Not specified',
-                        document.getElementById('sessionTheme').value || 'Not specified',
+                        getSessionThemes(),
                         'Yes',
                         'No feedback given',
-                        'No',
-                        'No',
                         'No',
                         'No',
                         'No',
@@ -773,6 +850,34 @@ No API keys needed with this method!`);
             }
         }
 
+        // Handle session theme checkboxes
+        function toggleOtherSessionTheme() {
+            const otherCheckbox = document.getElementById('sessionThemeOther');
+            const otherText = document.getElementById('sessionThemeOtherText');
+            
+            if (otherCheckbox.checked) {
+                otherText.style.display = 'block';
+                otherText.focus();
+            } else {
+                otherText.style.display = 'none';
+                otherText.value = '';
+            }
+        }
+
+        // Get the session themes as comma-separated string
+        function getSessionThemes() {
+            const checkboxes = document.querySelectorAll('input[name="sessionTheme"]:checked');
+            const themes = Array.from(checkboxes).map(cb => cb.value);
+            
+            // Add "Other" text if specified
+            const otherCheckbox = document.getElementById('sessionThemeOther');
+            const otherText = document.getElementById('sessionThemeOtherText').value.trim();
+            if (otherCheckbox.checked && otherText) {
+                themes.push(otherText);
+            }
+            
+            return themes.length > 0 ? themes.join(', ') : 'Not specified';
+        }
         // Load existing feedback from memory
         function loadFeedback() {
             const saved = feedbackData;
@@ -821,7 +926,7 @@ No API keys needed with this method!`);
             document.getElementById('overallRating').value = '';
             document.getElementById('specialMention').checked = false;
             document.getElementById('playerOfSession').checked = false;
-            document.querySelectorAll('.audio-status').forEach(status => status.textContent = '');
+            document.getElementById('feedbackStatus').textContent = '';
         }
         
         function updateStatus() {
@@ -861,7 +966,7 @@ No API keys needed with this method!`);
                     const audioUrl = URL.createObjectURL(blob);
                     
                     currentFeedback[category] = audioUrl;
-                    document.getElementById(category + 'Status').textContent = '✅ Recorded';
+                    document.getElementById('feedbackStatus').textContent = '✅ Recorded';
                     btn.classList.remove('recording');
                     
                     // Stop all tracks
@@ -870,11 +975,11 @@ No API keys needed with this method!`);
 
                 mediaRecorder.start();
                 btn.classList.add('recording');
-                document.getElementById(category + 'Status').textContent = '🔴 Recording...';
+                document.getElementById('feedbackStatus').textContent = '🔴 Recording...';
 
             } catch (error) {
                 console.error('Error accessing microphone:', error);
-                document.getElementById(category + 'Status').textContent = 'Error: Cannot access microphone';
+                document.getElementById('feedbackStatus').textContent = 'Error: Cannot access microphone';
             }
         }
 
@@ -893,7 +998,7 @@ No API keys needed with this method!`);
             const ageGroup = document.getElementById('ageGroupSelect').value || 'Not specified';
             const team = document.getElementById('teamSelect').value || 'Not specified';
             const location = document.getElementById('locationSelect').value || 'Not specified';
-            const sessionTheme = document.getElementById('sessionTheme').value || 'Not specified';
+            const sessionTheme = getSessionThemes();
             const attended = attendanceData.has(selectedPlayer);
             
             // Save complete feedback
@@ -907,9 +1012,7 @@ No API keys needed with this method!`);
                 sessionTheme: sessionTheme,
                 attended: attended,
                 overallRating: document.getElementById('overallRating').value || 'Not rated',
-                strengths: currentFeedback.strengths || null,
-                improvements: currentFeedback.improvements || null,
-                general: currentFeedback.general || null,
+                feedback: currentFeedback.feedback || null,
                 specialMention: document.getElementById('specialMention').checked,
                 playerOfSession: document.getElementById('playerOfSession').checked,
                 timestamp: new Date().toLocaleString(),
@@ -919,31 +1022,28 @@ No API keys needed with this method!`);
             feedbackData.push(feedback);
             displayFeedback(feedbackData);
             
-            // Auto-sync to Google Sheets if connected
+            // Auto-submit to Google Forms if connected
             if (sheetsConfig.connected) {
                 try {
                     showStatus('syncStatus', 'Auto-syncing to Google Sheets...', 'syncing');
-                    const sheetData = [
-                        [
-                            feedback.sessionDate,
-                            feedback.player,
-                            feedback.club,
-                            feedback.ageGroup,
-                            feedback.team,
-                            feedback.location,
-                            feedback.sessionTheme,
-                            feedback.attended ? 'Yes' : 'No',
-                            feedback.overallRating,
-                            feedback.specialMention ? 'Yes' : 'No',
-                            feedback.playerOfSession ? 'Yes' : 'No',
-                            feedback.strengths ? 'Yes' : 'No',
-                            feedback.improvements ? 'Yes' : 'No',
-                            feedback.general ? 'Yes' : 'No',
-                            feedback.timestamp
-                        ]
-                    ];
                     
-                    const success = await appendToSheet(sheetData);
+                    const formData = {
+                        [sheetsConfig.fields.date]: feedback.sessionDate,
+                        [sheetsConfig.fields.player]: feedback.player,
+                        [sheetsConfig.fields.club]: feedback.club,
+                        [sheetsConfig.fields.ageGroup]: feedback.ageGroup,
+                        [sheetsConfig.fields.team]: feedback.team,
+                        [sheetsConfig.fields.location]: feedback.location,
+                        [sheetsConfig.fields.sessionTheme]: feedback.sessionTheme,
+                        [sheetsConfig.fields.attended]: feedback.attended ? 'Yes' : 'No',
+                        [sheetsConfig.fields.overallRating]: feedback.overallRating,
+                        [sheetsConfig.fields.specialMention]: feedback.specialMention ? 'Yes' : 'No',
+                        [sheetsConfig.fields.playerOfSession]: feedback.playerOfSession ? 'Yes' : 'No',
+                        [sheetsConfig.fields.hasAudioFeedback]: feedback.feedback ? 'Yes' : 'No',
+                        [sheetsConfig.fields.timestamp]: feedback.timestamp
+                    };
+                    
+                    const success = await submitToGoogleForms(formData);
                     if (success) {
                         showStatus('syncStatus', '✅ Auto-synced to Google Sheets!', 'success');
                         feedback.synced = true;
@@ -986,9 +1086,7 @@ No API keys needed with this method!`);
                     </div>
                     ${badges.length > 0 ? `<div style="margin: 5px 0; font-size: 12px;">${badges.join(' • ')}</div>` : ''}
                     <div style="margin: 10px 0;">
-                        ${item.strengths ? `<button class="play-btn" onclick="playAudio('${item.strengths}')">▶️ Strengths</button>` : ''}
-                        ${item.improvements ? `<button class="play-btn" onclick="playAudio('${item.improvements}')">▶️ Areas to improve</button>` : ''}
-                        ${item.general ? `<button class="play-btn" onclick="playAudio('${item.general}')">▶️ General feedback</button>` : ''}
+                        ${item.feedback ? `<button class="play-btn" onclick="playAudio('${item.feedback}')">▶️ Play Feedback</button>` : ''}
                     </div>
                 `;
                 list.appendChild(div);
@@ -1024,7 +1122,8 @@ No API keys needed with this method!`);
                     club: document.getElementById('clubSelect').value || 'Not specified',
                     ageGroup: document.getElementById('ageGroupSelect').value || 'Not specified',
                     team: document.getElementById('teamSelect').value || 'Not specified',
-                    date: document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0]
+                    date: document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0],
+                    sessionTheme: getSessionThemes()
                 },
                 attendance: Array.from(attendanceData),
                 feedback: feedbackData.map(f => ({
@@ -1034,7 +1133,7 @@ No API keys needed with this method!`);
                     team: f.team,
                     attended: f.attended,
                     timestamp: f.timestamp,
-                    hasAudio: !!(f.strengths || f.improvements || f.general)
+                    hasAudio: !!(f.feedback)
                 }))
             };
             
@@ -1048,7 +1147,7 @@ No API keys needed with this method!`);
         }
         
         function exportCSV() {
-            const headers = ['Date', 'Player', 'Club', 'Age Group', 'Team', 'Location', 'Session Theme', 'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 'Has Strengths Audio', 'Has Improvements Audio', 'Has General Audio', 'Timestamp'];
+            const headers = ['Date', 'Player', 'Club', 'Age Group', 'Team', 'Location', 'Session Theme', 'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 'Has Audio Feedback', 'Timestamp'];
             const rows = feedbackData.map(f => [
                 f.sessionDate,
                 f.player,
@@ -1061,9 +1160,7 @@ No API keys needed with this method!`);
                 f.overallRating,
                 f.specialMention ? 'Yes' : 'No',
                 f.playerOfSession ? 'Yes' : 'No',
-                f.strengths ? 'Yes' : 'No',
-                f.improvements ? 'Yes' : 'No',
-                f.general ? 'Yes' : 'No',
+                f.feedback ? 'Yes' : 'No',
                 f.timestamp
             ]);
             
@@ -1078,11 +1175,9 @@ No API keys needed with this method!`);
                         document.getElementById('ageGroupSelect').value || 'Not specified',
                         document.getElementById('teamSelect').value || 'Not specified',
                         document.getElementById('locationSelect').value || 'Not specified',
-                        document.getElementById('sessionTheme').value || 'Not specified',
+                        getSessionThemes(),
                         'Yes',
                         'No feedback given',
-                        'No',
-                        'No',
                         'No',
                         'No',
                         'No',
