@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -622,7 +621,7 @@
                 'entry.2004883478': 'Test Age Group',
                 'entry.1645081746': 'Test Team',
                 'entry.1226288223': 'Test Location',
-                'entry.820282566': 'Test Connection',
+                'entry.1493098807': 'Test Connection',
                 'entry.534783448': 'Yes',
                 'entry.2024761548': 'Test Rating',
                 'entry.1473306623': 'No',
@@ -648,8 +647,20 @@
                 
                 // Create form data
                 const formData = new FormData();
+                
+                // Handle regular fields
                 Object.keys(data).forEach(key => {
-                    formData.append(key, data[key]);
+                    if (key === 'entry.1493098807') {
+                        // Special handling for Session Theme checkboxes
+                        const themes = data[key].split(', ');
+                        themes.forEach(theme => {
+                            if (theme.trim()) {
+                                formData.append(key, theme.trim());
+                            }
+                        });
+                    } else {
+                        formData.append(key, data[key]);
+                    }
                     console.log(`Adding: ${key} = ${data[key]}`);
                 });
                 
@@ -841,7 +852,7 @@
                         'entry.2004883478': feedback.ageGroup,
                         'entry.1645081746': feedback.team,
                         'entry.1226288223': feedback.location,
-                        'entry.820282566': feedback.sessionTheme,
+                        'entry.1493098807': feedback.sessionTheme,
                         'entry.534783448': feedback.attended ? 'Yes' : 'No',
                         'entry.2024761548': feedback.overallRating,
                         'entry.1473306623': feedback.specialMention ? 'Yes' : 'No',
@@ -948,7 +959,7 @@
                             'entry.2004883478': feedback.ageGroup,
                             'entry.1645081746': feedback.team,
                             'entry.1226288223': feedback.location,
-                            'entry.820282566': feedback.sessionTheme,
+                            'entry.1493098807': feedback.sessionTheme,
                             'entry.534783448': feedback.attended ? 'Yes' : 'No',
                             'entry.2024761548': feedback.overallRating,
                             'entry.1473306623': feedback.specialMention ? 'Yes' : 'No',
@@ -979,7 +990,7 @@
                             'entry.2004883478': document.getElementById('ageGroupSelect').value || 'Not specified',
                             'entry.1645081746': document.getElementById('teamSelect').value || 'Not specified',
                             'entry.1226288223': document.getElementById('locationSelect').value || 'Not specified',
-                            'entry.820282566': getSessionThemes(),
+                            'entry.1493098807': getSessionThemes(),
                             'entry.534783448': 'Yes',
                             'entry.2024761548': 'No feedback given',
                             'entry.1473306623': 'No',
