@@ -580,21 +580,25 @@
         function testFormsConnection() {
             showStatus('connectionStatus', 'Testing Google Forms connection...', 'syncing');
             
-            // Test by submitting sample data
+            // Debug: Check if sheetsConfig exists
+            console.log('sheetsConfig:', sheetsConfig);
+            console.log('sheetsConfig.fields:', sheetsConfig.fields);
+            
+            // Test by submitting sample data using the entry field names directly
             const testData = {
-                [sheetsConfig.fields.date]: new Date().toISOString().split('T')[0],
-                [sheetsConfig.fields.player]: 'Test Player',
-                [sheetsConfig.fields.club]: 'Test Club',
-                [sheetsConfig.fields.ageGroup]: 'Test Age Group',
-                [sheetsConfig.fields.team]: 'Test Team',
-                [sheetsConfig.fields.location]: 'Test Location',
-                [sheetsConfig.fields.sessionTheme]: 'Test Connection',
-                [sheetsConfig.fields.attended]: 'Yes',
-                [sheetsConfig.fields.overallRating]: 'Test Rating',
-                [sheetsConfig.fields.specialMention]: 'No',
-                [sheetsConfig.fields.playerOfSession]: 'No',
-                [sheetsConfig.fields.hasAudioFeedback]: 'No',
-                [sheetsConfig.fields.timestamp]: new Date().toLocaleString()
+                'entry.927744891': new Date().toISOString().split('T')[0],
+                'entry.1435622968': 'Test Player',
+                'entry.1206608925': 'Test Club',
+                'entry.2004883478': 'Test Age Group',
+                'entry.1645081746': 'Test Team',
+                'entry.1226288223': 'Test Location',
+                'entry.820282566': 'Test Connection',
+                'entry.534783448': 'Yes',
+                'entry.2024761548': 'Test Rating',
+                'entry.1473306623': 'No',
+                'entry.1919403171': 'No',
+                'entry.23037945': 'No',
+                'entry.440393522': new Date().toLocaleString()
             };
             
             submitToGoogleForms(testData)
