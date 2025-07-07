@@ -577,6 +577,60 @@
         document.getElementById('sessionDate').valueAsDate = new Date();
 
         // Google Sheets Integration Functions
+        function testFormsConnection() {
+            showStatus('connectionStatus', 'Testing Google Forms connection...', 'syncing');
+            
+            // Test by submitting sample data
+            const testData = {
+                [sheetsConfig.fields.date]: new Date().toISOString().split('T')[0],
+                [sheetsConfig.fields.player]: 'Test Player',
+                [sheetsConfig.fields.club]: 'Test Club',
+                [sheetsConfig.fields.ageGroup]: 'Test Age Group',
+                [sheetsConfig.fields.team]: 'Test Team',
+                [sheetsConfig.fields.location]: 'Test Location',
+                [sheetsConfig.fields.sessionTheme]: 'Test Connection',
+                [sheetsConfig.fields.attended]: 'Yes',
+                [sheetsConfig.fields.overallRating]: 'Test Rating',
+                [sheetsConfig.fields.specialMention]: 'No',
+                [sheetsConfig.fields.playerOfSession]: 'No',
+                [sheetsConfig.fields.hasAudioFeedback]: 'No',
+                [sheetsConfig.fields.timestamp]: new Date().toLocaleString()
+            };
+            
+            submitToGoogleForms(testData)
+                .then(success => {
+                    if (success) {
+                        showStatus('connectionStatus', '✅ Test successful! Check your Google Sheet for test data.', 'success');
+                    } else {
+                        showStatus('connectionStatus', '❌ Test failed. Check your form setup.', 'error');
+                    }
+                });
+        }
+
+        async function submitToGoogleForms(data) {
+            try {
+                // Create form data
+                const formData = new FormData();
+                Object.keys(data).forEach(key => {
+                    formData.append(key, data[key]);
+                });
+                
+                // Submit to Google Forms
+                const response = await fetch(sheetsConfig.formUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                });
+                
+                // Since it's no-cors, we can't read the response, but if no error thrown, assume success
+                console.log('Data submitted to Google Forms');
+                return true;
+                
+            } catch (error) {
+                console.error('Form submission error:', error);
+                return false;
+            }
+        }
         function showSheetsSetup() {
             alert(`Google Apps Script Setup Instructions:
 
