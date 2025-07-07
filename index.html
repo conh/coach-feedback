@@ -648,19 +648,9 @@
                 // Create form data
                 const formData = new FormData();
                 
-                // Handle regular fields
+                // Handle all fields normally - let Google Forms handle the formatting
                 Object.keys(data).forEach(key => {
-                    if (key === 'entry.1493098807') {
-                        // Special handling for Session Theme checkboxes
-                        const themes = data[key].split(', ');
-                        themes.forEach(theme => {
-                            if (theme.trim()) {
-                                formData.append(key, theme.trim());
-                            }
-                        });
-                    } else {
-                        formData.append(key, data[key]);
-                    }
+                    formData.append(key, data[key]);
                     console.log(`Adding: ${key} = ${data[key]}`);
                 });
                 
