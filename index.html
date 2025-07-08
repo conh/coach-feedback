@@ -441,8 +441,13 @@ async function startRecording(btn) {
             const blob = new Blob(recordedChunks, { type: mimeType });
             const audioUrl = URL.createObjectURL(blob);
             
+            console.log('Recording completed:');
+            console.log('- MIME type:', mimeType);
+            console.log('- Blob size:', blob.size);
+            console.log('- Audio URL:', audioUrl);
+            
             currentFeedback.feedback = audioUrl;
-            document.getElementById('feedbackStatus').textContent = '✅ Recorded';
+            document.getElementById('feedbackStatus').textContent = '✅ Recorded (' + mimeType + ')';
             btn.classList.remove('recording');
             
             stream.getTracks().forEach(track => track.stop());
@@ -517,7 +522,7 @@ function displayFeedback(feedback) {
             </div>
             ${badges.length > 0 ? `<div style="margin: 5px 0; font-size: 12px;">${badges.join(' • ')}</div>` : ''}
             <div style="margin: 10px 0;">
-                ${item.feedback ? `<button class="play-btn" onclick="playAudio('${item.feedback}')">▶️ Play Feedback</button>` : ''}
+                ${item.feedback ? `<button class="play-btn" onclick="playAudio(event, '${item.feedback}')">▶️ Play Feedback</button>` : ''}
             </div>
         `;
         list.appendChild(div);
@@ -532,27 +537,61 @@ function displayFeedback(feedback) {
     list.insertBefore(summary, list.firstChild);
 }
 
-function playAudio(url) {
-    const audio = new Audio(url);
+function playAudio(event, url) {
+    // Prevent any default behavior
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
     
-    // Add error handling for audio playback
-    audio.addEventListener('error', function(e) {
-        console.error('Audio playback error:', e);
-        alert('Cannot play audio. This may be due to browser compatibility issues.');
-    });
+    console.log('Attempting to play audio:', url);
     
-    // For iOS, we need to handle the play promise
-    const playPromise = audio.play();
-    
-    if (playPromise !== undefined) {
-        playPromise
-            .then(() => {
-                console.log('Audio started playing');
-            })
-            .catch(error => {
-                console.error('Audio play failed:', error);
-                alert('Cannot play audio. Try recording again or check your browser settings.');
-            });
+    try {
+        const audio = new Audio();
+        audio.src = url;
+        audio.preload = 'auto';
+        
+        // Add event listeners for debugging
+        audio.addEventListener('loadstart', () => console.log('Audio: Load started'));
+        audio.addEventListener('canplay', () => console.log('Audio: Can play'));
+        audio.addEventListener('error', (e) => {
+            console.error('Audio error:', e);
+            console.error('Audio error details:', audio.error);
+            alert(`Audio error: ${audio.error ? audio.error.message : 'Unknown error'}`);
+        });
+        
+        // Force load the audio
+        audio.load();
+        
+        // Try to play immediately
+        const playPromise = audio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise
+                .then(() => {
+                    console.log('✅ Audio playing successfully');
+                })
+                .catch(error => {
+                    console.error('❌ Play failed:', error);
+                    
+                    // Try alternative approach
+                    setTimeout(() => {
+                        try {
+                            audio.currentTime = 0;
+                            audio.play().catch(e => {
+                                console.error('Retry failed:', e);
+                                alert('Cannot play audio. This might be a browser limitation. Try refreshing the page and recording again.');
+                            });
+                        } catch (retryError) {
+                            console.error('Retry attempt failed:', retryError);
+                        }
+                    }, 100);
+                });
+        }
+        
+    } catch (error) {
+        console.error('Audio creation error:', error);
+        alert('Cannot create audio player. Browser may not support this audio format.');
     }
 }
 
