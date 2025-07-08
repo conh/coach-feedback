@@ -379,6 +379,7 @@
                     
                     <div class="category-section">
                         <label style="font-weight: bold; color: #3498db;">🎤 Voice Feedback:</label>
+                        <p style="font-size: 12px; color: #7f8c8d; margin: 5px 0;">Hold button and speak clearly for at least 2 seconds</p>
                         <button class="record-mini-btn" data-category="feedback">🎤 Record</button>
                         <div class="audio-status" id="feedbackStatus"></div>
                     </div>
@@ -498,39 +499,77 @@ document.querySelectorAll('.record-mini-btn').forEach(btn => {
 
 async function startRecording(btn) {
     try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+            audio: {
+                echoCancellation: true,
+                noiseSuppression: true,
+                autoGainControl: true,
+                sampleRate: 44100
+            }
+        });
         
-        // Use MP4 format for maximum compatibility (works on iPhone/Android/etc)
-        let options = { mimeType: 'audio/mp4' };
+        // Use MP4 format for maximum compatibility
+        let options = { 
+            mimeType: 'audio/mp4',
+            audioBitsPerSecond: 128000 // Higher bitrate for better quality
+        };
         if (!MediaRecorder.isTypeSupported('audio/mp4')) {
-            options = { mimeType: 'audio/webm;codecs=opus' };
+            options = { 
+                mimeType: 'audio/webm;codecs=opus',
+                audioBitsPerSecond: 128000
+            };
         }
         if (!MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
             options = { mimeType: 'audio/webm' };
         }
-        if (!MediaRecorder.isTypeSupported('audio/webm')) {
-            options = {}; // Use default
-        }
         
         mediaRecorder = new MediaRecorder(stream, options);
         recordedChunks = [];
+        let recordingStartTime = Date.now();
 
         mediaRecorder.ondataavailable = (event) => {
+            console.log('Data available:', event.data.size, 'bytes');
             if (event.data.size > 0) {
                 recordedChunks.push(event.data);
             }
         };
 
         mediaRecorder.onstop = () => {
+            const recordingDuration = Date.now() - recordingStartTime;
+            console.log('Recording stopped. Duration:', recordingDuration, 'ms');
+            console.log('Total chunks:', recordedChunks.length);
+            
+            if (recordedChunks.length === 0) {
+                document.getElementById('feedbackStatus').textContent = '❌ No audio data recorded';
+                stream.getTracks().forEach(track => track.stop());
+                return;
+            }
+            
+            // Ensure minimum recording duration
+            if (recordingDuration < 500) {
+                document.getElementById('feedbackStatus').textContent = '❌ Recording too short - hold button longer';
+                stream.getTracks().forEach(track => track.stop());
+                return;
+            }
+            
             const mimeType = mediaRecorder.mimeType || 'audio/webm';
             const blob = new Blob(recordedChunks, { type: mimeType });
+            
+            console.log('Final blob size:', blob.size, 'bytes');
+            console.log('MIME type:', mimeType);
+            
+            if (blob.size === 0) {
+                document.getElementById('feedbackStatus').textContent = '❌ Empty recording - try again';
+                stream.getTracks().forEach(track => track.stop());
+                return;
+            }
             
             // Create filename for the audio
             const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
             const filename = `feedback_${selectedPlayer.replace(/\s+/g, '_')}_${timestamp}`;
             
             // Determine file extension based on MIME type
-            let extension = '.m4a'; // Default to m4a (plays on iPhone/Android)
+            let extension = '.m4a';
             if (mimeType.includes('mp4')) {
                 extension = '.m4a';
             } else if (mimeType.includes('webm')) {
@@ -539,35 +578,48 @@ async function startRecording(btn) {
                 extension = '.wav';
             }
             
-            // Store both the blob and filename
+            // Store the audio data
             currentFeedback.feedback = {
                 blob: blob,
                 filename: filename + extension,
                 mimeType: mimeType,
-                hasAudio: true
+                hasAudio: true,
+                duration: recordingDuration
             };
             
-            console.log('Recording completed:', filename + extension, 'Type:', mimeType);
+            console.log('Recording saved:', filename + extension);
             
-            document.getElementById('feedbackStatus').textContent = `✅ Recorded ${extension} file`;
+            document.getElementById('feedbackStatus').textContent = `✅ Recorded ${(recordingDuration/1000).toFixed(1)}s ${extension.toUpperCase()} file`;
             btn.classList.remove('recording');
             
             stream.getTracks().forEach(track => track.stop());
         };
 
-        mediaRecorder.start();
+        mediaRecorder.onerror = (event) => {
+            console.error('MediaRecorder error:', event.error);
+            document.getElementById('feedbackStatus').textContent = '❌ Recording error';
+            stream.getTracks().forEach(track => track.stop());
+        };
+
+        // Start recording with chunks every 100ms for better data capture
+        mediaRecorder.start(100);
         btn.classList.add('recording');
-        document.getElementById('feedbackStatus').textContent = '🔴 Recording...';
+        document.getElementById('feedbackStatus').textContent = '🔴 Recording... (hold and speak clearly)';
+        
+        console.log('Recording started with options:', options);
 
     } catch (error) {
         console.error('Recording error:', error);
-        document.getElementById('feedbackStatus').textContent = 'Error: Cannot access microphone';
+        document.getElementById('feedbackStatus').textContent = 'Error: Cannot access microphone - check permissions';
     }
 }
 
 function stopRecording(btn) {
     if (mediaRecorder && mediaRecorder.state === 'recording') {
+        console.log('Stopping recording...');
         mediaRecorder.stop();
+    } else {
+        console.log('MediaRecorder not recording, state:', mediaRecorder ? mediaRecorder.state : 'null');
     }
 }
 
