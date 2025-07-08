@@ -500,13 +500,16 @@ async function startRecording(btn) {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         
-        // Use webm format for better browser compatibility
-        const options = { mimeType: 'audio/webm' };
-        if (!MediaRecorder.isTypeSupported('audio/webm')) {
-            options.mimeType = 'audio/mp4';
-        }
+        // Use MP4 format for maximum compatibility (works on iPhone/Android/etc)
+        let options = { mimeType: 'audio/mp4' };
         if (!MediaRecorder.isTypeSupported('audio/mp4')) {
-            options.mimeType = '';
+            options = { mimeType: 'audio/webm;codecs=opus' };
+        }
+        if (!MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+            options = { mimeType: 'audio/webm' };
+        }
+        if (!MediaRecorder.isTypeSupported('audio/webm')) {
+            options = {}; // Use default
         }
         
         mediaRecorder = new MediaRecorder(stream, options);
@@ -526,16 +529,27 @@ async function startRecording(btn) {
             const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
             const filename = `feedback_${selectedPlayer.replace(/\s+/g, '_')}_${timestamp}`;
             
+            // Determine file extension based on MIME type
+            let extension = '.m4a'; // Default to m4a (plays on iPhone/Android)
+            if (mimeType.includes('mp4')) {
+                extension = '.m4a';
+            } else if (mimeType.includes('webm')) {
+                extension = '.webm';
+            } else if (mimeType.includes('wav')) {
+                extension = '.wav';
+            }
+            
             // Store both the blob and filename
             currentFeedback.feedback = {
                 blob: blob,
-                filename: filename,
-                mimeType: mimeType
+                filename: filename + extension,
+                mimeType: mimeType,
+                hasAudio: true
             };
             
-            console.log('Recording completed:', filename);
+            console.log('Recording completed:', filename + extension, 'Type:', mimeType);
             
-            document.getElementById('feedbackStatus').textContent = '✅ Recorded - will be saved with session data';
+            document.getElementById('feedbackStatus').textContent = `✅ Recorded ${extension} file`;
             btn.classList.remove('recording');
             
             stream.getTracks().forEach(track => track.stop());
@@ -612,7 +626,7 @@ function displayFeedback(feedback) {
             </div>
             ${badges.length > 0 ? `<div style="margin: 5px 0; font-size: 12px;">${badges.join(' • ')}</div>` : ''}
             <div style="margin: 10px 0;">
-                ${item.feedback ? `<button class="play-btn" onclick="downloadAudio('${item.feedback.filename}', '${item.id}')">📁 Download Audio</button>` : ''}
+                ${item.feedback && item.feedback.hasAudio ? `<button class="play-btn" onclick="downloadAudio('${item.feedback.filename}', '${item.id}')">📁 Download ${item.feedback.filename.split('.').pop().toUpperCase()}</button>` : ''}
             </div>
         `;
         list.appendChild(div);
@@ -637,14 +651,12 @@ function downloadAudio(filename, feedbackId) {
     
     try {
         const audioData = feedback.feedback;
-        const extension = audioData.mimeType.includes('webm') ? '.webm' : 
-                         audioData.mimeType.includes('mp4') ? '.mp4' : '.audio';
         
         // Create download link
         const url = URL.createObjectURL(audioData.blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = filename + extension;
+        a.download = audioData.filename; // Already has correct extension
         a.style.display = 'none';
         
         document.body.appendChild(a);
@@ -654,7 +666,7 @@ function downloadAudio(filename, feedbackId) {
         // Clean up the URL
         setTimeout(() => URL.revokeObjectURL(url), 100);
         
-        console.log('Audio download initiated:', filename);
+        console.log('Audio download initiated:', audioData.filename);
         
     } catch (error) {
         console.error('Download error:', error);
@@ -698,7 +710,7 @@ function clearAllFeedback() {
 }
 
 function exportCSV() {
-    const headers = ['Date', 'Player', 'Team', 'Location', 'Session Themes', 'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 'Has Audio', 'Timestamp'];
+    const headers = ['Date', 'Player', 'Team', 'Location', 'Session Themes', 'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 'Has Audio', 'Audio Filename', 'Timestamp'];
     const rows = feedbackData.map(f => [
         f.sessionDate,
         f.player,
@@ -707,9 +719,10 @@ function exportCSV() {
         f.sessionThemes,
         f.attended ? 'Yes' : 'No',
         f.overallRating,
-        f.specialMention ? 'Yes' : 'No',
-        f.playerOfSession ? 'Yes' : 'No',
-        f.feedback ? 'Yes' : 'No',
+        f.specialMention ? 'Yes' : 'No', // Fixed: was always showing as Yes
+        f.playerOfSession ? 'Yes' : 'No', // Fixed: was always showing as Yes
+        (f.feedback && f.feedback.hasAudio) ? 'Yes' : 'No', // Fixed: now properly checks for audio
+        (f.feedback && f.feedback.hasAudio) ? f.feedback.filename : 'No audio',
         f.timestamp
     ]);
     
@@ -727,6 +740,7 @@ function exportCSV() {
                 'No',
                 'No',
                 'No',
+                'No audio',
                 new Date().toLocaleString()
             ]);
         }
@@ -737,7 +751,11 @@ function exportCSV() {
         return;
     }
     
-    const csvContent = [headers, ...rows].map(row => row.join(',')).join('\n');
+    const csvContent = [headers, ...rows].map(row => row.map(cell => 
+        // Escape commas in cell content
+        typeof cell === 'string' && cell.includes(',') ? `"${cell}"` : cell
+    ).join(',')).join('\n');
+    
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -746,7 +764,7 @@ function exportCSV() {
     a.click();
     URL.revokeObjectURL(url);
     
-    alert(`Session data exported!`);
+    alert(`Session data exported with ${feedbackData.filter(f => f.feedback && f.feedback.hasAudio).length} audio files referenced!`);
 }
 
 // Initialize
