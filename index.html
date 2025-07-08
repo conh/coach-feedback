@@ -417,7 +417,17 @@ document.querySelectorAll('.record-mini-btn').forEach(btn => {
 async function startRecording(btn) {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
+        
+        // Use webm format for better browser compatibility
+        const options = { mimeType: 'audio/webm' };
+        if (!MediaRecorder.isTypeSupported('audio/webm')) {
+            options.mimeType = 'audio/mp4';
+        }
+        if (!MediaRecorder.isTypeSupported('audio/mp4')) {
+            options.mimeType = '';
+        }
+        
+        mediaRecorder = new MediaRecorder(stream, options);
         recordedChunks = [];
 
         mediaRecorder.ondataavailable = (event) => {
@@ -427,7 +437,8 @@ async function startRecording(btn) {
         };
 
         mediaRecorder.onstop = () => {
-            const blob = new Blob(recordedChunks, { type: 'audio/wav' });
+            const mimeType = mediaRecorder.mimeType || 'audio/webm';
+            const blob = new Blob(recordedChunks, { type: mimeType });
             const audioUrl = URL.createObjectURL(blob);
             
             currentFeedback.feedback = audioUrl;
@@ -442,6 +453,7 @@ async function startRecording(btn) {
         document.getElementById('feedbackStatus').textContent = '🔴 Recording...';
 
     } catch (error) {
+        console.error('Recording error:', error);
         document.getElementById('feedbackStatus').textContent = 'Error: Cannot access microphone';
     }
 }
@@ -522,7 +534,26 @@ function displayFeedback(feedback) {
 
 function playAudio(url) {
     const audio = new Audio(url);
-    audio.play();
+    
+    // Add error handling for audio playback
+    audio.addEventListener('error', function(e) {
+        console.error('Audio playback error:', e);
+        alert('Cannot play audio. This may be due to browser compatibility issues.');
+    });
+    
+    // For iOS, we need to handle the play promise
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+        playPromise
+            .then(() => {
+                console.log('Audio started playing');
+            })
+            .catch(error => {
+                console.error('Audio play failed:', error);
+                alert('Cannot play audio. Try recording again or check your browser settings.');
+            });
+    }
 }
 
 function clearAllFeedback() {
