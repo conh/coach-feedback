@@ -247,34 +247,12 @@
     <div class="container">
         <div class="header">
             <h1>⚽ Training Feedback</h1>
-            <p>Quick feedback for your players</p>
+            <p>Roehampton Elite FC</p>
         </div>
 
         <div class="main">
             <div class="session-setup">
                 <h3 style="margin-bottom: 15px; color: #2c3e50;">Session Details:</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                    <select id="clubSelect" style="padding: 10px; border-radius: 8px; border: 1px solid #bdc3c7;">
-                        <option value="">Select Club</option>
-                        <option value="Roehampton Elite FC">Roehampton Elite FC</option>
-                    </select>
-                    <select id="ageGroupSelect" style="padding: 10px; border-radius: 8px; border: 1px solid #bdc3c7;">
-                        <option value="">Age Group</option>
-                        <option value="U6">Under 6</option>
-                        <option value="U7">Under 7</option>
-                        <option value="U8">Under 8</option>
-                        <option value="U9">Under 9</option>
-                        <option value="U10">Under 10</option>
-                        <option value="U11">Under 11</option>
-                        <option value="U12">Under 12</option>
-                        <option value="U13">Under 13</option>
-                        <option value="U14">Under 14</option>
-                        <option value="U15">Under 15</option>
-                        <option value="U16">Under 16</option>
-                        <option value="U17">Under 17</option>
-                        <option value="U18">Under 18</option>
-                    </select>
-                </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
                     <select id="teamSelect" style="padding: 10px; border-radius: 8px; border: 1px solid #bdc3c7;">
                         <option value="">Select Team</option>
@@ -287,58 +265,6 @@
                         <option value="Richmond Park Academy">Richmond Park Academy</option>
                         <option value="St Paul's School">St Paul's School</option>
                     </select>
-                </div>
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50;">Session Themes (select all that apply):</label>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Rondos"> Rondos
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="1v1 Situations"> 1v1 Situations
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="2v2/3v3 and More Situations, Including Overloads"> 2v2/3v3 & Overloads
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Passing & Receiving"> Passing & Receiving
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Dribbling & Ball Control"> Dribbling & Ball Control
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Shooting & Finishing"> Shooting & Finishing
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Defending"> Defending
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Attacking"> Attacking
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Possession"> Possession
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Small Sided Games"> Small Sided Games
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Match Preparation"> Match Preparation
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Speed & Agility"> Speed & Agility
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Set Pieces"> Set Pieces
-                        </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="sessionTheme" value="Mini Tournament"> Mini Tournament
-                        </label>
-                    </div>
-                    <label style="font-size: 14px; display: flex; align-items: center; gap: 5px; margin-bottom: 10px;">
-                        <input type="checkbox" id="sessionThemeOther" onchange="toggleOtherSessionTheme()"> Other
-                    </label>
-                    <input type="text" id="sessionThemeOtherText" placeholder="Please specify other session theme(s)" 
-                           style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #bdc3c7; display: none;">
                 </div>
                 <input type="date" id="sessionDate" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #bdc3c7;">
             </div>
@@ -401,20 +327,19 @@
                     
                     <div class="category-section">
                         <label style="font-weight: bold; color: #3498db;">🎤 Voice Feedback:</label>
-                        <p style="font-size: 12px; color: #7f8c8d; margin: 5px 0;">Hold to record, release to stop</p>
-                        <button class="record-mini-btn" data-category="feedback">🎤 Record Feedback</button>
+                        <button class="record-mini-btn" data-category="feedback">🎤 Record</button>
                         <div class="audio-status" id="feedbackStatus"></div>
                     </div>
                     
                     <div class="category-section">
-                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <div style="display: flex; gap: 10px; align-items: center;">
                             <label style="font-weight: bold; color: #f39c12;">🏆 Special mentions:</label>
                             <label style="font-size: 14px;"><input type="checkbox" id="specialMention"> Special mention</label>
-                            <label style="font-size: 14px;"><input type="checkbox" id="playerOfSession"> Player of the session</label>
+                            <label style="font-size: 14px;"><input type="checkbox" id="playerOfSession"> Player of session</label>
                         </div>
                     </div>
                     
-                    <button class="save-feedback-btn" onclick="saveFeedback()" style="background: #27ae60; color: white; border: none; padding: 12px 24px; border-radius: 20px; margin-top: 15px; cursor: pointer; width: 100%;">
+                    <button onclick="saveFeedback()" style="background: #27ae60; color: white; border: none; padding: 12px 24px; border-radius: 20px; margin-top: 15px; cursor: pointer; width: 100%;">
                         💾 Save Feedback
                     </button>
                 </div>
@@ -427,287 +352,248 @@
             </div>
             
             <div class="export-section">
-                <h3 style="margin-bottom: 15px; color: #2c3e50;">📁 Export Session Data</h3>
-                <p style="margin-bottom: 15px; color: #7f8c8d; font-size: 14px;">Download your session data to upload to your preferred spreadsheet system</p>
-                <button class="export-btn" onclick="exportCSV()">📁 Download Session Data</button>
-                <button class="export-btn" onclick="alert('JavaScript is working!')">🧪 Test JavaScript</button>
+                <h3 style="margin-bottom: 15px; color: #2c3e50;">📁 Export</h3>
+                <button class="export-btn" onclick="exportCSV()">📁 Download CSV</button>
             </div>
         </div>
     </div>
 
-    <script>
-        let selectedPlayer = null;
-        let mediaRecorder = null;
-        let recordedChunks = [];
-        let feedbackData = [];
-        let attendanceData = new Set();
-        let currentFeedback = {};
+<script>
+let selectedPlayer = null;
+let mediaRecorder = null;
+let recordedChunks = [];
+let feedbackData = [];
+let attendanceData = new Set();
+let currentFeedback = {};
 
-        // Set today's date by default
-        window.addEventListener('load', function() {
-            document.getElementById('sessionDate').valueAsDate = new Date();
-            console.log('Page loaded, date set');
-        });
+// Set today's date
+document.getElementById('sessionDate').valueAsDate = new Date();
 
-        // Handle session theme checkboxes
-        function toggleOtherSessionTheme() {
-            const otherCheckbox = document.getElementById('sessionThemeOther');
-            const otherText = document.getElementById('sessionThemeOtherText');
-            
-            if (otherCheckbox.checked) {
-                otherText.style.display = 'block';
-                otherText.focus();
-            } else {
-                otherText.style.display = 'none';
-                otherText.value = '';
+// Attendance tracking
+document.querySelectorAll('.attendance-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const playerName = btn.dataset.player;
+        
+        if (attendanceData.has(playerName)) {
+            attendanceData.delete(playerName);
+            btn.classList.remove('present');
+            btn.querySelector('.attendance-badge').style.display = 'none';
+        } else {
+            attendanceData.add(playerName);
+            btn.classList.add('present');
+            btn.querySelector('.attendance-badge').style.display = 'flex';
+        }
+        
+        displayFeedback(feedbackData);
+    });
+});
+
+// Feedback selection
+document.querySelectorAll('.feedback-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.feedback-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedPlayer = btn.dataset.player;
+        
+        document.getElementById('feedbackCategories').style.display = 'block';
+        document.getElementById('selectedPlayerName').textContent = selectedPlayer;
+        
+        currentFeedback = {};
+        document.getElementById('overallRating').value = '';
+        document.getElementById('specialMention').checked = false;
+        document.getElementById('playerOfSession').checked = false;
+        document.getElementById('feedbackStatus').textContent = '';
+    });
+});
+
+// Recording
+document.querySelectorAll('.record-mini-btn').forEach(btn => {
+    btn.addEventListener('mousedown', () => startRecording(btn));
+    btn.addEventListener('mouseup', () => stopRecording(btn));
+    btn.addEventListener('touchstart', () => startRecording(btn));
+    btn.addEventListener('touchend', () => stopRecording(btn));
+});
+
+async function startRecording(btn) {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        recordedChunks = [];
+
+        mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) {
+                recordedChunks.push(event.data);
             }
-        }
+        };
 
-        // Get the session themes as comma-separated string
-        function getSessionThemes() {
-            const checkboxes = document.querySelectorAll('input[name="sessionTheme"]:checked');
-            const themes = Array.from(checkboxes).map(cb => cb.value);
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(recordedChunks, { type: 'audio/wav' });
+            const audioUrl = URL.createObjectURL(blob);
             
-            // Add "Other" text if specified
-            const otherCheckbox = document.getElementById('sessionThemeOther');
-            const otherText = document.getElementById('sessionThemeOtherText').value.trim();
-            if (otherCheckbox.checked && otherText) {
-                themes.push(otherText);
-            }
+            currentFeedback.feedback = audioUrl;
+            document.getElementById('feedbackStatus').textContent = '✅ Recorded';
+            btn.classList.remove('recording');
             
-            return themes.length > 0 ? themes.join(', ') : 'Not specified';
-        }
+            stream.getTracks().forEach(track => track.stop());
+        };
 
-        // Load existing feedback from memory
-        function loadFeedback() {
-            const saved = feedbackData;
-            displayFeedback(saved);
-        }
+        mediaRecorder.start();
+        btn.classList.add('recording');
+        document.getElementById('feedbackStatus').textContent = '🔴 Recording...';
 
-        // Attendance tracking (Step 1)
+    } catch (error) {
+        document.getElementById('feedbackStatus').textContent = 'Error: Cannot access microphone';
+    }
+}
+
+function stopRecording(btn) {
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+    }
+}
+
+function saveFeedback() {
+    if (!selectedPlayer) return;
+    
+    const feedback = {
+        player: selectedPlayer,
+        sessionDate: document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0],
+        team: document.getElementById('teamSelect').value || 'Not specified',
+        location: document.getElementById('locationSelect').value || 'Not specified',
+        attended: attendanceData.has(selectedPlayer),
+        overallRating: document.getElementById('overallRating').value || 'Not rated',
+        feedback: currentFeedback.feedback || null,
+        specialMention: document.getElementById('specialMention').checked,
+        playerOfSession: document.getElementById('playerOfSession').checked,
+        timestamp: new Date().toLocaleString(),
+        id: Date.now()
+    };
+    
+    feedbackData.push(feedback);
+    displayFeedback(feedbackData);
+    
+    document.getElementById('feedbackCategories').style.display = 'none';
+    document.querySelectorAll('.feedback-btn').forEach(b => b.classList.remove('selected'));
+    selectedPlayer = null;
+    
+    alert(`Feedback saved for ${feedback.player}!`);
+}
+
+function displayFeedback(feedback) {
+    const list = document.getElementById('feedbackList');
+    list.innerHTML = '';
+
+    if (feedback.length === 0) {
+        list.innerHTML = '<p style="color: #7f8c8d; text-align: center; padding: 20px;">No feedback recorded yet</p>';
+        return;
+    }
+
+    feedback.slice(-10).reverse().forEach(item => {
+        const badges = [];
+        if (item.specialMention) badges.push('🏆 Special Mention');
+        if (item.playerOfSession) badges.push('⭐ Player of Session');
+        
+        const div = document.createElement('div');
+        div.className = 'feedback-item';
+        div.innerHTML = `
+            <div class="feedback-header">
+                <span class="player-name">${item.player}</span>
+                <span class="timestamp">${item.sessionDate}</span>
+            </div>
+            <div style="font-size: 12px; color: #7f8c8d; margin: 5px 0;">
+                ${item.attended ? '✅ Present' : '❌ Absent'} • Rating: ${item.overallRating}
+            </div>
+            ${badges.length > 0 ? `<div style="margin: 5px 0; font-size: 12px;">${badges.join(' • ')}</div>` : ''}
+            <div style="margin: 10px 0;">
+                ${item.feedback ? `<button class="play-btn" onclick="playAudio('${item.feedback}')">▶️ Play Feedback</button>` : ''}
+            </div>
+        `;
+        list.appendChild(div);
+    });
+
+    // Show summary
+    const attendanceCount = attendanceData.size;
+    const feedbackCount = feedback.length;
+    const summary = document.createElement('div');
+    summary.style.cssText = 'background: #3498db; color: white; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: 14px;';
+    summary.innerHTML = `📊 ${attendanceCount} players present • ${feedbackCount} feedback recorded`;
+    list.insertBefore(summary, list.firstChild);
+}
+
+function playAudio(url) {
+    const audio = new Audio(url);
+    audio.play();
+}
+
+function clearAllFeedback() {
+    if (confirm('Clear all session data? This cannot be undone.')) {
+        feedbackData = [];
+        attendanceData.clear();
         document.querySelectorAll('.attendance-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const playerName = btn.dataset.player;
-                
-                // Toggle attendance
-                if (attendanceData.has(playerName)) {
-                    attendanceData.delete(playerName);
-                    btn.classList.remove('present');
-                    btn.querySelector('.attendance-badge').style.display = 'none';
-                } else {
-                    attendanceData.add(playerName);
-                    btn.classList.add('present');
-                    btn.querySelector('.attendance-badge').style.display = 'flex';
-                }
-                
-                updateStatus();
-            });
+            btn.classList.remove('present');
+            btn.querySelector('.attendance-badge').style.display = 'none';
         });
-
-        // Feedback selection (Step 2)
         document.querySelectorAll('.feedback-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.feedback-btn').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                selectedPlayer = btn.dataset.player;
-                
-                // Show feedback categories
-                document.getElementById('feedbackCategories').style.display = 'block';
-                document.getElementById('selectedPlayerName').textContent = selectedPlayer;
-                
-                // Reset feedback form
-                resetFeedbackForm();
-                updateStatus();
-            });
+            btn.classList.remove('selected');
         });
-        
-        function resetFeedbackForm() {
-            currentFeedback = {};
-            document.getElementById('overallRating').value = '';
-            document.getElementById('specialMention').checked = false;
-            document.getElementById('playerOfSession').checked = false;
-            document.getElementById('feedbackStatus').textContent = '';
+        document.getElementById('feedbackCategories').style.display = 'none';
+        selectedPlayer = null;
+        displayFeedback([]);
+    }
+}
+
+function exportCSV() {
+    const headers = ['Date', 'Player', 'Team', 'Location', 'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 'Has Audio', 'Timestamp'];
+    const rows = feedbackData.map(f => [
+        f.sessionDate,
+        f.player,
+        f.team,
+        f.location,
+        f.attended ? 'Yes' : 'No',
+        f.overallRating,
+        f.specialMention ? 'Yes' : 'No',
+        f.playerOfSession ? 'Yes' : 'No',
+        f.feedback ? 'Yes' : 'No',
+        f.timestamp
+    ]);
+    
+    const sessionDate = document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0];
+    attendanceData.forEach(player => {
+        if (!feedbackData.some(f => f.player === player)) {
+            rows.push([
+                sessionDate,
+                player,
+                document.getElementById('teamSelect').value || 'Not specified',
+                document.getElementById('locationSelect').value || 'Not specified',
+                'Yes',
+                'No feedback given',
+                'No',
+                'No',
+                'No',
+                new Date().toLocaleString()
+            ]);
         }
-        
-        function updateStatus() {
-            if (selectedPlayer) {
-                const attendanceStatus = attendanceData.has(selectedPlayer) ? ' (Present)' : ' (Absent)';
-                // Status shown in feedback categories section now
-            } else {
-                const attendanceCount = attendanceData.size;
-                // Could show attendance count if needed
-            }
-        }
+    });
+    
+    if (rows.length === 0) {
+        alert('No session data to export. Please record some feedback first.');
+        return;
+    }
+    
+    const csvContent = [headers, ...rows].map(row => row.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `training_session_${sessionDate}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    alert(`Session data exported!`);
+}
 
-        // Recording functionality for categories
-        document.querySelectorAll('.record-mini-btn').forEach(btn => {
-            btn.addEventListener('mousedown', () => startCategoryRecording(btn));
-            btn.addEventListener('mouseup', () => stopCategoryRecording(btn));
-            btn.addEventListener('touchstart', () => startCategoryRecording(btn));
-            btn.addEventListener('touchend', () => stopCategoryRecording(btn));
-        });
-
-        async function startCategoryRecording(btn) {
-            const category = btn.dataset.category;
-            
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                mediaRecorder = new MediaRecorder(stream);
-                recordedChunks = [];
-
-                mediaRecorder.ondataavailable = (event) => {
-                    if (event.data.size > 0) {
-                        recordedChunks.push(event.data);
-                    }
-                };
-
-                mediaRecorder.onstop = () => {
-                    const blob = new Blob(recordedChunks, { type: 'audio/wav' });
-                    const audioUrl = URL.createObjectURL(blob);
-                    
-                    currentFeedback[category] = audioUrl;
-                    document.getElementById('feedbackStatus').textContent = '✅ Recorded';
-                    btn.classList.remove('recording');
-                    
-                    // Stop all tracks
-                    stream.getTracks().forEach(track => track.stop());
-                };
-
-                mediaRecorder.start();
-                btn.classList.add('recording');
-                document.getElementById('feedbackStatus').textContent = '🔴 Recording...';
-
-            } catch (error) {
-                console.error('Error accessing microphone:', error);
-                document.getElementById('feedbackStatus').textContent = 'Error: Cannot access microphone';
-            }
-        }
-
-        function stopCategoryRecording(btn) {
-            if (mediaRecorder && mediaRecorder.state === 'recording') {
-                mediaRecorder.stop();
-            }
-        }
-
-        function saveFeedback() {
-            if (!selectedPlayer) return;
-            
-            // Get session details
-            const sessionDate = document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0];
-            const club = document.getElementById('clubSelect').value || 'Not specified';
-            const ageGroup = document.getElementById('ageGroupSelect').value || 'Not specified';
-            const team = document.getElementById('teamSelect').value || 'Not specified';
-            const location = document.getElementById('locationSelect').value || 'Not specified';
-            const sessionTheme = getSessionThemes();
-            const attended = attendanceData.has(selectedPlayer);
-            
-            // Save complete feedback
-            const feedback = {
-                player: selectedPlayer,
-                sessionDate: sessionDate,
-                club: club,
-                ageGroup: ageGroup,
-                team: team,
-                location: location,
-                sessionTheme: sessionTheme,
-                attended: attended,
-                overallRating: document.getElementById('overallRating').value || 'Not rated',
-                feedback: currentFeedback.feedback || null,
-                specialMention: document.getElementById('specialMention').checked,
-                playerOfSession: document.getElementById('playerOfSession').checked,
-                timestamp: new Date().toLocaleString(),
-                id: Date.now()
-            };
-            
-            feedbackData.push(feedback);
-            displayFeedback(feedbackData);
-            
-            // Reset and hide form
-            document.getElementById('feedbackCategories').style.display = 'none';
-            document.querySelectorAll('.feedback-btn').forEach(b => b.classList.remove('selected'));
-            selectedPlayer = null;
-            
-            alert(`Feedback saved for ${feedback.player}!`);
-        }
-
-        function displayFeedback(feedback) {
-            const list = document.getElementById('feedbackList');
-            list.innerHTML = '';
-
-            if (feedback.length === 0) {
-                list.innerHTML = '<p style="color: #7f8c8d; text-align: center; padding: 20px;">No feedback recorded yet</p>';
-                return;
-            }
-
-            feedback.slice(-10).reverse().forEach(item => {
-                const badges = [];
-                if (item.specialMention) badges.push('🏆 Special Mention');
-                if (item.playerOfSession) badges.push('⭐ Player of Session');
-                
-                const div = document.createElement('div');
-                div.className = 'feedback-item';
-                div.innerHTML = `
-                    <div class="feedback-header">
-                        <span class="player-name">${item.player}</span>
-                        <span class="timestamp">${item.sessionDate}</span>
-                    </div>
-                    <div style="font-size: 12px; color: #7f8c8d; margin: 5px 0;">
-                        ${item.attended ? '✅ Present' : '❌ Absent'} • Rating: ${item.overallRating}
-                    </div>
-                    ${badges.length > 0 ? `<div style="margin: 5px 0; font-size: 12px;">${badges.join(' • ')}</div>` : ''}
-                    <div style="margin: 10px 0;">
-                        ${item.feedback ? `<button class="play-btn" onclick="playAudio('${item.feedback}')">▶️ Play Feedback</button>` : ''}
-                    </div>
-                `;
-                list.appendChild(div);
-            });
-
-            // Show summary
-            const attendanceCount = attendanceData.size;
-            const feedbackCount = feedback.length;
-            const summary = document.createElement('div');
-            summary.style.cssText = 'background: #3498db; color: white; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: 14px;';
-            summary.innerHTML = `📊 Session Summary: ${attendanceCount} players present • ${feedbackCount} feedback recorded`;
-            list.insertBefore(summary, list.firstChild);
-        }
-
-        function playAudio(url) {
-            const audio = new Audio(url);
-            audio.play().catch(error => {
-                alert('Could not play audio. Please check your browser settings.');
-            });
-        }
-
-        function clearAllFeedback() {
-            if (confirm('Clear all session data? This cannot be undone.')) {
-                feedbackData = [];
-                attendanceData.clear();
-                document.querySelectorAll('.attendance-btn').forEach(btn => {
-                    btn.classList.remove('present');
-                    btn.querySelector('.attendance-badge').style.display = 'none';
-                });
-                document.querySelectorAll('.feedback-btn').forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-                document.getElementById('feedbackCategories').style.display = 'none';
-                selectedPlayer = null;
-                displayFeedback([]);
-            }
-        }
-
-        function exportCSV() {
-            const headers = ['Date', 'Player', 'Club', 'Age Group', 'Team', 'Location', 'Session Theme', 'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 'Has Audio Feedback', 'Timestamp'];
-            const rows = feedbackData.map(f => [
-                f.sessionDate,
-                f.player,
-                f.club,
-                f.ageGroup,
-                f.team,
-                f.location,
-                f.sessionTheme,
-                f.attended ? 'Yes' : 'No',
-                f.overallRating,
-                f.specialMention ? 'Yes' : 'No',
-                f.playerOfSession ? 'Yes' : 'No',
-                f.feedback ? 'Yes' : 'No',
-                f.timestamp
+// Initialize
+displayFeedback([]);
+</script>
+</body>
+</html>
