@@ -241,35 +241,6 @@
             margin-top: 20px;
             width: 100%;
         }
-        
-        .success {
-            background: #27ae60;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-            font-size: 14px;
-            text-align: center;
-        }
-        
-        .input-group {
-            margin-bottom: 15px;
-        }
-        
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #bdc3c7;
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
@@ -375,27 +346,27 @@
             <div class="workflow-section">
                 <h3 style="margin-bottom: 15px; color: #2c3e50;">Step 1: Mark Attendance</h3>
                 <div class="player-grid">
-                    <button class="player-btn attendance-btn" data-player="Jake Smith" onclick="toggleAttendance('Jake Smith', this)">
+                    <button class="player-btn attendance-btn" data-player="Jake Smith">
                         Jake Smith
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
-                    <button class="player-btn attendance-btn" data-player="Mike Johnson" onclick="toggleAttendance('Mike Johnson', this)">
+                    <button class="player-btn attendance-btn" data-player="Mike Johnson">
                         Mike Johnson
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
-                    <button class="player-btn attendance-btn" data-player="Sam Wilson" onclick="toggleAttendance('Sam Wilson', this)">
+                    <button class="player-btn attendance-btn" data-player="Sam Wilson">
                         Sam Wilson
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
-                    <button class="player-btn attendance-btn" data-player="Tom Brown" onclick="toggleAttendance('Tom Brown', this)">
+                    <button class="player-btn attendance-btn" data-player="Tom Brown">
                         Tom Brown
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
-                    <button class="player-btn attendance-btn" data-player="Alex Davis" onclick="toggleAttendance('Alex Davis', this)">
+                    <button class="player-btn attendance-btn" data-player="Alex Davis">
                         Alex Davis
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
-                    <button class="player-btn attendance-btn" data-player="Ryan Miller" onclick="toggleAttendance('Ryan Miller', this)">
+                    <button class="player-btn attendance-btn" data-player="Ryan Miller">
                         Ryan Miller
                         <div class="attendance-badge" style="display: none;">✓</div>
                     </button>
@@ -405,12 +376,12 @@
             <div class="workflow-section">
                 <h3 style="margin-bottom: 15px; color: #2c3e50;">Step 2: Record Player Feedback</h3>
                 <div class="player-grid">
-                    <button class="player-btn feedback-btn" data-player="Jake Smith" onclick="selectPlayerForFeedback('Jake Smith', this)">Jake Smith</button>
-                    <button class="player-btn feedback-btn" data-player="Mike Johnson" onclick="selectPlayerForFeedback('Mike Johnson', this)">Mike Johnson</button>
-                    <button class="player-btn feedback-btn" data-player="Sam Wilson" onclick="selectPlayerForFeedback('Sam Wilson', this)">Sam Wilson</button>
-                    <button class="player-btn feedback-btn" data-player="Tom Brown" onclick="selectPlayerForFeedback('Tom Brown', this)">Tom Brown</button>
-                    <button class="player-btn feedback-btn" data-player="Alex Davis" onclick="selectPlayerForFeedback('Alex Davis', this)">Alex Davis</button>
-                    <button class="player-btn feedback-btn" data-player="Ryan Miller" onclick="selectPlayerForFeedback('Ryan Miller', this)">Ryan Miller</button>
+                    <button class="player-btn feedback-btn" data-player="Jake Smith">Jake Smith</button>
+                    <button class="player-btn feedback-btn" data-player="Mike Johnson">Mike Johnson</button>
+                    <button class="player-btn feedback-btn" data-player="Sam Wilson">Sam Wilson</button>
+                    <button class="player-btn feedback-btn" data-player="Tom Brown">Tom Brown</button>
+                    <button class="player-btn feedback-btn" data-player="Alex Davis">Alex Davis</button>
+                    <button class="player-btn feedback-btn" data-player="Ryan Miller">Ryan Miller</button>
                 </div>
                 
                 <div class="feedback-categories" id="feedbackCategories" style="display: none;">
@@ -431,7 +402,7 @@
                     <div class="category-section">
                         <label style="font-weight: bold; color: #3498db;">🎤 Voice Feedback:</label>
                         <p style="font-size: 12px; color: #7f8c8d; margin: 5px 0;">Hold to record, release to stop</p>
-                        <button class="record-mini-btn" data-category="feedback" onmousedown="startCategoryRecording(this)" onmouseup="stopCategoryRecording(this)" ontouchstart="startCategoryRecording(this)" ontouchend="stopCategoryRecording(this)">🎤 Record Feedback</button>
+                        <button class="record-mini-btn" data-category="feedback">🎤 Record Feedback</button>
                         <div class="audio-status" id="feedbackStatus"></div>
                     </div>
                     
@@ -459,12 +430,12 @@
                 <h3 style="margin-bottom: 15px; color: #2c3e50;">📁 Export Session Data</h3>
                 <p style="margin-bottom: 15px; color: #7f8c8d; font-size: 14px;">Download your session data to upload to your preferred spreadsheet system</p>
                 <button class="export-btn" onclick="exportCSV()">📁 Download Session Data</button>
+                <button class="export-btn" onclick="alert('JavaScript is working!')">🧪 Test JavaScript</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Global variables
         let selectedPlayer = null;
         let mediaRecorder = null;
         let recordedChunks = [];
@@ -472,48 +443,10 @@
         let attendanceData = new Set();
         let currentFeedback = {};
 
-        // Global functions that can be called from onclick
-        function toggleAttendance(playerName, buttonElement) {
-            console.log('Toggling attendance for:', playerName);
-            
-            if (attendanceData.has(playerName)) {
-                attendanceData.delete(playerName);
-                buttonElement.classList.remove('present');
-                buttonElement.querySelector('.attendance-badge').style.display = 'none';
-                console.log('Removed from attendance:', playerName);
-            } else {
-                attendanceData.add(playerName);
-                buttonElement.classList.add('present');
-                buttonElement.querySelector('.attendance-badge').style.display = 'flex';
-                console.log('Added to attendance:', playerName);
-            }
-            
-            displayFeedback(feedbackData);
-        }
-
-        function selectPlayerForFeedback(playerName, buttonElement) {
-            console.log('Selecting player for feedback:', playerName);
-            
-            // Clear previous selections
-            document.querySelectorAll('.feedback-btn').forEach(btn => btn.classList.remove('selected'));
-            
-            // Select this player
-            buttonElement.classList.add('selected');
-            selectedPlayer = playerName;
-            
-            // Show feedback categories
-            document.getElementById('feedbackCategories').style.display = 'block';
-            document.getElementById('selectedPlayerName').textContent = selectedPlayer;
-            
-            // Reset feedback form
-            resetFeedbackForm();
-            
-            console.log('Selected player:', selectedPlayer);
-        }
-
         // Set today's date by default
-        document.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('load', function() {
             document.getElementById('sessionDate').valueAsDate = new Date();
+            console.log('Page loaded, date set');
         });
 
         // Handle session theme checkboxes
@@ -545,7 +478,49 @@
             return themes.length > 0 ? themes.join(', ') : 'Not specified';
         }
 
-        // Simple direct functions - no event listeners needed
+        // Load existing feedback from memory
+        function loadFeedback() {
+            const saved = feedbackData;
+            displayFeedback(saved);
+        }
+
+        // Attendance tracking (Step 1)
+        document.querySelectorAll('.attendance-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const playerName = btn.dataset.player;
+                
+                // Toggle attendance
+                if (attendanceData.has(playerName)) {
+                    attendanceData.delete(playerName);
+                    btn.classList.remove('present');
+                    btn.querySelector('.attendance-badge').style.display = 'none';
+                } else {
+                    attendanceData.add(playerName);
+                    btn.classList.add('present');
+                    btn.querySelector('.attendance-badge').style.display = 'flex';
+                }
+                
+                updateStatus();
+            });
+        });
+
+        // Feedback selection (Step 2)
+        document.querySelectorAll('.feedback-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.feedback-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedPlayer = btn.dataset.player;
+                
+                // Show feedback categories
+                document.getElementById('feedbackCategories').style.display = 'block';
+                document.getElementById('selectedPlayerName').textContent = selectedPlayer;
+                
+                // Reset feedback form
+                resetFeedbackForm();
+                updateStatus();
+            });
+        });
+        
         function resetFeedbackForm() {
             currentFeedback = {};
             document.getElementById('overallRating').value = '';
@@ -553,11 +528,24 @@
             document.getElementById('playerOfSession').checked = false;
             document.getElementById('feedbackStatus').textContent = '';
         }
+        
+        function updateStatus() {
+            if (selectedPlayer) {
+                const attendanceStatus = attendanceData.has(selectedPlayer) ? ' (Present)' : ' (Absent)';
+                // Status shown in feedback categories section now
+            } else {
+                const attendanceCount = attendanceData.size;
+                // Could show attendance count if needed
+            }
+        }
 
         // Recording functionality for categories
-        function initializeRecordingButtons() {
-            // No longer needed - using inline handlers
-        }
+        document.querySelectorAll('.record-mini-btn').forEach(btn => {
+            btn.addEventListener('mousedown', () => startCategoryRecording(btn));
+            btn.addEventListener('mouseup', () => stopCategoryRecording(btn));
+            btn.addEventListener('touchstart', () => startCategoryRecording(btn));
+            btn.addEventListener('touchend', () => stopCategoryRecording(btn));
+        });
 
         async function startCategoryRecording(btn) {
             const category = btn.dataset.category;
@@ -705,4 +693,21 @@
                 selectedPlayer = null;
                 displayFeedback([]);
             }
-        
+        }
+
+        function exportCSV() {
+            const headers = ['Date', 'Player', 'Club', 'Age Group', 'Team', 'Location', 'Session Theme', 'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 'Has Audio Feedback', 'Timestamp'];
+            const rows = feedbackData.map(f => [
+                f.sessionDate,
+                f.player,
+                f.club,
+                f.ageGroup,
+                f.team,
+                f.location,
+                f.sessionTheme,
+                f.attended ? 'Yes' : 'No',
+                f.overallRating,
+                f.specialMention ? 'Yes' : 'No',
+                f.playerOfSession ? 'Yes' : 'No',
+                f.feedback ? 'Yes' : 'No',
+                f.timestamp
