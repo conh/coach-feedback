@@ -125,7 +125,7 @@
             border-color: #2d5a3d;
         }
         
-        .attendance-badge {
+        .attendance-badge, .feedback-badge {
             position: absolute;
             top: -5px;
             right: -5px;
@@ -139,6 +139,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            z-index: 10;
         }
         
         .session-setup {
@@ -937,6 +938,7 @@ function displayFeedback(feedback) {
             const badge = btn.querySelector('.feedback-badge');
             if (badge) {
                 badge.style.display = 'flex';
+                badge.textContent = '✓';
             }
         } else {
             btn.classList.remove('has-feedback');
