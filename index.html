@@ -1,5 +1,4 @@
-                </div>
-                <input type="date" id="sessionDate" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #bdc3c7;"><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d5a3d 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -24,25 +23,41 @@
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             overflow: hidden;
         }
         
         .header {
-            background: #2c3e50;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d5a3d 100%);
             color: white;
             padding: 25px 20px;
             text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+        
+        .logo svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
         
         .header h1 {
             font-size: 24px;
             margin-bottom: 5px;
+            color: #00ff88;
         }
         
         .header p {
-            opacity: 0.8;
+            opacity: 0.9;
             font-size: 14px;
+            color: #b8e6d0;
         }
         
         .main {
@@ -59,13 +74,14 @@
         .workflow-section {
             margin-bottom: 30px;
             padding: 20px;
-            background: #f8f9fa;
+            background: #f0f8f4;
             border-radius: 15px;
+            border: 2px solid #e6f7ed;
         }
         
         .player-btn {
-            background: #ecf0f1;
-            border: none;
+            background: #f8f9fa;
+            border: 2px solid #2d5a3d;
             border-radius: 15px;
             padding: 15px 10px;
             text-align: center;
@@ -73,32 +89,36 @@
             transition: all 0.3s ease;
             font-size: 14px;
             font-weight: 600;
-            color: #2c3e50;
+            color: #1a1a1a;
             position: relative;
         }
         
         .player-btn:hover {
-            background: #3498db;
+            background: #2d5a3d;
             color: white;
             transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(45, 90, 61, 0.3);
         }
         
         .feedback-btn.selected {
-            background: #e74c3c;
-            color: white;
+            background: #00ff88;
+            color: #1a1a1a;
+            border-color: #00ff88;
+            font-weight: bold;
         }
         
         .attendance-btn.present {
-            background: #27ae60;
+            background: #2d5a3d;
             color: white;
+            border-color: #2d5a3d;
         }
         
         .attendance-badge {
             position: absolute;
             top: -5px;
             right: -5px;
-            background: #27ae60;
-            color: white;
+            background: #00ff88;
+            color: #1a1a1a;
             border-radius: 50%;
             width: 20px;
             height: 20px;
@@ -106,26 +126,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: bold;
         }
         
         .session-setup {
-            background: #f8f9fa;
+            background: #f0f8f4;
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 25px;
+            border: 2px solid #e6f7ed;
         }
         
         .export-section {
-            background: #e8f5e8;
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a1a1a 100%);
             padding: 20px;
             border-radius: 15px;
             margin-top: 20px;
             text-align: center;
         }
         
+        .export-section h3 {
+            color: #00ff88;
+            margin-bottom: 15px;
+        }
+        
         .export-btn {
-            background: #27ae60;
-            color: white;
+            background: #00ff88;
+            color: #1a1a1a;
             border: none;
             padding: 12px 24px;
             border-radius: 25px;
@@ -133,23 +160,26 @@
             font-size: 16px;
             font-weight: bold;
             margin: 5px;
+            transition: all 0.3s ease;
         }
         
         .export-btn:hover {
-            background: #219a52;
+            background: #00e67a;
+            transform: scale(1.05);
         }
         
         .category-section {
             margin: 15px 0;
-            padding: 10px;
+            padding: 15px;
             background: white;
-            border-radius: 8px;
-            border-left: 4px solid #3498db;
+            border-radius: 10px;
+            border-left: 4px solid #2d5a3d;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .record-mini-btn {
-            background: #e74c3c;
-            color: white;
+            background: #00ff88;
+            color: #1a1a1a;
             padding: 8px 15px;
             border-radius: 15px;
             cursor: pointer;
@@ -158,28 +188,34 @@
             font-size: 14px;
             user-select: none;
             border: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
         
         .record-mini-btn:hover {
-            background: #c0392b;
+            background: #00e67a;
+            transform: scale(1.05);
         }
         
         .record-mini-btn.recording {
-            background: #27ae60;
+            background: #ff4757;
+            color: white;
             animation: pulse 1.5s infinite;
         }
         
         .audio-status {
             font-size: 12px;
-            color: #7f8c8d;
+            color: #2d5a3d;
             margin: 5px 0;
+            font-weight: 600;
         }
         
         .feedback-categories {
-            background: #ecf0f1;
+            background: #f0f8f4;
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
+            border: 2px solid #e6f7ed;
         }
         
         @keyframes pulse {
@@ -193,11 +229,12 @@
         }
         
         .feedback-item {
-            background: #ecf0f1;
+            background: #f0f8f4;
             margin: 10px 0;
             padding: 15px;
             border-radius: 10px;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid #2d5a3d;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .feedback-header {
@@ -209,16 +246,17 @@
         
         .player-name {
             font-weight: bold;
-            color: #2c3e50;
+            color: #1a1a1a;
         }
         
         .timestamp {
             font-size: 12px;
-            color: #7f8c8d;
+            color: #2d5a3d;
+            font-weight: 600;
         }
         
         .play-btn {
-            background: #3498db;
+            background: #2d5a3d;
             border: none;
             color: white;
             padding: 8px 15px;
@@ -226,14 +264,16 @@
             cursor: pointer;
             font-size: 14px;
             margin-top: 5px;
+            transition: all 0.3s ease;
         }
         
         .play-btn:hover {
-            background: #2980b9;
+            background: #1a1a1a;
+            transform: scale(1.05);
         }
         
         .clear-btn {
-            background: #95a5a6;
+            background: #1a1a1a;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -241,34 +281,116 @@
             cursor: pointer;
             margin-top: 20px;
             width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .clear-btn:hover {
+            background: #333;
+        }
+        
+        select, input[type="date"], input[type="text"] {
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #2d5a3d;
+            background: white;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+        
+        select:focus, input[type="date"]:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+        }
+        
+        .workflow-section h3, .session-setup h3, .feedback-list h3 {
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+        
+        .save-feedback-btn {
+            background: #2d5a3d;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            margin-top: 15px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .save-feedback-btn:hover {
+            background: #1a1a1a;
+            transform: scale(1.02);
+        }
+        
+        .summary-stats {
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a1a1a 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .summary-stats .highlight {
+            color: #00ff88;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
+            <div class="logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Shield Background -->
+                    <path d="M50 5 L85 20 L85 55 Q85 75 50 95 Q15 75 15 55 L15 20 Z" 
+                          fill="#1a1a1a" stroke="#00ff88" stroke-width="2"/>
+                    
+                    <!-- Soccer Ball -->
+                    <circle cx="50" cy="45" r="18" fill="#00ff88" stroke="#1a1a1a" stroke-width="2"/>
+                    
+                    <!-- Soccer Ball Pattern -->
+                    <polygon points="50,30 58,38 54,48 46,48 42,38" fill="#1a1a1a"/>
+                    <polygon points="42,38 38,45 42,52 50,52" fill="#1a1a1a"/>
+                    <polygon points="58,38 62,45 58,52 50,52" fill="#1a1a1a"/>
+                    <polygon points="46,48 42,52 46,60 54,60 58,52 54,48" fill="#1a1a1a"/>
+                    
+                    <!-- Text Banner -->
+                    <rect x="15" y="70" width="70" height="15" fill="#00ff88" rx="3"/>
+                    <text x="50" y="81" text-anchor="middle" font-size="8" font-weight="bold" fill="#1a1a1a">ELITE FC</text>
+                </svg>
+            </div>
             <h1>⚽ Training Feedback</h1>
             <p>Roehampton Elite FC</p>
         </div>
 
         <div class="main">
             <div class="session-setup">
-                <h3 style="margin-bottom: 15px; color: #2c3e50;">Session Details:</h3>
+                <h3 style="margin-bottom: 15px; color: #1a1a1a;">Session Details:</h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                    <select id="teamSelect" style="padding: 10px; border-radius: 8px; border: 1px solid #bdc3c7;">
+                    <select id="teamSelect">
                         <option value="">Select Team</option>
                         <option value="Pre Academy">Pre Academy</option>
                         <option value="Development">Development</option>
                         <option value="Elite">Elite</option>
                     </select>
-                    <select id="locationSelect" style="padding: 10px; border-radius: 8px; border: 1px solid #bdc3c7;">
+                    <select id="locationSelect">
                         <option value="">Training Location</option>
                         <option value="Richmond Park Academy">Richmond Park Academy</option>
                         <option value="St Paul's School">St Paul's School</option>
                     </select>
                 </div>
                 <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #2c3e50;">Session Themes (select all that apply):</label>
+                    <input type="date" id="sessionDate" style="width: 100%;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #1a1a1a;">Session Themes (select all that apply):</label>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
                         <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
                             <input type="checkbox" name="sessionTheme" value="Rondos"> Rondos
@@ -317,12 +439,12 @@
                         <input type="checkbox" id="sessionThemeOther" onchange="toggleOtherSessionTheme()"> Other
                     </label>
                     <input type="text" id="sessionThemeOtherText" placeholder="Please specify other session theme(s)" 
-                           style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #bdc3c7; display: none;">
+                           style="width: 100%; padding: 8px; border-radius: 5px; border: 2px solid #2d5a3d; display: none;">
                 </div>
             </div>
             
             <div class="workflow-section">
-                <h3 style="margin-bottom: 15px; color: #2c3e50;">Step 1: Mark Attendance</h3>
+                <h3 style="margin-bottom: 15px; color: #1a1a1a;">Step 1: Mark Attendance</h3>
                 <div class="player-grid">
                     <button class="player-btn attendance-btn" data-player="Jake Smith">
                         Jake Smith
@@ -352,7 +474,7 @@
             </div>
             
             <div class="workflow-section">
-                <h3 style="margin-bottom: 15px; color: #2c3e50;">Step 2: Record Player Feedback</h3>
+                <h3 style="margin-bottom: 15px; color: #1a1a1a;">Step 2: Record Player Feedback</h3>
                 <div class="player-grid">
                     <button class="player-btn feedback-btn" data-player="Jake Smith">Jake Smith</button>
                     <button class="player-btn feedback-btn" data-player="Mike Johnson">Mike Johnson</button>
@@ -363,11 +485,11 @@
                 </div>
                 
                 <div class="feedback-categories" id="feedbackCategories" style="display: none;">
-                    <h4 style="margin: 20px 0 10px 0; color: #2c3e50;">Feedback for <span id="selectedPlayerName"></span>:</h4>
+                    <h4 style="margin: 20px 0 10px 0; color: #1a1a1a;">Feedback for <span id="selectedPlayerName"></span>:</h4>
                     
                     <div class="category-section">
-                        <label style="font-weight: bold; color: #2c3e50;">⭐ Overall Performance:</label>
-                        <select id="overallRating" style="width: 100%; padding: 8px; margin: 5px 0; border-radius: 5px; border: 1px solid #bdc3c7;">
+                        <label style="font-weight: bold; color: #1a1a1a;">⭐ Overall Performance:</label>
+                        <select id="overallRating" style="width: 100%; padding: 8px; margin: 5px 0; border-radius: 5px; border: 2px solid #2d5a3d;">
                             <option value="">Select rating</option>
                             <option value="Excellent">Excellent</option>
                             <option value="Very Good">Very Good</option>
@@ -378,34 +500,34 @@
                     </div>
                     
                     <div class="category-section">
-                        <label style="font-weight: bold; color: #3498db;">🎤 Voice Feedback:</label>
-                        <p style="font-size: 12px; color: #7f8c8d; margin: 5px 0;">Hold button and speak clearly for at least 2 seconds</p>
+                        <label style="font-weight: bold; color: #2d5a3d;">🎤 Voice Feedback:</label>
+                        <p style="font-size: 12px; color: #2d5a3d; margin: 5px 0;">Hold button and speak clearly for at least 2 seconds</p>
                         <button class="record-mini-btn" data-category="feedback">🎤 Record</button>
                         <div class="audio-status" id="feedbackStatus"></div>
                     </div>
                     
                     <div class="category-section">
                         <div style="display: flex; gap: 10px; align-items: center;">
-                            <label style="font-weight: bold; color: #f39c12;">🏆 Special mentions:</label>
+                            <label style="font-weight: bold; color: #2d5a3d;">🏆 Special mentions:</label>
                             <label style="font-size: 14px;"><input type="checkbox" id="specialMention"> Special mention</label>
                             <label style="font-size: 14px;"><input type="checkbox" id="playerOfSession"> Player of session</label>
                         </div>
                     </div>
                     
-                    <button onclick="saveFeedback()" style="background: #27ae60; color: white; border: none; padding: 12px 24px; border-radius: 20px; margin-top: 15px; cursor: pointer; width: 100%;">
+                    <button onclick="saveFeedback()" class="save-feedback-btn">
                         💾 Save Feedback
                     </button>
                 </div>
             </div>
             
             <div class="feedback-list">
-                <h3 style="margin-bottom: 15px; color: #2c3e50;">Session Summary:</h3>
+                <h3 style="margin-bottom: 15px; color: #1a1a1a;">Session Summary:</h3>
                 <div id="feedbackList"></div>
                 <button class="clear-btn" onclick="clearAllFeedback()">Clear All Data</button>
             </div>
             
             <div class="export-section">
-                <h3 style="margin-bottom: 15px; color: #2c3e50;">📁 Export</h3>
+                <h3 style="margin-bottom: 15px; color: #00ff88;">📁 Export</h3>
                 <button class="export-btn" onclick="exportCSV()">📁 Download CSV</button>
                 <button class="export-btn" onclick="downloadAllAudioFiles()">🎤 Download All Audio</button>
             </div>
@@ -656,7 +778,7 @@ function displayFeedback(feedback) {
     list.innerHTML = '';
 
     if (feedback.length === 0) {
-        list.innerHTML = '<p style="color: #7f8c8d; text-align: center; padding: 20px;">No feedback recorded yet</p>';
+        list.innerHTML = '<p style="color: #2d5a3d; text-align: center; padding: 20px;">No feedback recorded yet</p>';
         return;
     }
 
@@ -672,11 +794,11 @@ function displayFeedback(feedback) {
                 <span class="player-name">${item.player}</span>
                 <span class="timestamp">${item.sessionDate}</span>
             </div>
-            <div style="font-size: 12px; color: #7f8c8d; margin: 5px 0;">
+            <div style="font-size: 12px; color: #2d5a3d; margin: 5px 0; font-weight: 600;">
                 ${item.attended ? '✅ Present' : '❌ Absent'} • Rating: ${item.overallRating}<br>
                 Themes: ${item.sessionThemes || 'Not specified'}
             </div>
-            ${badges.length > 0 ? `<div style="margin: 5px 0; font-size: 12px;">${badges.join(' • ')}</div>` : ''}
+            ${badges.length > 0 ? `<div style="margin: 5px 0; font-size: 12px; color: #1a1a1a; font-weight: bold;">${badges.join(' • ')}</div>` : ''}
             <div style="margin: 10px 0;">
                 ${item.feedback && item.feedback.hasAudio ? `<button class="play-btn" onclick="downloadAudio('${item.feedback.filename}', '${item.id}')">📁 Download ${item.feedback.filename.split('.').pop().toUpperCase()}</button>` : ''}
             </div>
@@ -688,8 +810,8 @@ function displayFeedback(feedback) {
     const attendanceCount = attendanceData.size;
     const feedbackCount = feedback.length;
     const summary = document.createElement('div');
-    summary.style.cssText = 'background: #3498db; color: white; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: 14px;';
-    summary.innerHTML = `📊 ${attendanceCount} players present • ${feedbackCount} feedback recorded`;
+    summary.className = 'summary-stats';
+    summary.innerHTML = `📊 <span class="highlight">${attendanceCount}</span> players present • <span class="highlight">${feedbackCount}</span> feedback recorded`;
     list.insertBefore(summary, list.firstChild);
 }
 
@@ -771,9 +893,9 @@ function exportCSV() {
         f.sessionThemes,
         f.attended ? 'Yes' : 'No',
         f.overallRating,
-        f.specialMention ? 'Yes' : 'No', // Fixed: was always showing as Yes
-        f.playerOfSession ? 'Yes' : 'No', // Fixed: was always showing as Yes
-        (f.feedback && f.feedback.hasAudio) ? 'Yes' : 'No', // Fixed: now properly checks for audio
+        f.specialMention ? 'Yes' : 'No',
+        f.playerOfSession ? 'Yes' : 'No',
+        (f.feedback && f.feedback.hasAudio) ? 'Yes' : 'No',
         (f.feedback && f.feedback.hasAudio) ? f.feedback.filename : 'No audio',
         f.timestamp
     ]);
