@@ -927,6 +927,26 @@ function displayFeedback(feedback) {
     const list = document.getElementById('feedbackList');
     list.innerHTML = '';
 
+    // Update feedback button states when displaying feedback
+    document.querySelectorAll('.feedback-btn').forEach(btn => {
+        const playerName = btn.dataset.player;
+        const hasFeedback = feedback.some(f => f.player === playerName);
+        
+        if (hasFeedback) {
+            btn.classList.add('has-feedback');
+            const badge = btn.querySelector('.feedback-badge');
+            if (badge) {
+                badge.style.display = 'flex';
+            }
+        } else {
+            btn.classList.remove('has-feedback');
+            const badge = btn.querySelector('.feedback-badge');
+            if (badge) {
+                badge.style.display = 'none';
+            }
+        }
+    });
+
     if (feedback.length === 0) {
         list.innerHTML = '<p style="color: #2d5a3d; text-align: center; padding: 20px;">No feedback recorded yet</p>';
         return;
