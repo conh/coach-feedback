@@ -236,11 +236,15 @@
             background: #f8f9fa;
             border: 2px solid #e9ecef;
             border-radius: 16px;
-            padding: 20px 16px;
+            padding: 16px 12px;
             text-align: center;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             overflow: hidden;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .player-card::before {
@@ -286,11 +290,12 @@
         }
         
         .player-name {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             letter-spacing: -0.01em;
             position: relative;
             z-index: 2;
+            line-height: 1.2;
         }
         
         .status-badge {
@@ -519,12 +524,12 @@
         }
         
         .export-button {
-            padding: 16px 24px;
+            padding: 16px 20px;
             background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
             border: 2px solid #007bff;
             border-radius: 12px;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -532,6 +537,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            text-align: center;
         }
         
         .export-button:hover {
@@ -673,7 +679,7 @@
                 </svg>
             </div>
             <h1 class="hero-title">Training Feedback</h1>
-            <p class="hero-subtitle">Professional Coaching System</p>
+            <p class="hero-subtitle">Roehampton Elite FC</p>
         </div>
 
         <div class="main-content">
@@ -826,27 +832,27 @@
                 
                 <div class="player-grid">
                     <div class="player-card attendance-btn" data-player="Jake Smith">
-                        <div class="player-name">Jake Smith</div>
+                        <div class="player-name">Jake<br>Smith</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                     <div class="player-card attendance-btn" data-player="Mike Johnson">
-                        <div class="player-name">Mike Johnson</div>
+                        <div class="player-name">Mike<br>Johnson</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                     <div class="player-card attendance-btn" data-player="Sam Wilson">
-                        <div class="player-name">Sam Wilson</div>
+                        <div class="player-name">Sam<br>Wilson</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                     <div class="player-card attendance-btn" data-player="Tom Brown">
-                        <div class="player-name">Tom Brown</div>
+                        <div class="player-name">Tom<br>Brown</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                     <div class="player-card attendance-btn" data-player="Alex Davis">
-                        <div class="player-name">Alex Davis</div>
+                        <div class="player-name">Alex<br>Davis</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                     <div class="player-card attendance-btn" data-player="Ryan Miller">
-                        <div class="player-name">Ryan Miller</div>
+                        <div class="player-name">Ryan<br>Miller</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                 </div>
@@ -861,27 +867,27 @@
                 
                 <div class="player-grid">
                     <div class="player-card feedback-btn" data-player="Jake Smith">
-                        <div class="player-name">Jake Smith</div>
+                        <div class="player-name">Jake<br>Smith</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                     <div class="player-card feedback-btn" data-player="Mike Johnson">
-                        <div class="player-name">Mike Johnson</div>
+                        <div class="player-name">Mike<br>Johnson</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                     <div class="player-card feedback-btn" data-player="Sam Wilson">
-                        <div class="player-name">Sam Wilson</div>
+                        <div class="player-name">Sam<br>Wilson</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                     <div class="player-card feedback-btn" data-player="Tom Brown">
-                        <div class="player-name">Tom Brown</div>
+                        <div class="player-name">Tom<br>Brown</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                     <div class="player-card feedback-btn" data-player="Alex Davis">
-                        <div class="player-name">Alex Davis</div>
+                        <div class="player-name">Alex<br>Davis</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                     <div class="player-card feedback-btn" data-player="Ryan Miller">
-                        <div class="player-name">Ryan Miller</div>
+                        <div class="player-name">Ryan<br>Miller</div>
                         <div class="status-badge" style="display: none;">✓</div>
                     </div>
                 </div>
@@ -949,10 +955,10 @@
                 
                 <div class="export-actions">
                     <button class="export-button" onclick="exportCSV()">
-                        📁 Export CSV
+                        <span>📁</span> Export CSV
                     </button>
                     <button class="export-button" onclick="downloadAllAudioFiles()">
-                        🎤 Download Audio
+                        <span>🎤</span> Download Audio
                     </button>
                 </div>
                 
