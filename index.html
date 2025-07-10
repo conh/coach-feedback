@@ -694,13 +694,37 @@ document.querySelectorAll('.feedback-btn').forEach(btn => {
 
 // Recording
 document.querySelectorAll('.record-mini-btn').forEach(btn => {
-    btn.addEventListener('mousedown', () => startRecording(btn));
-    btn.addEventListener('mouseup', () => stopRecording(btn));
-    btn.addEventListener('touchstart', () => startRecording(btn));
-    btn.addEventListener('touchend', () => stopRecording(btn));
+    btn.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        startRecording(btn);
+    });
+    btn.addEventListener('mouseup', (e) => {
+        e.preventDefault();
+        stopRecording(btn);
+    });
+    btn.addEventListener('mouseleave', (e) => {
+        e.preventDefault();
+        stopRecording(btn);
+    });
+    btn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        startRecording(btn);
+    });
+    btn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        stopRecording(btn);
+    });
+    btn.addEventListener('touchcancel', (e) => {
+        e.preventDefault();
+        stopRecording(btn);
+    });
 });
 
 async function startRecording(btn) {
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+        return; // Already recording
+    }
+    
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ 
             audio: {
@@ -714,7 +738,7 @@ async function startRecording(btn) {
         // Use MP4 format for maximum compatibility
         let options = { 
             mimeType: 'audio/mp4',
-            audioBitsPerSecond: 128000 // Higher bitrate for better quality
+            audioBitsPerSecond: 128000
         };
         if (!MediaRecorder.isTypeSupported('audio/mp4')) {
             options = { 
@@ -729,6 +753,10 @@ async function startRecording(btn) {
         mediaRecorder = new MediaRecorder(stream, options);
         recordedChunks = [];
         let recordingStartTime = Date.now();
+        
+        // Store the stream and start time for later use
+        mediaRecorder.stream = stream;
+        mediaRecorder.startTime = recordingStartTime;
 
         mediaRecorder.ondataavailable = (event) => {
             console.log('Data available:', event.data.size, 'bytes');
@@ -742,16 +770,19 @@ async function startRecording(btn) {
             console.log('Recording stopped. Duration:', recordingDuration, 'ms');
             console.log('Total chunks:', recordedChunks.length);
             
+            // Clean up the stream
+            if (mediaRecorder.stream) {
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+            }
+            
             if (recordedChunks.length === 0) {
                 document.getElementById('feedbackStatus').textContent = '❌ No audio data recorded';
-                stream.getTracks().forEach(track => track.stop());
                 return;
             }
             
             // Ensure minimum recording duration
             if (recordingDuration < 500) {
                 document.getElementById('feedbackStatus').textContent = '❌ Recording too short - hold button longer';
-                stream.getTracks().forEach(track => track.stop());
                 return;
             }
             
@@ -763,7 +794,6 @@ async function startRecording(btn) {
             
             if (blob.size === 0) {
                 document.getElementById('feedbackStatus').textContent = '❌ Empty recording - try again';
-                stream.getTracks().forEach(track => track.stop());
                 return;
             }
             
@@ -794,18 +824,18 @@ async function startRecording(btn) {
             
             document.getElementById('feedbackStatus').textContent = `✅ Recorded ${(recordingDuration/1000).toFixed(1)}s ${extension.toUpperCase()} file`;
             btn.classList.remove('recording');
-            
-            stream.getTracks().forEach(track => track.stop());
         };
 
         mediaRecorder.onerror = (event) => {
             console.error('MediaRecorder error:', event.error);
             document.getElementById('feedbackStatus').textContent = '❌ Recording error';
-            stream.getTracks().forEach(track => track.stop());
+            if (mediaRecorder.stream) {
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+            }
         };
 
-        // Start recording with chunks every 100ms for better data capture
-        mediaRecorder.start(100);
+        // Start recording with timeslice for continuous data capture
+        mediaRecorder.start(250); // Capture data every 250ms
         btn.classList.add('recording');
         document.getElementById('feedbackStatus').textContent = '🔴 Recording... (hold and speak clearly)';
         
@@ -821,6 +851,7 @@ function stopRecording(btn) {
     if (mediaRecorder && mediaRecorder.state === 'recording') {
         console.log('Stopping recording...');
         mediaRecorder.stop();
+        btn.classList.remove('recording');
     } else {
         console.log('MediaRecorder not recording, state:', mediaRecorder ? mediaRecorder.state : 'null');
     }
