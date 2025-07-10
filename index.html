@@ -106,6 +106,12 @@
             box-shadow: 0 6px 12px rgba(45, 90, 61, 0.3);
         }
         
+        .feedback-btn.has-feedback {
+            background: #2d5a3d;
+            color: white;
+            border-color: #2d5a3d;
+        }
+        
         .feedback-btn.selected {
             background: #00ff88;
             color: #1a1a1a;
@@ -551,12 +557,30 @@
             <div class="workflow-section">
                 <h3 style="margin-bottom: 15px; color: #1a1a1a;">Step 2: Record Player Feedback</h3>
                 <div class="player-grid">
-                    <button class="player-btn feedback-btn" data-player="Jake Smith">Jake Smith</button>
-                    <button class="player-btn feedback-btn" data-player="Mike Johnson">Mike Johnson</button>
-                    <button class="player-btn feedback-btn" data-player="Sam Wilson">Sam Wilson</button>
-                    <button class="player-btn feedback-btn" data-player="Tom Brown">Tom Brown</button>
-                    <button class="player-btn feedback-btn" data-player="Alex Davis">Alex Davis</button>
-                    <button class="player-btn feedback-btn" data-player="Ryan Miller">Ryan Miller</button>
+                    <button class="player-btn feedback-btn" data-player="Jake Smith">
+                        Jake Smith
+                        <div class="feedback-badge" style="display: none;">✓</div>
+                    </button>
+                    <button class="player-btn feedback-btn" data-player="Mike Johnson">
+                        Mike Johnson
+                        <div class="feedback-badge" style="display: none;">✓</div>
+                    </button>
+                    <button class="player-btn feedback-btn" data-player="Sam Wilson">
+                        Sam Wilson
+                        <div class="feedback-badge" style="display: none;">✓</div>
+                    </button>
+                    <button class="player-btn feedback-btn" data-player="Tom Brown">
+                        Tom Brown
+                        <div class="feedback-badge" style="display: none;">✓</div>
+                    </button>
+                    <button class="player-btn feedback-btn" data-player="Alex Davis">
+                        Alex Davis
+                        <div class="feedback-badge" style="display: none;">✓</div>
+                    </button>
+                    <button class="player-btn feedback-btn" data-player="Ryan Miller">
+                        Ryan Miller
+                        <div class="feedback-badge" style="display: none;">✓</div>
+                    </button>
                 </div>
                 
                 <div class="feedback-categories" id="feedbackCategories" style="display: none;">
@@ -879,6 +903,17 @@ function saveFeedback() {
     };
     
     feedbackData.push(feedback);
+    
+    // Mark the player as having feedback with visual indicator
+    const playerBtn = document.querySelector(`.feedback-btn[data-player="${selectedPlayer}"]`);
+    if (playerBtn) {
+        playerBtn.classList.add('has-feedback');
+        const badge = playerBtn.querySelector('.feedback-badge');
+        if (badge) {
+            badge.style.display = 'flex';
+        }
+    }
+    
     displayFeedback(feedbackData);
     
     document.getElementById('feedbackCategories').style.display = 'none';
@@ -991,7 +1026,11 @@ function clearAllFeedback() {
             btn.querySelector('.attendance-badge').style.display = 'none';
         });
         document.querySelectorAll('.feedback-btn').forEach(btn => {
-            btn.classList.remove('selected');
+            btn.classList.remove('selected', 'has-feedback');
+            const badge = btn.querySelector('.feedback-badge');
+            if (badge) {
+                badge.style.display = 'none';
+            }
         });
         document.getElementById('feedbackCategories').style.display = 'none';
         selectedPlayer = null;
