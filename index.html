@@ -348,22 +348,53 @@
         <div class="header">
             <div class="logo">
                 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Shield Background -->
-                    <path d="M50 5 L85 20 L85 55 Q85 75 50 95 Q15 75 15 55 L15 20 Z" 
-                          fill="#1a1a1a" stroke="#00ff88" stroke-width="2"/>
+                    <!-- Outer Green Ring -->
+                    <circle cx="50" cy="50" r="48" fill="#2d5a3d" stroke="#ffffff" stroke-width="1"/>
                     
-                    <!-- Soccer Ball -->
-                    <circle cx="50" cy="45" r="18" fill="#00ff88" stroke="#1a1a1a" stroke-width="2"/>
+                    <!-- Inner White Circle -->
+                    <circle cx="50" cy="50" r="35" fill="#ffffff" stroke="#2d5a3d" stroke-width="1"/>
                     
-                    <!-- Soccer Ball Pattern -->
-                    <polygon points="50,30 58,38 54,48 46,48 42,38" fill="#1a1a1a"/>
-                    <polygon points="42,38 38,45 42,52 50,52" fill="#1a1a1a"/>
-                    <polygon points="58,38 62,45 58,52 50,52" fill="#1a1a1a"/>
-                    <polygon points="46,48 42,52 46,60 54,60 58,52 54,48" fill="#1a1a1a"/>
+                    <!-- Player Silhouette -->
+                    <g transform="translate(50, 50) scale(0.8)">
+                        <!-- Head -->
+                        <ellipse cx="0" cy="-15" rx="4" ry="5" fill="#1a1a1a"/>
+                        
+                        <!-- Body -->
+                        <ellipse cx="0" cy="-5" rx="6" ry="8" fill="#1a1a1a"/>
+                        
+                        <!-- Left Arm -->
+                        <ellipse cx="-8" cy="-8" rx="2.5" ry="6" fill="#1a1a1a" transform="rotate(-30)"/>
+                        
+                        <!-- Right Arm -->
+                        <ellipse cx="8" cy="-8" rx="2.5" ry="6" fill="#1a1a1a" transform="rotate(30)"/>
+                        
+                        <!-- Left Leg -->
+                        <ellipse cx="-3" cy="8" rx="2.5" ry="8" fill="#1a1a1a" transform="rotate(-15)"/>
+                        
+                        <!-- Right Leg (kicking) -->
+                        <ellipse cx="5" cy="5" rx="2.5" ry="8" fill="#1a1a1a" transform="rotate(45)"/>
+                        
+                        <!-- Ball -->
+                        <circle cx="12" cy="2" r="3" fill="#1a1a1a"/>
+                        <circle cx="12" cy="2" r="3" fill="none" stroke="#ffffff" stroke-width="0.5"/>
+                        <path d="M10,2 L14,2 M12,0 L12,4" stroke="#ffffff" stroke-width="0.5"/>
+                    </g>
                     
-                    <!-- Text Banner -->
-                    <rect x="15" y="70" width="70" height="15" fill="#00ff88" rx="3"/>
-                    <text x="50" y="81" text-anchor="middle" font-size="8" font-weight="bold" fill="#1a1a1a">ELITE FC</text>
+                    <!-- Top Text -->
+                    <path id="topArc" d="M 15 50 A 35 35 0 0 1 85 50" fill="none"/>
+                    <text font-size="6" font-weight="bold" fill="#ffffff">
+                        <textPath href="#topArc" startOffset="50%" text-anchor="middle">ROEHAMPTON ELITE</textPath>
+                    </text>
+                    
+                    <!-- Bottom Text -->
+                    <path id="bottomArc" d="M 85 50 A 35 35 0 0 1 15 50" fill="none"/>
+                    <text font-size="6" font-weight="bold" fill="#ffffff">
+                        <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">FOOTBALL CLUB</textPath>
+                    </text>
+                    
+                    <!-- Year Numbers -->
+                    <text x="18" y="55" font-size="5" font-weight="bold" fill="#ffffff">20</text>
+                    <text x="78" y="55" font-size="5" font-weight="bold" fill="#ffffff">24</text>
                 </svg>
             </div>
             <h1>⚽ Training Feedback</h1>
@@ -374,68 +405,106 @@
             <div class="session-setup">
                 <h3 style="margin-bottom: 15px; color: #1a1a1a;">Session Details:</h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                    <select id="teamSelect">
-                        <option value="">Select Team</option>
+                    <input type="date" id="sessionDate" style="width: 100%;">
+                    <select id="coachSelect">
+                        <option value="">Coach</option>
+                        <option value="Coach Smith">Coach Smith</option>
+                        <option value="Coach Johnson">Coach Johnson</option>
+                        <option value="Coach Williams">Coach Williams</option>
+                        <option value="Coach Brown">Coach Brown</option>
+                        <option value="Coach Davis">Coach Davis</option>
+                        <option value="Coach Miller">Coach Miller</option>
+                        <option value="Coach Wilson">Coach Wilson</option>
+                        <option value="Coach Moore">Coach Moore</option>
+                        <option value="Coach Taylor">Coach Taylor</option>
+                        <option value="Coach Anderson">Coach Anderson</option>
+                    </select>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                    <select id="squadSelect">
+                        <option value="">Squad</option>
                         <option value="Pre Academy">Pre Academy</option>
                         <option value="Development">Development</option>
                         <option value="Elite">Elite</option>
                     </select>
+                    <select id="teamSelect">
+                        <option value="">Team</option>
+                        <option value="Team A">Team A</option>
+                        <option value="Team B">Team B</option>
+                        <option value="Team C">Team C</option>
+                    </select>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                    <select id="ageGroupSelect">
+                        <option value="">Age Group</option>
+                        <option value="U6">U6</option>
+                        <option value="U7">U7</option>
+                        <option value="U8">U8</option>
+                        <option value="U9">U9</option>
+                        <option value="U10">U10</option>
+                        <option value="U11">U11</option>
+                        <option value="U12">U12</option>
+                        <option value="U13">U13</option>
+                        <option value="U14">U14</option>
+                        <option value="U15">U15</option>
+                        <option value="U16">U16</option>
+                        <option value="U17">U17</option>
+                        <option value="U18">U18</option>
+                    </select>
                     <select id="locationSelect">
-                        <option value="">Training Location</option>
+                        <option value="">Location</option>
                         <option value="Richmond Park Academy">Richmond Park Academy</option>
                         <option value="St Paul's School">St Paul's School</option>
                     </select>
                 </div>
                 <div style="margin-bottom: 15px;">
-                    <input type="date" id="sessionDate" style="width: 100%;">
-                </div>
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #1a1a1a;">Session Themes (select all that apply):</label>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                    <h3 style="margin-bottom: 8px; color: #1a1a1a; font-size: 16px;">Session Themes:</h3>
+                    <p style="font-size: 12px; color: #2d5a3d; margin-bottom: 15px; font-weight: 600;">(select all that apply)</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Rondos"> Rondos
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="1v1 Situations"> 1v1 Situations
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="2v2/3v3 and More Situations, Including Overloads"> 2v2/3v3 & Overloads
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Passing & Receiving"> Passing & Receiving
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Dribbling & Ball Control"> Dribbling & Ball Control
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Shooting & Finishing"> Shooting & Finishing
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Defending"> Defending
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Attacking"> Attacking
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Possession"> Possession
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Small Sided Games"> Small Sided Games
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Match Preparation"> Match Preparation
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Speed & Agility"> Speed & Agility
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Set Pieces"> Set Pieces
                         </label>
-                        <label style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                        <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                             <input type="checkbox" name="sessionTheme" value="Mini Tournament"> Mini Tournament
                         </label>
                     </div>
-                    <label style="font-size: 14px; display: flex; align-items: center; gap: 5px; margin-bottom: 10px;">
+                    <label style="font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                         <input type="checkbox" id="sessionThemeOther" onchange="toggleOtherSessionTheme()"> Other
                     </label>
                     <input type="text" id="sessionThemeOtherText" placeholder="Please specify other session theme(s)" 
@@ -750,8 +819,11 @@ function saveFeedback() {
     
     const feedback = {
         player: selectedPlayer,
+        coach: document.getElementById('coachSelect').value || 'Not specified',
         sessionDate: document.getElementById('sessionDate').value || new Date().toISOString().split('T')[0],
+        squad: document.getElementById('squadSelect').value || 'Not specified',
         team: document.getElementById('teamSelect').value || 'Not specified',
+        ageGroup: document.getElementById('ageGroupSelect').value || 'Not specified',
         location: document.getElementById('locationSelect').value || 'Not specified',
         sessionThemes: getSessionThemes(),
         attended: attendanceData.has(selectedPlayer),
@@ -796,6 +868,7 @@ function displayFeedback(feedback) {
             </div>
             <div style="font-size: 12px; color: #2d5a3d; margin: 5px 0; font-weight: 600;">
                 ${item.attended ? '✅ Present' : '❌ Absent'} • Rating: ${item.overallRating}<br>
+                Coach: ${item.coach} • Squad: ${item.squad} • Team: ${item.team} • Age: ${item.ageGroup}<br>
                 Themes: ${item.sessionThemes || 'Not specified'}
             </div>
             ${badges.length > 0 ? `<div style="margin: 5px 0; font-size: 12px; color: #1a1a1a; font-weight: bold;">${badges.join(' • ')}</div>` : ''}
@@ -884,11 +957,14 @@ function clearAllFeedback() {
 }
 
 function exportCSV() {
-    const headers = ['Date', 'Player', 'Team', 'Location', 'Session Themes', 'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 'Has Audio', 'Audio Filename', 'Timestamp'];
+    const headers = ['Date', 'Coach', 'Player', 'Squad', 'Team', 'Age Group', 'Location', 'Session Themes', 'Attended', 'Overall Rating', 'Special Mention', 'Player of Session', 'Has Audio', 'Audio Filename', 'Timestamp'];
     const rows = feedbackData.map(f => [
         f.sessionDate,
+        f.coach,
         f.player,
+        f.squad,
         f.team,
+        f.ageGroup,
         f.location,
         f.sessionThemes,
         f.attended ? 'Yes' : 'No',
@@ -905,8 +981,11 @@ function exportCSV() {
         if (!feedbackData.some(f => f.player === player)) {
             rows.push([
                 sessionDate,
+                document.getElementById('coachSelect').value || 'Not specified',
                 player,
+                document.getElementById('squadSelect').value || 'Not specified',
                 document.getElementById('teamSelect').value || 'Not specified',
+                document.getElementById('ageGroupSelect').value || 'Not specified',
                 document.getElementById('locationSelect').value || 'Not specified',
                 getSessionThemes(),
                 'Yes',
