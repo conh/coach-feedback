@@ -289,17 +289,17 @@
         }
         
         .player-card.has-feedback {
-            background: linear-gradient(135deg, #2d5a3d 0%, #1a3d29 100%);
+            background: rgba(0, 255, 136, 0.15);
             border-color: #00ff88;
-            color: white;
+            color: #212529;
         }
         
         .player-card.selected {
-            background: linear-gradient(135deg, #495057 0%, #343a40 100%);
-            color: white;
+            background: rgba(0, 255, 136, 0.15);
+            border-color: #00ff88;
+            color: #212529;
             transform: translateY(-4px) scale(1.05);
-            border-color: #6c757d;
-            box-shadow: 0 12px 32px rgba(73, 80, 87, 0.4);
+            box-shadow: 0 12px 32px rgba(0, 255, 136, 0.3);
         }
         
         .player-name {
@@ -364,9 +364,34 @@
         
         .rating-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
             gap: 8px;
             margin-top: 12px;
+        }
+        
+        @media (max-width: 480px) {
+            .rating-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+            
+            .rating-option {
+                padding: 10px 6px;
+                font-size: 11px;
+                line-height: 1.2;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .rating-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .rating-option {
+                padding: 12px 8px;
+                font-size: 12px;
+            }
         }
         
         .rating-option {
@@ -614,14 +639,16 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(135deg, #00ff88 0%, #2d5a3d 100%);
-            color: #000;
+            background: rgba(255, 255, 255, 0.95);
+            color: #495057;
+            border: 2px solid #dee2e6;
             padding: 16px 24px;
             border-radius: 12px;
             font-weight: 700;
             z-index: 1000;
             animation: slideInRight 0.3s ease-out;
-            box-shadow: 0 8px 24px rgba(0, 255, 136, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
         }
         
         @keyframes slideInRight {
@@ -779,59 +806,59 @@
                 <div style="margin-top: 24px;">
                     <label class="form-label">Session Themes</label>
                     <div class="checkbox-grid">
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme1')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme1', event)">
                             <input type="checkbox" name="sessionTheme" value="Rondos" id="theme1">
                             <label for="theme1">Rondos</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme2')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme2', event)">
                             <input type="checkbox" name="sessionTheme" value="1v1 Situations" id="theme2">
                             <label for="theme2">1v1 Situations</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme3')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme3', event)">
                             <input type="checkbox" name="sessionTheme" value="2v2/3v3 and More Situations, Including Overloads" id="theme3">
                             <label for="theme3">2v2/3v3 & Overloads</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme4')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme4', event)">
                             <input type="checkbox" name="sessionTheme" value="Passing & Receiving" id="theme4">
                             <label for="theme4">Passing & Receiving</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme5')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme5', event)">
                             <input type="checkbox" name="sessionTheme" value="Dribbling & Ball Control" id="theme5">
                             <label for="theme5">Dribbling & Ball Control</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme6')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme6', event)">
                             <input type="checkbox" name="sessionTheme" value="Shooting & Finishing" id="theme6">
                             <label for="theme6">Shooting & Finishing</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme7')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme7', event)">
                             <input type="checkbox" name="sessionTheme" value="Defending" id="theme7">
                             <label for="theme7">Defending</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme8')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme8', event)">
                             <input type="checkbox" name="sessionTheme" value="Attacking" id="theme8">
                             <label for="theme8">Attacking</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme9')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme9', event)">
                             <input type="checkbox" name="sessionTheme" value="Possession" id="theme9">
                             <label for="theme9">Possession</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme10')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme10', event)">
                             <input type="checkbox" name="sessionTheme" value="Small Sided Games" id="theme10">
                             <label for="theme10">Small Sided Games</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme11')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme11', event)">
                             <input type="checkbox" name="sessionTheme" value="Match Preparation" id="theme11">
                             <label for="theme11">Match Preparation</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme12')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme12', event)">
                             <input type="checkbox" name="sessionTheme" value="Speed & Agility" id="theme12">
                             <label for="theme12">Speed & Agility</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme13')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme13', event)">
                             <input type="checkbox" name="sessionTheme" value="Set Pieces" id="theme13">
                             <label for="theme13">Set Pieces</label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleSessionTheme('theme14')">
+                        <div class="checkbox-item" onclick="toggleSessionTheme('theme14', event)">
                             <input type="checkbox" name="sessionTheme" value="Mini Tournament" id="theme14">
                             <label for="theme14">Mini Tournament</label>
                         </div>
@@ -1005,7 +1032,12 @@ function getSessionThemes() {
 }
 
 // Session theme toggle functionality
-function toggleSessionTheme(themeId) {
+function toggleSessionTheme(themeId, event) {
+    // Prevent double-triggering if the checkbox itself was clicked
+    if (event && event.target.type === 'checkbox') {
+        return;
+    }
+    
     const checkbox = document.getElementById(themeId);
     const checkboxItem = checkbox.closest('.checkbox-item');
     
@@ -1017,6 +1049,20 @@ function toggleSessionTheme(themeId) {
         checkboxItem.classList.remove('selected');
     }
 }
+
+// Add event listeners for direct checkbox clicks
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('input[name="sessionTheme"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const checkboxItem = this.closest('.checkbox-item');
+            if (this.checked) {
+                checkboxItem.classList.add('selected');
+            } else {
+                checkboxItem.classList.remove('selected');
+            }
+        });
+    });
+});
 
 // Attendance tracking
 document.querySelectorAll('.attendance-btn').forEach(btn => {
