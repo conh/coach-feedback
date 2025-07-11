@@ -952,7 +952,7 @@
                             <label class="form-label">Voice Feedback</label>
                             <p style="font-size: 14px; color: #6c757d; margin-bottom: 16px;">Hold button and speak clearly for at least 2 seconds</p>
                             <button class="record-button" id="recordButton">
-                                🎤 Hold to Record
+                                Hold to Record
                             </button>
                             <div class="audio-status" id="audioStatus"></div>
                         </div>
@@ -961,16 +961,16 @@
                             <label class="form-label">Special Recognition</label>
                             <div class="special-mentions">
                                 <div class="mention-toggle" id="specialMention">
-                                    🏆 Special Mention
+                                    Special Mention
                                 </div>
                                 <div class="mention-toggle" id="playerOfSession">
-                                    ⭐ Player of Session
+                                    Player of Session
                                 </div>
                             </div>
                         </div>
                         
                         <button class="action-button" onclick="saveFeedback()">
-                            💾 Save Feedback
+                            Save Feedback
                         </button>
                     </div>
                 </div>
@@ -996,15 +996,15 @@
                 
                 <div class="export-actions">
                     <button class="export-button" onclick="exportCSV()">
-                        <span>📁</span> Download Training Data
+                        Download Training Data
                     </button>
                     <button class="export-button" onclick="downloadAllAudioFiles()">
-                        <span>🎤</span> Download Audio
+                        Download Audio
                     </button>
                 </div>
                 
                 <button class="action-button clear-button" onclick="clearAllFeedback()" style="margin-top: 16px;">
-                    🗑️ Clear All Data
+                    Clear All Data
                 </button>
             </div>
         </div>
@@ -1237,7 +1237,7 @@ async function startRecording() {
             
             document.getElementById('audioStatus').textContent = `✅ Recorded ${(recordingDuration/1000).toFixed(1)}s ${extension.toUpperCase()} file`;
             recordButton.classList.remove('recording');
-            recordButton.textContent = '🎤 Hold to Record';
+            recordButton.textContent = 'Hold to Record';
         };
 
         mediaRecorder.onerror = (event) => {
@@ -1250,8 +1250,8 @@ async function startRecording() {
 
         mediaRecorder.start(250);
         recordButton.classList.add('recording');
-        recordButton.textContent = '🔴 Recording...';
-        document.getElementById('audioStatus').textContent = '🔴 Recording... (hold and speak clearly)';
+        recordButton.textContent = 'Recording...';
+        document.getElementById('audioStatus').textContent = 'Recording... (hold and speak clearly)';
 
     } catch (error) {
         console.error('Recording error:', error);
@@ -1263,7 +1263,7 @@ function stopRecording() {
     if (mediaRecorder && mediaRecorder.state === 'recording') {
         mediaRecorder.stop();
         recordButton.classList.remove('recording');
-        recordButton.textContent = '🎤 Hold to Record';
+        recordButton.textContent = 'Hold to Record';
     }
 }
 
@@ -1357,7 +1357,7 @@ function displayFeedback() {
                 </div>
                 <span style="font-size: 14px; color: #6c757d;">${item.sessionDate}</span>
             </div>
-            ${item.feedback && item.feedback.hasAudio ? `<button class="export-button" onclick="downloadAudio('${item.feedback.filename}', '${item.id}')" style="margin-top: 12px; width: auto; padding: 8px 16px;">📁 Download Audio</button>` : ''}
+            ${item.feedback && item.feedback.hasAudio ? `<button class="export-button" onclick="downloadAudio('${item.feedback.filename}', '${item.id}')" style="margin-top: 12px; width: auto; padding: 8px 16px;">Download Audio</button>` : ''}
         `;
         list.appendChild(div);
     });
