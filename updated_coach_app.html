@@ -1,19 +1,4 @@
-        .checkbox-item input[type="checkbox"]:checked + label,
-        .checkbox-item:has(input[type="checkbox"]:checked) {
-            background: rgba(0, 255, 136, 0.15) !important;
-            border-color: #00ff88 !important;
-            color: #212529 !important;
-        }
-        
-        .checkbox-item:has(input[type="checkbox"]:checked) {
-            background: rgba(0, 255, 136, 0.15) !important;
-            border: 2px solid #00ff88 !important;
-            color: #212529 !important;
-        }
-        
-        .checkbox-item input[type="checkbox"]:checked {
-            accent-color: #00ff88;
-        }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -298,9 +283,9 @@
         }
         
         .player-card.has-feedback {
-            background: rgba(0, 255, 136, 0.15);
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a3d29 100%);
             border-color: #00ff88;
-            color: #212529;
+            color: white;
         }
         
         .player-card.selected {
@@ -400,9 +385,9 @@
         }
         
         .rating-option.selected {
-            background: rgba(0, 255, 136, 0.15);
+            background: linear-gradient(135deg, #00ff88 0%, #2d5a3d 100%);
             border-color: #00ff88;
-            color: #212529;
+            color: #000;
             transform: translateY(-2px);
         }
         
@@ -474,9 +459,9 @@
         }
         
         .mention-toggle.active {
-            background: rgba(0, 255, 136, 0.15);
+            background: linear-gradient(135deg, #00ff88 0%, #2d5a3d 100%);
             border-color: #00ff88;
-            color: #212529;
+            color: #000;
             transform: translateY(-2px);
         }
         
@@ -1005,18 +990,6 @@ let playerOfSessionActive = false;
 
 // Set today's date
 document.getElementById('sessionDate').valueAsDate = new Date();
-
-// Handle checkbox styling for session themes
-document.querySelectorAll('input[name="sessionTheme"]').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        const checkboxItem = this.closest('.checkbox-item');
-        if (this.checked) {
-            checkboxItem.classList.add('selected');
-        } else {
-            checkboxItem.classList.remove('selected');
-        }
-    });
-});
 
 // Get session themes
 function getSessionThemes() {
