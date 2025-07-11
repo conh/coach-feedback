@@ -940,11 +940,11 @@
                         <div class="form-field">
                             <label class="form-label">Overall Performance</label>
                             <div class="rating-grid">
-                                <div class="rating-option" data-rating="Excellent">⭐⭐⭐⭐⭐<br>Excellent</div>
-                                <div class="rating-option" data-rating="Very Good">⭐⭐⭐⭐<br>Very Good</div>
-                                <div class="rating-option" data-rating="Good">⭐⭐⭐<br>Good</div>
-                                <div class="rating-option" data-rating="Average">⭐⭐<br>Average</div>
-                                <div class="rating-option" data-rating="Needs Improvement">⭐<br>Needs Work</div>
+                                <div class="rating-option" data-rating="Excellent">Excellent</div>
+                                <div class="rating-option" data-rating="Very Good">Very Good</div>
+                                <div class="rating-option" data-rating="Good">Good</div>
+                                <div class="rating-option" data-rating="Average">Average</div>
+                                <div class="rating-option" data-rating="Needs Improvement">Needs Work</div>
                             </div>
                         </div>
                         
@@ -1102,7 +1102,7 @@ document.querySelectorAll('.feedback-btn').forEach(btn => {
         document.querySelectorAll('.rating-option').forEach(r => r.classList.remove('selected'));
         document.querySelectorAll('.mention-toggle').forEach(m => m.classList.remove('active'));
         document.getElementById('audioStatus').textContent = '';
-        document.getElementById('recordButton').textContent = '🎤 Hold to Record';
+        document.getElementById('recordButton').textContent = 'Hold to Record';
         document.getElementById('recordButton').classList.remove('recording');
     });
 });
@@ -1310,7 +1310,7 @@ function saveFeedback() {
     // Success notification
     const notification = document.createElement('div');
     notification.className = 'success-notification';
-    notification.textContent = `✅ Feedback saved for ${feedback.player}!`;
+    notification.textContent = `Feedback saved for ${feedback.player}!`;
     document.body.appendChild(notification);
     
     setTimeout(() => {
@@ -1340,8 +1340,8 @@ function displayFeedback() {
     list.innerHTML = '';
     feedbackData.slice(-5).reverse().forEach(item => {
         const badges = [];
-        if (item.specialMention) badges.push('🏆 Special Mention');
-        if (item.playerOfSession) badges.push('⭐ Player of Session');
+        if (item.specialMention) badges.push('Special Mention');
+        if (item.playerOfSession) badges.push('Player of Session');
         
         const div = document.createElement('div');
         div.className = 'feedback-item';
@@ -1350,7 +1350,7 @@ function displayFeedback() {
                 <div>
                     <div class="player-name-feedback">${item.player}</div>
                     <div class="feedback-meta">
-                        ${item.attended ? '✅ Present' : '❌ Absent'} • Rating: ${item.overallRating}<br>
+                        ${item.attended ? 'Present' : 'Absent'} • Rating: ${item.overallRating}<br>
                         Coach: ${item.coach} • Squad: ${item.squad} • Team: ${item.team}
                     </div>
                     ${badges.length > 0 ? `<div style="margin: 8px 0; font-size: 14px; color: #495057; font-weight: bold; text-align: left;">${badges.join(' • ')}</div>` : ''}
