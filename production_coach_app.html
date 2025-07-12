@@ -334,6 +334,101 @@
         let specialMentionActive = false;
         let playerOfSessionActive = false;
 
+        // Update summary
+        function updateSummary() {
+            const totalPlayers = 6;
+            const attendedCount = attendanceData.size;
+            
+            const attendanceElement = document.getElementById('attendanceCount');
+            attendanceElement.innerHTML = `<span class="attended">${attendedCount}</span> / ${totalPlayers}`;
+            
+            document.getElementById('feedbackCount').textContent = feedbackData.length;
+        }
+
+        // Display feedback
+        function displayFeedback() {
+            const list = document.getElementById('feedbackList');
+            
+            if (feedbackData.length === 0) {
+                list.innerHTML = '<p class="feedback-list-empty">No feedback recorded yet</p>';
+                return;
+            }
+
+            list.innerHTML = '';
+            feedbackData.slice(-5).reverse().forEach(item => {
+                const badges = [];
+                if (item.specialMention) badges.push('Special Mention');
+                if (item.playerOfSession) badges.push('Player of Session');
+                
+                const div = document.createElement('div');
+                div.className = 'feedback-item';
+                div.innerHTML = `
+                    <div class="feedback-header">
+                        <div>
+                            <div class="player-name-feedback">${item.player}</div>
+                            <div class="feedback-meta">
+                                ${item.attended ? 'Present' : 'Absent'} • Rating: ${item.overallRating}<br>
+                                Coach: ${item.coach} • Squad: ${item.squad} • Team: ${item.team}
+                            </div>
+                            ${badges.length > 0 ? `<div class="feedback-badges">${badges.join(' • ')}</div>` : ''}
+                        </div>
+                        <span class="feedback-date">${item.sessionDate}</span>
+                    </div>
+                    ${item.feedback && item.feedback.hasAudio ? `<button class="export-button" onclick="downloadAudio('${item.feedback.filename}', '${item.id}')">Download Audio</button>` : ''}
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        // Display feedback
+        function displayFeedback() {
+            const list = document.getElementById('feedbackList');
+            
+            if (feedbackData.length === 0) {
+                list.innerHTML = '<p class="feedback-list-empty">No feedback recorded yet</p>';
+                return;
+            }
+
+            list.innerHTML = '';
+            feedbackData.slice(-5).reverse().forEach(item => {
+                const badges = [];
+                if (item.specialMention) badges.push('Special Mention');
+                if (item.playerOfSession) badges.push('Player of Session');
+                
+                const div = document.createElement('div');
+                div.className = 'feedback-item';
+                div.innerHTML = `
+                    <div class="feedback-header">
+                        <div>
+                            <div class="player-name-feedback">${item.player}</div>
+                            <div class="feedback-meta">
+                                ${item.attended ? 'Present' : 'Absent'} • Rating: ${item.overallRating}<br>
+                                Coach: ${item.coach} • Squad: ${item.squad} • Team: ${item.team}
+                            </div>
+                            ${badges.length > 0 ? `<div class="feedback-badges">${badges.join(' • ')}</div>` : ''}
+                        </div>
+                        <span class="feedback-date">${item.sessionDate}</span>
+                    </div>
+                    ${item.feedback && item.feedback.hasAudio ? `<button class="export-button" onclick="downloadAudio('${item.feedback.filename}', '${item.id}')">Download Audio</button>` : ''}
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        // Notifications
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'success-notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 3000);
+        }
+
         // Initialize application
         function initializeApp() {
             // Set today's date
