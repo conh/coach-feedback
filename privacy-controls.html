@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Controls - Alex Rodriguez</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+            min-height: 100vh;
+            color: #212529;
+            line-height: 1.6;
+        }
+        
+        .app-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 500px;
+                margin: 20px auto;
+                border-radius: 24px;
+                box-shadow: 
+                    0 32px 64px rgba(0, 0, 0, 0.1),
+                    0 0 0 1px rgba(0, 0, 0, 0.05),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            }
+        }
+        
+        .header {
+            padding: 20px 24px;
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d5a3d 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .back-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .header-title {
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ff88 0%, #ffffff 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+        
+        .main-content {
+            padding: 24px;
+        }
+        
+        .privacy-section {
+            background: #ffffff;
+            border: 2px solid #e9ecef;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #00ff88 0%, #2d5a3d 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #212529;
+            letter-spacing: -0.01em;
+        }
+        
+        .organization-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .organization-card:hover {
+            border-color: #adb5bd;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+        
+        .org-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .org-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #495057;
+        }
+        
+        .org-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-full {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+        
+        .status-limited {
+            background: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+        
+        .status-none {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+        
+        .permission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .permission-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+        }
+        
+        .permission-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: #ccc;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: #00ff88;
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+        
+        .global-setting {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .global-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .global-toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 32px;
+            background: #ccc;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .global-toggle-switch.active {
+            background: #00ff88;
+        }
+        
+        .global-toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .global-toggle-switch.active::after {
+            transform: translateX(28px);
+        }
+        
+        .save-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #00ff88 0%, #2d5a3d 100%);
+            border: none;
+            border-radius: 16px;
+            color: #000;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+            letter-spacing: -0.01em;
+        }
+        
+        .save-button:hover {
+            box-shadow: 0 8px 24px rgba(0, 255, 136, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .info-box {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .info-text {
+            font-size: 14px;
+            color: #495057;
+            margin-bottom: 0;
+        }
+        
+        .audit-log {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+        
+        .audit-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 14px;
+        }
+        
+        .audit-item:last-child {
+            border-bottom: none;
+        }
+        
+        .audit-action {
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .audit-time {
+            color: #6c757d;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <a href="#" class="back-button" onclick="history.back()">← Back</a>
+            <h1 class="header-title">Privacy Controls</h1>
+            <div style="width: 60px;"></div>
+        </div>
+
+        <div class="main-content">
+            <div class="info-box">
+                <p class="info-text">
+                    <strong>Your Data, Your Control:</strong> You own all your football data. Organizations can only see what you choose to share. Changes take effect immediately.
+                </p>
+            </div>
+
+            <!-- Global Privacy Setting -->
+            <div class="global-setting">
+                <h2 style="margin-bottom: 8px; color: #495057;">Master Privacy Control</h2>
+                <p style="color: #6c757d; font-size: 14px;">Quickly hide all data from all organizations</p>
+                <div class="global-toggle">
+                    <span style="font-weight: 600; color: #495057;">Share Data with Organizations</span>
+                    <div class="global-toggle-switch active" onclick="toggleGlobal(this)" id="globalToggle"></div>
+                </div>
+            </div>
+
+            <!-- Organization Privacy Controls -->
+            <div class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">🏟️</div>
+                    <h2 class="section-title">Organization Access</h2>
+                </div>
+
+                <!-- Roehampton Elite FC -->
+                <div class="organization-card">
+                    <div class="org-header">
+                        <div class="org-name">Roehampton Elite FC U10</div>
+                        <div class="org-status status-full">Full Access</div>
+                    </div>
+                    <div class="permission-grid">
+                        <div class="permission-item">
+                            <span class="permission-label">Match Stats</span>
+                            <div class="toggle-switch active" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Training Data</span>
+                            <div class="toggle-switch active" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Skill Ratings</span>
+                            <div class="toggle-switch active" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Media Content</span>
+                            <div class="toggle-switch active" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Contact Info</span>
+                            <div class="toggle-switch active" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Other Clubs</span>
+                            <div class="toggle-switch" onclick="togglePermission(this)"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manchester City Academy -->
+                <div class="organization-card">
+                    <div class="org-header">
+                        <div class="org-name">Manchester City Academy</div>
+                        <div class="org-status status-limited">Limited Access</div>
+                    </div>
+                    <div class="permission-grid">
+                        <div class="permission-item">
+                            <span class="permission-label">Match Stats</span>
+                            <div class="toggle-switch" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Training Data</span>
+                            <div class="toggle-switch active" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Skill Ratings</span>
+                            <div class="toggle-switch active" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Media Content</span>
+                            <div class="toggle-switch" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Contact Info</span>
+                            <div class="toggle-switch" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Other Clubs</span>
+                            <div class="toggle-switch" onclick="togglePermission(this)"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Future Academy -->
+                <div class="organization-card">
+                    <div class="org-header">
+                        <div class="org-name">Wimbledon Football School</div>
+                        <div class="org-status status-none">No Access</div>
+                    </div>
+                    <div class="permission-grid">
+                        <div class="permission-item">
+                            <span class="permission-label">Match Stats</span>
+                            <div class="toggle-switch" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Training Data</span>
+                            <div class="toggle-switch" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Skill Ratings</span>
+                            <div class="toggle-switch" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Media Content</span>
+                            <div class="toggle-switch" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Contact Info</span>
+                            <div class="toggle-switch" onclick="togglePermission(this)"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-label">Other Clubs</span>
+                            <div class="toggle-switch" onclick="togglePermission(this)"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Sharing Requests -->
+            <div class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">📋</div>
+                    <h2 class="section-title">Pending Requests</h2>
+                </div>
+                
+                <div class="organization-card">
+                    <div class="org-header">
+                        <div class="org-name">Chelsea FC Academy</div>
+                        <div style="display: flex; gap: 8px;">
+                            <button style="padding: 6px 12px; background: #28a745; color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer;">Approve</button>
+                            <button style="padding: 6px 12px; background: #dc3545; color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer;">Deny</button>
+                        </div>
+                    </div>
+                    <p style="color: #6c757d; font-size: 14px; margin: 0;">
+                        Requesting access to training data and skill ratings for trial assessment.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Activity Log -->
+            <div class="privacy-section">
+                <div class="section-header">
+                    <div class="section-icon">📊</div>
+                    <h2 class="section-title">Recent Activity</h2>
+                </div>
+                
+                <div class="audit-log">
+                    <div class="audit-item">
+                        <span class="audit-action">Manchester City Academy viewed training data</span>
+                        <span class="audit-time">2 hours ago</span>
+                    </div>
+                    <div class="audit-item">
+                        <span class="audit-action">Roehampton Elite FC updated match stats</span>
+                        <span class="audit-time">1 day ago</span>
+                    </div>
+                    <div class="audit-item">
+                        <span class="audit-action">You shared skill ratings with Man City</span>
+                        <span class="audit-time">3 days ago</span>
+                    </div>
+                    <div class="audit-item">
+                        <span class="audit-action">Arsenal Academy requested access</span>
+                        <span class="audit-time">1 week ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="save-button" onclick="savePrivacySettings()">
+                Save Privacy Settings
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function togglePermission(element) {
+            element.classList.toggle('active');
+            updateOrgStatus();
+        }
+
+        function toggleGlobal(element) {
+            element.classList.toggle('active');
+            const isActive = element.classList.contains('active');
+            
+            // Toggle all individual permissions
+            const allToggles = document.querySelectorAll('.toggle-switch');
+            allToggles.forEach(toggle => {
+                if (isActive) {
+                    toggle.classList.add('active');
+                } else {
+                    toggle.classList.remove('active');
+                }
+            });
+            
+            updateOrgStatus();
+        }
+
+        function updateOrgStatus() {
+            const orgCards = document.querySelectorAll('.organization-card');
+            
+            orgCards.forEach(card => {
+                const toggles = card.querySelectorAll('.toggle-switch');
+                const activeToggles = card.querySelectorAll('.toggle-switch.active');
+                const statusElement = card.querySelector('.org-status');
+                
+                if (activeToggles.length === 0) {
+                    statusElement.textContent = 'No Access';
+                    statusElement.className = 'org-status status-none';
+                } else if (activeToggles.length === toggles.length) {
+                    statusElement.textContent = 'Full Access';
+                    statusElement.className = 'org-status status-full';
+                } else {
+                    statusElement.textContent = 'Limited Access';
+                    statusElement.className = 'org-status status-limited';
+                }
+            });
+        }
+
+        function savePrivacySettings() {
+            // Simulate saving
+            const button = document.querySelector('.save-button');
+            const originalText = button.textContent;
+            
+            button.textContent = 'Saving...';
+            button.style.background = '#28a745';
+            
+            setTimeout(() => {
+                button.textContent = 'Settings Saved ✓';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #00ff88 0%, #2d5a3d 100%)';
+                }, 2000);
+            }, 1500);
+        }
+
+        // Initialize status on page load
+        document.addEventListener('DOMContentLoaded', updateOrgStatus);
+    </script>
+</body>
+</html>
