@@ -225,11 +225,6 @@
             border-bottom: none;
         }
         
-        .menu-item-icon {
-            margin-right: 12px;
-            font-size: 14px;
-        }
-        
         .hero-title {
             font-size: 24px;
             font-weight: 800;
@@ -890,22 +885,22 @@
             </div>
             <div class="menu-items">
                 <button class="menu-item" onclick="openPlayerProfiles()">
-                    <span class="menu-item-icon">👥</span>Player Profiles
+                    Player Profiles
                 </button>
                 <button class="menu-item" onclick="openSessionHistory()">
-                    <span class="menu-item-icon">📊</span>Session History
+                    Session History
                 </button>
                 <button class="menu-item" onclick="openCoachSettings()">
-                    <span class="menu-item-icon">⚙️</span>Coach Settings
+                    Coach Settings
                 </button>
                 <button class="menu-item" onclick="exportAllData()">
-                    <span class="menu-item-icon">📥</span>Export All Data
+                    Export All Data
                 </button>
                 <button class="menu-item" onclick="importPlayers()">
-                    <span class="menu-item-icon">📤</span>Import Players
+                    Import Players
                 </button>
                 <button class="menu-item" onclick="openHelp()">
-                    <span class="menu-item-icon">❓</span>Help & Support
+                    Help & Support
                 </button>
             </div>
         </div>
@@ -939,20 +934,9 @@
                         <label class="form-label">Squad</label>
                         <select id="squadSelect" class="form-select">
                             <option value="">Select Squad</option>
-                            <option value="Youth Academy">Youth Academy</option>
+                            <option value="Pre Academy">Pre Academy</option>
                             <option value="Development">Development</option>
-                            <option value="Senior">Senior</option>
-                            <option value="Reserves">Reserves</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-field">
-                        <label class="form-label">Team</label>
-                        <select id="teamSelect" class="form-select">
-                            <option value="">Select Team</option>
-                            <option value="Team A">Team A</option>
-                            <option value="Team B">Team B</option>
-                            <option value="Team C">Team C</option>
+                            <option value="Elite">Elite</option>
                         </select>
                     </div>
                     
@@ -977,12 +961,21 @@
                     </div>
                     
                     <div class="form-field">
+                        <label class="form-label">Team</label>
+                        <select id="teamSelect" class="form-select">
+                            <option value="">Select Team</option>
+                            <option value="Team A">Team A</option>
+                            <option value="Team B">Team B</option>
+                            <option value="Team C">Team C</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-field">
                         <label class="form-label">Location</label>
                         <select id="locationSelect" class="form-select">
                             <option value="">Training Location</option>
-                            <option value="Main Training Ground">Main Training Ground</option>
-                            <option value="Academy Pitch">Academy Pitch</option>
-                            <option value="Sports Centre">Sports Centre</option>
+                            <option value="Richmond Park Academy">Richmond Park Academy</option>
+                            <option value="St Paul's School">St Paul's School</option>
                         </select>
                     </div>
                 </div>
@@ -1766,4 +1759,5 @@ displayFeedback();
 </script>
 </body>
 </html>
+    
                 
