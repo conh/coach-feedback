@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Rodriguez - Player Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #00ff88 0%, #ffffff 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+        
+        .header-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d5a3d 100%);
+        }
+        
+        .logo-glow {
+            filter: drop-shadow(0 8px 24px rgba(0, 255, 136, 0.4));
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-md mx-auto bg-white min-h-screen">
+        <!-- Header -->
+        <div class="p-6 text-white header-bg">
+            <div class="flex items-center gap-4">
+                <!-- Player Avatar -->
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-20 h-20">
+                    <path d="M20 35 Q15 25 25 20 Q35 15 50 18 Q65 15 75 20 Q85 25 80 35 Q82 40 78 45 Q75 50 70 48 Q65 52 50 50 Q35 52 30 48 Q25 50 22 45 Q18 40 20 35 Z" fill="#8B5A3C"/>
+                    <ellipse cx="50" cy="50" rx="25" ry="28" fill="#F4D1A6"/>
+                    <ellipse cx="42" cy="45" rx="2" ry="4" fill="#4A4A4A"/>
+                    <ellipse cx="58" cy="45" rx="2" ry="4" fill="#4A4A4A"/>
+                    <ellipse cx="50" cy="52" rx="1.5" ry="2" fill="#E6C193"/>
+                    <path d="M45 58 Q50 62 55 58" stroke="#D4A574" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="25" cy="50" rx="4" ry="6" fill="#F4D1A6"/>
+                    <ellipse cx="75" cy="50" rx="4" ry="6" fill="#F4D1A6"/>
+                    <rect x="40" y="75" width="20" height="15" fill="#F4D1A6"/>
+                    <path d="M25 85 Q30 80 40 82 L40 100 L60 100 L60 82 Q70 80 75 85 L75 100 L25 100 Z" fill="#00B894"/>
+                    <path d="M40 82 Q50 78 60 82 L60 88 Q50 84 40 88 Z" fill="#00A085"/>
+                </svg>
+                
+                <div class="flex-1">
+                    <h1 class="text-2xl font-bold gradient-text">Alex Rodriguez</h1>
+                    <p class="text-white/80 text-sm">Midfielder • #10</p>
+                    <p class="text-white/80 text-sm">Roehampton Elite FC U10</p>
+                </div>
+                
+                <div class="w-12 h-12 logo-glow">
+                    <svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="48" fill="#2d5a3d" stroke="#00ff88" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="35" fill="#ffffff" stroke="#2d5a3d" stroke-width="1"/>
+                        <g transform="translate(50, 50) scale(0.8)">
+                            <ellipse cx="0" cy="-15" rx="4" ry="5" fill="#1a1a1a"/>
+                            <ellipse cx="0" cy="-5" rx="6" ry="8" fill="#1a1a1a"/>
+                            <ellipse cx="-8" cy="-8" rx="2.5" ry="6" fill="#1a1a1a" transform="rotate(-30)"/>
+                            <ellipse cx="8" cy="-8" rx="2.5" ry="6" fill="#1a1a1a" transform="rotate(30)"/>
+                            <ellipse cx="-3" cy="8" rx="2.5" ry="8" fill="#1a1a1a" transform="rotate(-15)"/>
+                            <ellipse cx="5" cy="5" rx="2.5" ry="8" fill="#1a1a1a" transform="rotate(45)"/>
+                            <circle cx="12" cy="2" r="3" fill="#1a1a1a"/>
+                            <circle cx="12" cy="2" r="3" fill="none" stroke="#ffffff" stroke-width="0.5"/>
+                            <path d="M10,2 L14,2 M12,0 L12,4" stroke="#ffffff" stroke-width="0.5"/>
+                        </g>
+                        <path id="topArc" d="M 15 50 A 35 35 0 0 1 85 50" fill="none"/>
+                        <text font-size="6" font-weight="bold" fill="#ffffff">
+                            <textPath href="#topArc" startOffset="50%" text-anchor="middle">ROEHAMPTON ELITE</textPath>
+                        </text>
+                        <path id="bottomArc" d="M 85 50 A 35 35 0 0 1 15 50" fill="none"/>
+                        <text font-size="6" font-weight="bold" fill="#ffffff">
+                            <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">FOOTBALL CLUB</textPath>
+                        </text>
+                        <text x="18" y="55" font-size="5" font-weight="bold" fill="#ffffff">20</text>
+                        <text x="78" y="55" font-size="5" font-weight="bold" fill="#ffffff">24</text>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="mt-6 grid grid-cols-4 gap-3 text-center">
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 h-16 flex flex-col justify-center">
+                    <div class="text-lg font-bold">10</div>
+                    <div class="text-xs text-white/80">Age</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 h-16 flex flex-col justify-center">
+                    <div class="text-lg font-bold">4'2"</div>
+                    <div class="text-xs text-white/80">Height</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 h-16 flex flex-col justify-center">
+                    <div class="text-lg font-bold">Right</div>
+                    <div class="text-xs text-white/80">Foot</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 h-16 flex flex-col justify-center items-center">
+                    <div class="flex gap-1 justify-center">
+                        <span class="text-lg cursor-pointer" title="Australia">🇦🇺</span>
+                        <span class="text-lg cursor-pointer" title="United Kingdom">🇬🇧</span>
+                    </div>
+                    <div class="text-xs text-white/80">Passports</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex border-b border-gray-200 bg-white sticky top-0 z-10 shadow-sm">
+            <button class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-blue-600 border-b-2 border-blue-600 bg-blue-50" data-tab="overview">
+                Overview
+            </button>
+            <button class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-tab="skills">
+                Skills
+            </button>
+            <button class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-tab="stats">
+                Stats
+            </button>
+            <button class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-tab="contact">
+                Contact
+            </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="p-4">
+            <!-- Overview Tab -->
+            <div id="overview-tab" class="tab-content space-y-6">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-3">Top Strengths</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="bg-white p-3 rounded-lg"><span class="font-medium text-gray-900">Desire</span></div>
+                        <div class="bg-white p-3 rounded-lg"><span class="font-medium text-gray-900">Vision</span></div>
+                        <div class="bg-white p-3 rounded-lg"><span class="font-medium text-gray-900">Passing</span></div>
+                        <div class="bg-white p-3 rounded-lg"><span class="font-medium text-gray-900">Pace</span></div>
+                        <div class="bg-white p-3 rounded-lg"><span class="font-medium text-gray-900">Shooting</span></div>
+                        <div class="bg-white p-3 rounded-lg"><span class="font-medium text-gray-900">Strength</span></div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-3">Development Pathway</h3>
+                    <div class="space-y-3">
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-semibold text-gray-900">Chelsea FC</div>
+                                    <div class="text-sm text-gray-600">Jul-Dec 2025</div>
+                                </div>
+                                <div class="bg-transparent border border-yellow-500 text-yellow-700 px-2 py-1 rounded-full text-xs font-medium">
+                                    Invitation only
+                                </div>
+                            </div>
+                            <div class="text-sm text-gray-700">Chelsea Player Development Centre</div>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-gray-800">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-semibold text-gray-900">Fulham FC</div>
+                                    <div class="text-sm text-gray-600">Sep-current 2025</div>
+                                </div>
+                                <div class="bg-transparent border border-yellow-500 text-yellow-700 px-2 py-1 rounded-full text-xs font-medium">
+                                    Invitation only
+                                </div>
+                            </div>
+                            <div class="text-sm text-gray-700">Player Pathway</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-3">Overview</h3>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        Alex is an exceptional young midfielder who demonstrates remarkable game intelligence for his age. His natural ability to read the game and find space consistently impresses coaches, while his positive attitude and willingness to learn make him a joy to work with during training sessions.
+                    </p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-3">Media</h3>
+                    <div class="space-y-3">
+                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-white p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-medium text-gray-900">Regional Tournament Goals</div>
+                                <div class="text-sm text-gray-600">Highlights from MVP performance</div>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=M7lc1UVf-VE" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-white p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-medium text-gray-900">Skills Training Session</div>
+                                <div class="text-sm text-gray-600">Passing and ball control drills</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-3">Achievements</h3>
+                    <div class="space-y-2">
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="font-medium text-gray-900">Regional Tournament MVP</div>
+                            <div class="text-sm text-gray-600">2024</div>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="font-medium text-gray-900">Regional Tournament Top Scorer</div>
+                            <div class="text-sm text-gray-600">2024</div>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="font-medium text-gray-900">Club Player of the Month</div>
+                            <div class="text-sm text-gray-600">Sept 2024</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Tab -->
+            <div id="skills-tab" class="tab-content space-y-6 hidden">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4">Technical Skills</h3>
+                    <div id="technical-skills"></div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4">Physical</h3>
+                    <div id="physical-skills"></div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4">Mental</h3>
+                    <div id="mental-skills"></div>
+                </div>
+            </div>
+
+            <!-- Stats Tab -->
+            <div id="stats-tab" class="tab-content space-y-6 hidden">
+                <div class="flex border-b border-gray-200 bg-white rounded-lg overflow-hidden">
+                    <button class="stats-tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-blue-600 border-b-2 border-blue-600 bg-blue-50" data-stats-tab="games">Games</button>
+                    <button class="stats-tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-stats-tab="training">Training</button>
+                </div>
+
+                <div id="games-stats" class="stats-content space-y-6">
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="font-bold text-gray-900 mb-4">Season Statistics</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-gray-900">24</div>
+                                <div class="text-sm text-gray-600">Games Played</div>
+                            </div>
+                            <div class="text-center bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-gray-900">12</div>
+                                <div class="text-sm text-gray-600">Goals</div>
+                            </div>
+                            <div class="text-center bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-gray-900">8</div>
+                                <div class="text-sm text-gray-600">Assists</div>
+                            </div>
+                            <div class="text-center bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-gray-900">32</div>
+                                <div class="text-sm text-gray-600">Hours Played</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="font-bold text-gray-900 mb-4">Discipline</h3>
+                        <div class="flex justify-around">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-gray-900">2</div>
+                                <div class="text-sm text-gray-600">Yellow Cards</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-gray-900">0</div>
+                                <div class="text-sm text-gray-600">Red Cards</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="training-stats" class="stats-content space-y-6 hidden">
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="font-bold text-gray-900 mb-4">Attendance & Participation</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-gray-900">28</div>
+                                <div class="text-sm text-gray-600">Sessions Attended</div>
+                            </div>
+                            <div class="text-center bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-gray-900">88%</div>
+                                <div class="text-sm text-gray-600">Attendance Rate</div>
+                            </div>
+                            <div class="text-center bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-gray-900">8.2</div>
+                                <div class="text-sm text-gray-600">Avg. Performance</div>
+                            </div>
+                            <div class="text-center bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-gray-900">9.1</div>
+                                <div class="text-sm text-gray-600">Effort Score</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Tab -->
+            <div id="contact-tab" class="tab-content space-y-6 hidden">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4">Contact Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="text-blue-600">📞</span>
+                            <div>
+                                <div class="font-medium">(555) 123-4567</div>
+                                <div class="text-sm text-gray-600">Phone</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-blue-600">📧</span>
+                            <div>
+                                <div class="font-medium">alex.rodriguez@email.com</div>
+                                <div class="text-sm text-gray-600">Email</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-blue-600">👥</span>
+                            <div>
+                                <div class="font-medium">Maria Rodriguez</div>
+                                <div class="text-sm text-gray-600">Parent/Guardian</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-4 border-2 border-blue-200">
+                    <h3 class="font-bold text-gray-900 mb-3">🔒 Privacy Controls</h3>
+                    <p class="text-sm text-gray-700 mb-4">Control what data you share with clubs and academies. You own your football data.</p>
+                    <a href="privacy-controls.html" class="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                        ⚙️ Manage Privacy Settings
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const playerData = {
+            technical: { ballControl: 82, dribbling: 78, firstTouch: 80, passing: 85, shooting: 75, crossing: 72 },
+            physical: { speed: 76, acceleration: 74, stamina: 82, strength: 68, jumping: 70, agility: 79 },
+            mental: { vision: 83, positioning: 78, decisionMaking: 75, leadership: 72, workRate: 88, attitude: 90 }
+        };
+
+        function createStarRating(value) {
+            const fullStars = Math.floor(value / 20);
+            const hasHalfStar = (value % 20) >= 10;
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            let starsHTML = '';
+            
+            for (let i = 0; i < fullStars; i++) starsHTML += '<span class="text-yellow-400 text-lg">★</span>';
+            if (hasHalfStar) starsHTML += '<span class="text-yellow-400 text-lg relative inline-block"><span class="text-gray-300">☆</span><span class="absolute left-0 top-0 overflow-hidden w-1/2 text-yellow-400">★</span></span>';
+            for (let i = 0; i < emptyStars; i++) starsHTML += '<span class="text-gray-300 text-lg">☆</span>';
+            
+            return starsHTML;
+        }
+
+        function createSkillBar(name, value) {
+            return `<div class="flex items-center justify-between mb-3">
+                <span class="text-sm font-medium text-gray-700 w-24 text-left">${name}</span>
+                <div class="flex-1 mx-3 flex items-center gap-1">${createStarRating(value)}</div>
+                <span class="text-sm font-bold text-gray-900 w-8 text-right">${value}</span>
+            </div>`;
+        }
+
+        function formatSkillName(key) {
+            return key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+        }
+
+        function populateSkills() {
+            document.getElementById('technical-skills').innerHTML = Object.entries(playerData.technical).map(([key, value]) => createSkillBar(formatSkillName(key), value)).join('');
+            document.getElementById('physical-skills').innerHTML = Object.entries(playerData.physical).map(([key, value]) => createSkillBar(formatSkillName(key), value)).join('');
+            document.getElementById('mental-skills').innerHTML = Object.entries(playerData.mental).map(([key, value]) => createSkillBar(formatSkillName(key), value)).join('');
+        }
+
+        function initTabs() {
+            document.querySelectorAll('.tab-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabName = button.getAttribute('data-tab');
+                    document.querySelectorAll('.tab-btn').forEach(btn => btn.className = 'tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50');
+                    button.className = 'tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-blue-600 border-b-2 border-blue-600 bg-blue-50';
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+                    document.getElementById(tabName + '-tab').classList.remove('hidden');
+                });
+            });
+        }
+
+        function initStatsTabs() {
+            document.querySelectorAll('.stats-tab-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabName = button.getAttribute('data-stats-tab');
+                    document.querySelectorAll('.stats-tab-btn').forEach(btn => btn.className = 'stats-tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50');
+                    button.className = 'stats-tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-blue-600 border-b-2 border-blue-600 bg-blue-50';
+                    document.querySelectorAll('.stats-content').forEach(content => content.classList.add('hidden'));
+                    document.getElementById(tabName + '-stats').classList.remove('hidden');
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateSkills();
+            initTabs();
+            initStatsTabs();
+        });
+    </script>
+</body>
+</html>
