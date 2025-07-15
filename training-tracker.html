@@ -31,6 +31,16 @@
             box-shadow: 0 4px 20px rgba(0, 255, 136, 0.1);
         }
 
+        .time-toggle.active {
+            background: linear-gradient(135deg, #00ff88 0%, #00b894 100%);
+            color: white;
+        }
+
+        .rank-below {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #6c757d;
+        }
+
         .form-input:focus {
             border-color: #00ff88;
             box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
@@ -178,6 +188,174 @@
                                 <div class="bg-gray-300 h-2 rounded-full" style="width: 0%"></div>
                             </div>
                             <span class="text-sm font-bold text-gray-400">0min</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Leaderboard -->
+                <div class="bg-gray-50 rounded-lg p-4 training-card">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-gray-900">Team Leaderboard</h3>
+                    </div>
+                    
+                    <!-- Time Period Toggle -->
+                    <div class="flex bg-gray-200 rounded-lg p-1 mb-4">
+                        <button class="time-toggle flex-1 py-2 px-3 text-xs font-medium rounded-md transition-all active" data-period="daily" data-scope="team">
+                            Daily
+                        </button>
+                        <button class="time-toggle flex-1 py-2 px-3 text-xs font-medium rounded-md transition-all text-gray-600" data-period="weekly" data-scope="team">
+                            Weekly
+                        </button>
+                        <button class="time-toggle flex-1 py-2 px-3 text-xs font-medium rounded-md transition-all text-gray-600" data-period="monthly" data-scope="team">
+                            Monthly
+                        </button>
+                    </div>
+
+                    <!-- Team Ranking Content -->
+                    <div id="team-ranking-content">
+                        <div class="text-center mb-4">
+                            <div class="text-3xl font-bold text-gray-900 mb-1">3rd</div>
+                            <div class="text-sm text-gray-600">of 15 players</div>
+                            <div class="flex items-center justify-center gap-1 mt-2">
+                                <span class="text-green-600 text-sm">↑2</span>
+                                <span class="text-xs text-gray-500">since yesterday</span>
+                            </div>
+                        </div>
+
+                        <!-- Ranking Ladder -->
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
+                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">1</div>
+                                <div class="flex-1 text-sm">Teammate</div>
+                                <div class="text-xs font-medium">95pts</div>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
+                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">2</div>
+                                <div class="flex-1 text-sm">Teammate</div>
+                                <div class="text-xs font-medium">87pts</div>
+                            </div>
+                            
+                            <!-- Alex's Position - Highlighted -->
+                            <div class="flex items-center gap-3 bg-white p-3 rounded-lg border-2 border-green-500" style="background: rgba(0, 255, 136, 0.15); border-color: #00ff88; color: #212529;">
+                                <div class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold">3</div>
+                                <div class="flex-1 text-sm font-medium">You (Alex)</div>
+                                <div class="text-xs font-bold">82pts</div>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
+                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">4</div>
+                                <div class="flex-1 text-sm">Teammate</div>
+                                <div class="text-xs font-medium">78pts</div>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
+                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">5</div>
+                                <div class="flex-1 text-sm">Teammate</div>
+                                <div class="text-xs font-medium">71pts</div>
+                            </div>
+                            
+                            <!-- Show More Toggle -->
+                            <button class="w-full text-center text-xs text-gray-500 py-2 hover:text-gray-700" onclick="toggleShowMore('team')">
+                                <span id="team-show-more-text">Show more ↓</span>
+                            </button>
+                            
+                            <!-- Hidden additional rankings -->
+                            <div id="team-more-rankings" class="hidden space-y-2">
+                                <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
+                                    <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">6</div>
+                                    <div class="flex-1 text-sm">Teammate</div>
+                                    <div class="text-xs font-medium">65pts</div>
+                                </div>
+                                <div class="text-center text-xs text-gray-500 py-1">... and 9 more players</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regional Leaderboard -->
+                <div class="bg-gray-50 rounded-lg p-4 training-card">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-gray-900">Regional Leaderboard</h3>
+                    </div>
+                    
+                    <!-- Time Period Toggle -->
+                    <div class="flex bg-gray-200 rounded-lg p-1 mb-4">
+                        <button class="time-toggle flex-1 py-2 px-3 text-xs font-medium rounded-md transition-all active" data-period="daily" data-scope="london">
+                            Daily
+                        </button>
+                        <button class="time-toggle flex-1 py-2 px-3 text-xs font-medium rounded-md transition-all text-gray-600" data-period="weekly" data-scope="london">
+                            Weekly
+                        </button>
+                        <button class="time-toggle flex-1 py-2 px-3 text-xs font-medium rounded-md transition-all text-gray-600" data-period="monthly" data-scope="london">
+                            Monthly
+                        </button>
+                    </div>
+
+                    <!-- London Ranking Content -->
+                    <div id="london-ranking-content">
+                        <div class="text-center mb-4">
+                            <div class="text-3xl font-bold text-gray-900 mb-1">47th</div>
+                            <div class="text-sm text-gray-600">of 1,247 players</div>
+                            <div class="text-xs text-green-600 font-medium">Top 4% in London</div>
+                            <div class="flex items-center justify-center gap-1 mt-2">
+                                <span class="text-green-600 text-sm">↑12</span>
+                                <span class="text-xs text-gray-500">since yesterday</span>
+                            </div>
+                        </div>
+
+                        <!-- Regional Context -->
+                        <div class="bg-white p-3 rounded-lg mb-3">
+                            <div class="text-xs text-gray-600 mb-2">Regional Position</div>
+                            <div class="flex items-center gap-2">
+                                <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 96%"></div>
+                                </div>
+                                <span class="text-xs font-bold text-gray-900">96%</span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1">Better than 1,200 other players</div>
+                        </div>
+
+                        <!-- Top Regional Players (Alex's nearby range) -->
+                        <div class="space-y-2">
+                            <div class="text-xs text-gray-600 mb-2">Players near your level:</div>
+                            
+                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
+                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">44</div>
+                                <div class="flex-1 text-sm">Player in London</div>
+                                <div class="text-xs font-medium">95pts</div>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
+                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">45</div>
+                                <div class="flex-1 text-sm">Player in Reading</div>
+                                <div class="text-xs font-medium">89pts</div>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
+                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">46</div>
+                                <div class="flex-1 text-sm">Player in London</div>
+                                <div class="text-xs font-medium">84pts</div>
+                            </div>
+                            
+                            <!-- Alex's Position -->
+                            <div class="flex items-center gap-3 bg-white p-3 rounded-lg border-2 border-green-500" style="background: rgba(0, 255, 136, 0.15); border-color: #00ff88; color: #212529;">
+                                <div class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold">47</div>
+                                <div class="flex-1 text-sm font-medium">You (Alex)</div>
+                                <div class="text-xs font-bold">82pts</div>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
+                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">48</div>
+                                <div class="flex-1 text-sm">Player in Milton Keynes</div>
+                                <div class="text-xs font-medium">81pts</div>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
+                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">49</div>
+                                <div class="flex-1 text-sm">Player in London</div>
+                                <div class="text-xs font-medium">78pts</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -483,7 +661,98 @@
             });
         }
 
-        function handleFormSubmit(event) {
+        // Sample data for different time periods and scopes
+        const rankingData = {
+            team: {
+                daily: { position: 3, total: 15, points: 82, change: 2, changeText: "since yesterday" },
+                weekly: { position: 4, total: 15, points: 245, change: -1, changeText: "since last week" },
+                monthly: { position: 2, total: 15, points: 1050, change: 1, changeText: "since last month" }
+            },
+            london: {
+                daily: { position: 47, total: 1247, points: 82, change: 12, changeText: "since yesterday" },
+                weekly: { position: 52, total: 1247, points: 245, change: -5, changeText: "since last week" },
+                monthly: { position: 38, total: 1247, points: 1050, change: 9, changeText: "since last month" }
+            }
+        };
+
+        function updateRankingDisplay(scope, period) {
+            const data = rankingData[scope][period];
+            
+            // Update main position display
+            const content = document.getElementById(`${scope}-ranking-content`);
+            
+            // Update position number
+            content.querySelector('.text-3xl').textContent = `${data.position}${getOrdinalSuffix(data.position)}`;
+            
+            // Update total players
+            content.querySelector('.text-sm.text-gray-600').textContent = `of ${data.total.toLocaleString()} players`;
+            
+            // Update change indicator
+            const changeElement = content.querySelector('.text-green-600.text-sm') || content.querySelector('.text-red-600.text-sm');
+            if (changeElement) {
+                changeElement.textContent = data.change > 0 ? `↑${data.change}` : data.change < 0 ? `↓${Math.abs(data.change)}` : '→';
+                changeElement.className = data.change > 0 ? 'text-green-600 text-sm' : data.change < 0 ? 'text-red-600 text-sm' : 'text-gray-600 text-sm';
+            }
+            
+            // Update change text
+            const changeTextElement = content.querySelector('.text-xs.text-gray-500');
+            if (changeTextElement) {
+                changeTextElement.textContent = data.changeText;
+            }
+
+            // Update percentile for London
+            if (scope === 'london') {
+                const percentile = Math.round((1 - data.position / data.total) * 100);
+                const percentileElement = content.querySelector('.text-xs.text-green-600');
+                if (percentileElement) {
+                    percentileElement.textContent = `Top ${Math.max(1, 100 - percentile)}% in London`;
+                }
+                
+                // Update progress bar
+                const progressBar = content.querySelector('.bg-green-500');
+                if (progressBar) {
+                    progressBar.style.width = `${percentile}%`;
+                }
+                
+                // Update "better than" text
+                const betterThanElement = content.querySelector('.text-xs.text-gray-500.mt-1');
+                if (betterThanElement) {
+                    const betterThan = data.total - data.position;
+                    betterThanElement.textContent = `Better than ${betterThan.toLocaleString()} other players`;
+                }
+            }
+
+            // Update points in ranking list - for both team and london
+            const alexRow = content.querySelector('[style*="background: rgba(0, 255, 136, 0.15)"]');
+            if (alexRow) {
+                const pointsElement = alexRow.querySelector('.text-xs.font-bold');
+                if (pointsElement) {
+                    pointsElement.textContent = `${data.points}pts`;
+                }
+            }
+        }
+
+        function getOrdinalSuffix(num) {
+            const j = num % 10;
+            const k = num % 100;
+            if (j == 1 && k != 11) return "";
+            if (j == 2 && k != 12) return "";
+            if (j == 3 && k != 13) return "";
+            return "";
+        }
+
+        function toggleShowMore(scope) {
+            const moreSection = document.getElementById(`${scope}-more-rankings`);
+            const toggleText = document.getElementById(`${scope}-show-more-text`);
+            
+            if (moreSection.classList.contains('hidden')) {
+                moreSection.classList.remove('hidden');
+                toggleText.textContent = 'Show less ↑';
+            } else {
+                moreSection.classList.add('hidden');
+                toggleText.textContent = 'Show more ↓';
+            }
+        }
             event.preventDefault();
             
             const formData = {
@@ -539,6 +808,26 @@
             
             // Initialize form handler
             document.getElementById('training-form').addEventListener('submit', handleFormSubmit);
+            
+            // Initialize leaderboard time period toggles
+            document.querySelectorAll('.time-toggle').forEach(button => {
+                button.addEventListener('click', () => {
+                    const period = button.getAttribute('data-period');
+                    const scope = button.getAttribute('data-scope');
+                    
+                    // Update active state
+                    document.querySelectorAll(`[data-scope="${scope}"]`).forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.classList.add('text-gray-600');
+                    });
+                    
+                    button.classList.add('active');
+                    button.classList.remove('text-gray-600');
+                    
+                    // Update ranking display
+                    updateRankingDisplay(scope, period);
+                });
+            });
             
             // Update initial stats and content
             updateStats();
