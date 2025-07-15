@@ -660,9 +660,13 @@
         }
 
         function initTabs() {
+            console.log('Initializing tabs...'); // Debug log
             document.querySelectorAll('.tab-btn').forEach(button => {
-                button.addEventListener('click', () => {
+                console.log('Adding click listener to:', button.getAttribute('data-tab')); // Debug log
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
                     const tabName = button.getAttribute('data-tab');
+                    console.log('Tab clicked:', tabName); // Debug log
                     
                     // Update tab buttons
                     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -674,7 +678,14 @@
                     document.querySelectorAll('.tab-content').forEach(content => {
                         content.classList.add('hidden');
                     });
-                    document.getElementById(tabName + '-tab').classList.remove('hidden');
+                    
+                    const targetTab = document.getElementById(tabName + '-tab');
+                    if (targetTab) {
+                        targetTab.classList.remove('hidden');
+                        console.log('Switched to tab:', tabName); // Debug log
+                    } else {
+                        console.error('Tab not found:', tabName + '-tab'); // Debug log
+                    }
                     
                     // Refresh content when switching to history tab
                     if (tabName === 'history') {
@@ -824,7 +835,7 @@
             // Set today's date as default
             document.getElementById('training-date').valueAsDate = new Date();
             
-            // Initialize tabs
+            // Initialize tabs - THIS MUST BE CALLED FIRST
             initTabs();
             
             // Initialize form handler
