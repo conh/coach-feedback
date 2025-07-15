@@ -1,173 +1,4 @@
-            <!-- Leaderboard Tab -->
-            <div id="leaderboard-tab" class="tab-content space-y-6 hidden">
-                <!-- Team Leaderboard -->
-                <div class="bg-gray-50 rounded-lg p-4 training-card">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="font-bold text-gray-900">Team Leaderboard</h3>
-                    </div>
-                    
-                    <!-- Time Period Toggle -->
-                    <div class="flex gap-2 mb-4">
-                        <div class="time-toggle selected" data-period="weekly" data-scope="team">
-                            Weekly
-                        </div>
-                        <div class="time-toggle" data-period="monthly" data-scope="team">
-                            Monthly
-                        </div>
-                    </div>
-
-                    <!-- Team Ranking Content -->
-                    <div id="team-ranking-content">
-                        <div class="text-center mb-4">
-                            <div class="text-3xl font-bold text-gray-900 mb-1">4th</div>
-                            <div class="text-sm text-gray-600">of 15 players</div>
-                            <div class="flex items-center justify-center gap-1 mt-2">
-                                <span class="text-red-600 text-sm">↓1</span>
-                                <span class="text-xs text-gray-500">since last week</span>
-                            </div>
-                        </div>
-
-                        <!-- Ranking Ladder -->
-                        <div class="space-y-2">
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">1</div>
-                                <div class="flex-1 text-sm">Teammate</div>
-                                <div class="text-xs font-medium">295pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">2</div>
-                                <div class="flex-1 text-sm">Teammate</div>
-                                <div class="text-xs font-medium">267pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">3</div>
-                                <div class="flex-1 text-sm">Teammate</div>
-                                <div class="text-xs font-medium">258pts</div>
-                            </div>
-                            
-                            <!-- Alex's Position - Highlighted -->
-                            <div class="flex items-center gap-3 bg-white p-3 rounded-lg border-2 border-green-500" style="background: rgba(0, 255, 136, 0.15); border-color: #00ff88; color: #212529;">
-                                <div class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold">4</div>
-                                <div class="flex-1 text-sm font-medium">You (Alex)</div>
-                                <div class="text-xs font-bold">245pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">5</div>
-                                <div class="flex-1 text-sm">Teammate</div>
-                                <div class="text-xs font-medium">223pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">6</div>
-                                <div class="flex-1 text-sm">Teammate</div>
-                                <div class="text-xs font-medium">198pts</div>
-                            </div>
-                            
-                            <!-- Show More Toggle -->
-                            <button class="w-full text-center text-xs text-gray-500 py-2 hover:text-gray-700" onclick="toggleShowMore('team')">
-                                <span id="team-show-more-text">Show more ↓</span>
-                            </button>
-                            
-                            <!-- Hidden additional rankings -->
-                            <div id="team-more-rankings" class="hidden space-y-2">
-                                <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                    <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">7</div>
-                                    <div class="flex-1 text-sm">Teammate</div>
-                                    <div class="text-xs font-medium">165pts</div>
-                                </div>
-                                <div class="text-center text-xs text-gray-500 py-1">... and 8 more players</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Regional Leaderboard -->
-                <div class="bg-gray-50 rounded-lg p-4 training-card">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="font-bold text-gray-900">Regional Leaderboard</h3>
-                    </div>
-                    
-                    <!-- Time Period Toggle -->
-                    <div class="flex gap-2 mb-4">
-                        <div class="time-toggle selected" data-period="weekly" data-scope="london">
-                            Weekly
-                        </div>
-                        <div class="time-toggle" data-period="monthly" data-scope="london">
-                            Monthly
-                        </div>
-                    </div>
-
-                    <!-- London Ranking Content -->
-                    <div id="london-ranking-content">
-                        <div class="text-center mb-4">
-                            <div class="text-3xl font-bold text-gray-900 mb-1">52nd</div>
-                            <div class="text-sm text-gray-600">of 1,247 players</div>
-                            <div class="text-xs text-green-600 font-medium">Top 4% in London</div>
-                            <div class="flex items-center justify-center gap-1 mt-2">
-                                <span class="text-red-600 text-sm">↓5</span>
-                                <span class="text-xs text-gray-500">since last week</span>
-                            </div>
-                        </div>
-
-                        <!-- Regional Context -->
-                        <div class="bg-white p-3 rounded-lg mb-3">
-                            <div class="text-xs text-gray-600 mb-2">Regional Position</div>
-                            <div class="flex items-center gap-2">
-                                <div class="flex-1 bg-gray-200 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full" style="width: 96%"></div>
-                                </div>
-                                <span class="text-xs font-bold text-gray-900">96%</span>
-                            </div>
-                            <div class="text-xs text-gray-500 mt-1">Better than 1,195 other players</div>
-                        </div>
-
-                        <!-- Top Regional Players (Alex's nearby range) -->
-                        <div class="space-y-2">
-                            <div class="text-xs text-gray-600 mb-2">Players near your level:</div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">49</div>
-                                <div class="flex-1 text-sm">Player in London</div>
-                                <div class="text-xs font-medium">289pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">50</div>
-                                <div class="flex-1 text-sm">Player in Reading</div>
-                                <div class="text-xs font-medium">267pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">51</div>
-                                <div class="flex-1 text-sm">Player in London</div>
-                                <div class="text-xs font-medium">252pts</div>
-                            </div>
-                            
-                            <!-- Alex's Position -->
-                            <div class="flex items-center gap-3 bg-white p-3 rounded-lg border-2 border-green-500" style="background: rgba(0, 255, 136, 0.15); border-color: #00ff88; color: #212529;">
-                                <div class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold">52</div>
-                                <div class="flex-1 text-sm font-medium">You (Alex)</div>
-                                <div class="text-xs font-bold">245pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">53</div>
-                                <div class="flex-1 text-sm">Player in Milton Keynes</div>
-                                <div class="text-xs font-medium">243pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">54</div>
-                                <div class="flex-1 text-sm">Player in London</div>
-                                <div class="text-xs font-medium">234pts</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -203,39 +34,6 @@
         .form-input:focus {
             border-color: #00ff88;
             box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
-        }
-
-        .time-toggle {
-            padding: 12px 8px;
-            background: #ffffff;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 12px;
-            font-weight: 700;
-            color: #6c757d;
-            line-height: 1.3;
-        }
-
-        .time-toggle:hover {
-            background: rgba(108, 117, 125, 0.1);
-            border-color: #495057;
-            color: #495057;
-            transform: translateY(-2px);
-        }
-
-        .time-toggle.selected {
-            background: rgba(0, 255, 136, 0.15);
-            border-color: #00ff88;
-            color: #212529;
-            transform: translateY(-2px);
-        }
-
-        .rank-below {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            color: #6c757d;
         }
     </style>
 </head>
@@ -312,19 +110,16 @@
         </div>
 
         <!-- Navigation Tabs -->
-        <div class="flex border-b border-gray-200 bg-white sticky top-0 z-20 shadow-sm">
-            <div class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-blue-600 border-b-2 border-blue-600 bg-blue-50 cursor-pointer" data-tab="dashboard">
+        <div class="flex border-b border-gray-200 bg-white sticky top-0 z-10 shadow-sm">
+            <button class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-blue-600 border-b-2 border-blue-600 bg-blue-50" data-tab="dashboard">
                 Dashboard
-            </div>
-            <div class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50 cursor-pointer" data-tab="leaderboard">
-                Leaderboard
-            </div>
-            <div class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50 cursor-pointer" data-tab="log">
+            </button>
+            <button class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-tab="log">
                 Log Training
-            </div>
-            <div class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50 cursor-pointer" data-tab="history">
+            </button>
+            <button class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-tab="history">
                 History
-            </div>
+            </button>
         </div>
 
         <!-- Tab Content -->
@@ -387,174 +182,6 @@
                     </div>
                 </div>
 
-                <!-- Team Leaderboard -->
-                <div class="bg-gray-50 rounded-lg p-4 training-card">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="font-bold text-gray-900">Team Leaderboard</h3>
-                    </div>
-                    
-                    <!-- Time Period Toggle -->
-                    <div class="flex gap-2 mb-4">
-                        <div class="time-toggle selected" data-period="weekly" data-scope="team">
-                            Weekly
-                        </div>
-                        <div class="time-toggle" data-period="monthly" data-scope="team">
-                            Monthly
-                        </div>
-                    </div>
-
-                    <!-- Team Ranking Content -->
-                    <div id="team-ranking-content">
-                        <div class="text-center mb-4">
-                            <div class="text-3xl font-bold text-gray-900 mb-1">4th</div>
-                            <div class="text-sm text-gray-600">of 15 players</div>
-                            <div class="flex items-center justify-center gap-1 mt-2">
-                                <span class="text-red-600 text-sm">↓1</span>
-                                <span class="text-xs text-gray-500">since last week</span>
-                            </div>
-                        </div>
-
-                        <!-- Ranking Ladder -->
-                        <div class="space-y-2">
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">1</div>
-                                <div class="flex-1 text-sm">Teammate</div>
-                                <div class="text-xs font-medium">295pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">2</div>
-                                <div class="flex-1 text-sm">Teammate</div>
-                                <div class="text-xs font-medium">267pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">3</div>
-                                <div class="flex-1 text-sm">Teammate</div>
-                                <div class="text-xs font-medium">258pts</div>
-                            </div>
-                            
-                            <!-- Alex's Position - Highlighted -->
-                            <div class="flex items-center gap-3 bg-white p-3 rounded-lg border-2 border-green-500" style="background: rgba(0, 255, 136, 0.15); border-color: #00ff88; color: #212529;">
-                                <div class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold">4</div>
-                                <div class="flex-1 text-sm font-medium">You (Alex)</div>
-                                <div class="text-xs font-bold">245pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">5</div>
-                                <div class="flex-1 text-sm">Teammate</div>
-                                <div class="text-xs font-medium">223pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">6</div>
-                                <div class="flex-1 text-sm">Teammate</div>
-                                <div class="text-xs font-medium">198pts</div>
-                            </div>
-                            
-                            <!-- Show More Toggle -->
-                            <button class="w-full text-center text-xs text-gray-500 py-2 hover:text-gray-700" onclick="toggleShowMore('team')">
-                                <span id="team-show-more-text">Show more ↓</span>
-                            </button>
-                            
-                            <!-- Hidden additional rankings -->
-                            <div id="team-more-rankings" class="hidden space-y-2">
-                                <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                    <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">7</div>
-                                    <div class="flex-1 text-sm">Teammate</div>
-                                    <div class="text-xs font-medium">165pts</div>
-                                </div>
-                                <div class="text-center text-xs text-gray-500 py-1">... and 8 more players</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Regional Leaderboard -->
-                <div class="bg-gray-50 rounded-lg p-4 training-card">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="font-bold text-gray-900">Regional Leaderboard</h3>
-                    </div>
-                    
-                    <!-- Time Period Toggle -->
-                    <div class="flex gap-2 mb-4">
-                        <div class="time-toggle selected" data-period="weekly" data-scope="london">
-                            Weekly
-                        </div>
-                        <div class="time-toggle" data-period="monthly" data-scope="london">
-                            Monthly
-                        </div>
-                    </div>
-
-                    <!-- London Ranking Content -->
-                    <div id="london-ranking-content">
-                        <div class="text-center mb-4">
-                            <div class="text-3xl font-bold text-gray-900 mb-1">52nd</div>
-                            <div class="text-sm text-gray-600">of 1,247 players</div>
-                            <div class="text-xs text-green-600 font-medium">Top 4% in London</div>
-                            <div class="flex items-center justify-center gap-1 mt-2">
-                                <span class="text-red-600 text-sm">↓5</span>
-                                <span class="text-xs text-gray-500">since last week</span>
-                            </div>
-                        </div>
-
-                        <!-- Regional Context -->
-                        <div class="bg-white p-3 rounded-lg mb-3">
-                            <div class="text-xs text-gray-600 mb-2">Regional Position</div>
-                            <div class="flex items-center gap-2">
-                                <div class="flex-1 bg-gray-200 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full" style="width: 96%"></div>
-                                </div>
-                                <span class="text-xs font-bold text-gray-900">96%</span>
-                            </div>
-                            <div class="text-xs text-gray-500 mt-1">Better than 1,195 other players</div>
-                        </div>
-
-                        <!-- Top Regional Players (Alex's nearby range) -->
-                        <div class="space-y-2">
-                            <div class="text-xs text-gray-600 mb-2">Players near your level:</div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">49</div>
-                                <div class="flex-1 text-sm">Player in London</div>
-                                <div class="text-xs font-medium">289pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">50</div>
-                                <div class="flex-1 text-sm">Player in Reading</div>
-                                <div class="text-xs font-medium">267pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">51</div>
-                                <div class="flex-1 text-sm">Player in London</div>
-                                <div class="text-xs font-medium">252pts</div>
-                            </div>
-                            
-                            <!-- Alex's Position -->
-                            <div class="flex items-center gap-3 bg-white p-3 rounded-lg border-2 border-green-500" style="background: rgba(0, 255, 136, 0.15); border-color: #00ff88; color: #212529;">
-                                <div class="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold">52</div>
-                                <div class="flex-1 text-sm font-medium">You (Alex)</div>
-                                <div class="text-xs font-bold">245pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">53</div>
-                                <div class="flex-1 text-sm">Player in Milton Keynes</div>
-                                <div class="text-xs font-medium">243pts</div>
-                            </div>
-                            
-                            <div class="flex items-center gap-3 bg-white p-2 rounded-lg rank-below">
-                                <div class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold">54</div>
-                                <div class="flex-1 text-sm">Player in London</div>
-                                <div class="text-xs font-medium">234pts</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Training Breakdown -->
                 <div class="bg-gray-50 rounded-lg p-4 training-card">
                     <h3 class="font-bold text-gray-900 mb-4">Training Breakdown</h3>
@@ -603,4 +230,321 @@
                             <span class="text-sm font-medium">15 training sessions</span>
                             <div class="flex items-center gap-2">
                                 <div class="w-16 bg-gray-200 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full" style="width: 73%">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 73%"></div>
+                                </div>
+                                <span class="text-sm font-bold text-gray-900">73%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Log Training Tab -->
+            <div id="log-tab" class="tab-content space-y-6 hidden">
+                <div class="bg-gray-50 rounded-lg p-4 training-card">
+                    <h3 class="font-bold text-gray-900 mb-4">Log Training Session</h3>
+                    <form id="training-form" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                            <input type="date" id="training-date" class="w-full p-3 border border-gray-300 rounded-lg form-input focus:outline-none transition-all" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Activity Type</label>
+                            <select id="activity-type" class="w-full p-3 border border-gray-300 rounded-lg form-input focus:outline-none transition-all" required>
+                                <option value="">Select activity type</option>
+                                <option value="Football program class">Football Program Class</option>
+                                <option value="Activity by myself">Solo Training</option>
+                                <option value="Activity with others">Training with Others</option>
+                                <option value="School - Recess or Lunch time">School Break Training</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                            <select id="location" class="w-full p-3 border border-gray-300 rounded-lg form-input focus:outline-none transition-all" required>
+                                <option value="">Select location</option>
+                                <option value="Home - inside">Home (Inside)</option>
+                                <option value="Home - outside">Home (Outside)</option>
+                                <option value="School">School</option>
+                                <option value="Gardiner Park">Gardiner Park</option>
+                                <option value="Local Park">Local Park</option>
+                                <option value="Training Ground">Training Ground</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Time Spent (minutes)</label>
+                            <input type="number" id="time-spent" min="1" max="300" class="w-full p-3 border border-gray-300 rounded-lg form-input focus:outline-none transition-all" placeholder="e.g. 60" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">How well did you perform?</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="rating" value="2 stars" class="text-green-600">
+                                    <span class="text-sm">⭐⭐ - Needs work</span>
+                                </label>
+                                <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="rating" value="3 stars" class="text-green-600">
+                                    <span class="text-sm">⭐⭐⭐ - Good</span>
+                                </label>
+                                <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="rating" value="4 stars" class="text-green-600">
+                                    <span class="text-sm">⭐⭐⭐⭐ - Great</span>
+                                </label>
+                                <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="rating" value="5 stars" class="text-green-600">
+                                    <span class="text-sm">⭐⭐⭐⭐⭐ - Excellent</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Did you enjoy it?</label>
+                            <div class="grid grid-cols-1 gap-2">
+                                <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="enjoyment" value="Really enjoyed it" class="text-green-600">
+                                    <span class="text-sm">😍 Really enjoyed it</span>
+                                </label>
+                                <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="enjoyment" value="Enjoyed it" class="text-green-600">
+                                    <span class="text-sm">😊 Enjoyed it</span>
+                                </label>
+                                <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="enjoyment" value="It was okay" class="text-green-600">
+                                    <span class="text-sm">😐 It was okay</span>
+                                </label>
+                                <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="enjoyment" value="Didn't enjoy it" class="text-green-600">
+                                    <span class="text-sm">😔 Didn't enjoy it</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Notes</label>
+                            <textarea id="notes" rows="3" class="w-full p-3 border border-gray-300 rounded-lg form-input focus:outline-none transition-all" placeholder="What did you work on? (e.g. dribbling, juggling, passing, 1v1, shooting...)"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                            🏃‍♂️ Log Training Session
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- History Tab -->
+            <div id="history-tab" class="tab-content space-y-6 hidden">
+                <div class="bg-gray-50 rounded-lg p-4 training-card">
+                    <h3 class="font-bold text-gray-900 mb-4">Training History</h3>
+                    <div class="space-y-3" id="training-history">
+                        <!-- History will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Training data storage (in production, this would be saved to a database)
+        let trainingData = JSON.parse(localStorage.getItem('trainingData') || '[]');
+
+        // Sample historical data for demonstration
+        const sampleData = [
+            {
+                date: '2024-07-15',
+                activityType: 'Football program class',
+                location: 'Gardiner Park',
+                timeSpent: 60,
+                rating: '5 stars',
+                enjoyment: 'Enjoyed it',
+                notes: 'Team tactics and passing drills'
+            },
+            {
+                date: '2024-07-17',
+                activityType: 'Activity by myself',
+                location: 'Home - inside',
+                timeSpent: 15,
+                rating: '4 stars',
+                enjoyment: 'Really enjoyed it',
+                notes: 'Passed the ball against a wall using both feet, control volleyed bouncing ball, small shots at small goals'
+            },
+            {
+                date: '2024-07-18',
+                activityType: 'Activity with others',
+                location: 'Home - inside',
+                timeSpent: 15,
+                rating: '4 stars',
+                enjoyment: 'Really enjoyed it',
+                notes: 'Passed the ball against a wall using both feet, control volleyed bouncing ball, small shots at small goals with someone acting as a keeper'
+            }
+        ];
+
+        // Initialize with sample data if empty
+        if (trainingData.length === 0) {
+            trainingData = sampleData;
+            localStorage.setItem('trainingData', JSON.stringify(trainingData));
+        }
+
+        function updateStats() {
+            const totalMinutes = trainingData.reduce((sum, session) => sum + session.timeSpent, 0);
+            const totalHours = Math.round(totalMinutes / 60 * 10) / 10;
+            
+            // Calculate this week's hours (simplified for demo)
+            const thisWeekMinutes = trainingData.slice(-5).reduce((sum, session) => sum + session.timeSpent, 0);
+            const thisWeekHours = Math.round(thisWeekMinutes / 60 * 10) / 10;
+            
+            document.getElementById('total-hours').textContent = totalHours;
+            document.getElementById('this-week').textContent = thisWeekHours;
+            document.getElementById('session-count').textContent = trainingData.length;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-GB', { 
+                day: 'numeric', 
+                month: 'short' 
+            });
+        }
+
+        function getStarsDisplay(rating) {
+            const stars = parseInt(rating.split(' ')[0]);
+            return '⭐'.repeat(stars);
+        }
+
+        function populateRecentActivities() {
+            const recentContainer = document.getElementById('recent-activities');
+            const recent = trainingData.slice(-3).reverse();
+            
+            recentContainer.innerHTML = recent.map(session => `
+                <div class="bg-white p-3 rounded-lg">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">${session.activityType}</div>
+                            <div class="text-sm text-gray-600">${session.location} • ${session.timeSpent} min</div>
+                            <div class="text-sm text-gray-500">${formatDate(session.date)}</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm">${getStarsDisplay(session.rating)}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function populateTrainingHistory() {
+            const historyContainer = document.getElementById('training-history');
+            const sortedData = [...trainingData].reverse();
+            
+            historyContainer.innerHTML = sortedData.map(session => `
+                <div class="bg-white p-4 rounded-lg">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">${session.activityType}</div>
+                            <div class="text-sm text-gray-600">${session.location}</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-gray-900">${session.timeSpent} min</div>
+                            <div class="text-sm text-gray-500">${formatDate(session.date)}</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-sm text-gray-600">Performance: ${getStarsDisplay(session.rating)}</div>
+                        <div class="text-sm text-gray-600">Enjoyment: ${session.enjoyment}</div>
+                    </div>
+                    ${session.notes ? `<div class="text-sm text-gray-700 bg-gray-50 p-2 rounded">${session.notes}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function initTabs() {
+            document.querySelectorAll('.tab-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabName = button.getAttribute('data-tab');
+                    
+                    // Update tab buttons
+                    document.querySelectorAll('.tab-btn').forEach(btn => {
+                        btn.className = 'tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50';
+                    });
+                    button.className = 'tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-blue-600 border-b-2 border-blue-600 bg-blue-50';
+                    
+                    // Update tab content
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(tabName + '-tab').classList.remove('hidden');
+                    
+                    // Refresh content when switching to history tab
+                    if (tabName === 'history') {
+                        populateTrainingHistory();
+                    }
+                });
+            });
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const formData = {
+                date: document.getElementById('training-date').value,
+                activityType: document.getElementById('activity-type').value,
+                location: document.getElementById('location').value,
+                timeSpent: parseInt(document.getElementById('time-spent').value),
+                rating: document.querySelector('input[name="rating"]:checked')?.value || '',
+                enjoyment: document.querySelector('input[name="enjoyment"]:checked')?.value || '',
+                notes: document.getElementById('notes').value
+            };
+
+            // Add to training data
+            trainingData.push(formData);
+            localStorage.setItem('trainingData', JSON.stringify(trainingData));
+
+            // Update UI
+            updateStats();
+            populateRecentActivities();
+            
+            // Reset form
+            document.getElementById('training-form').reset();
+            
+            // Show success message
+            showSuccessMessage();
+            
+            // Switch to dashboard tab
+            document.querySelector('[data-tab="dashboard"]').click();
+        }
+
+        function showSuccessMessage() {
+            // Create and show a temporary success message
+            const message = document.createElement('div');
+            message.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-all';
+            message.textContent = '🎉 Training session logged successfully!';
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(message);
+                }, 300);
+            }, 2000);
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set today's date as default
+            document.getElementById('training-date').valueAsDate = new Date();
+            
+            // Initialize tabs
+            initTabs();
+            
+            // Initialize form handler
+            document.getElementById('training-form').addEventListener('submit', handleFormSubmit);
+            
+            // Update initial stats and content
+            updateStats();
+            populateRecentActivities();
+        });
+    </script>
+</body>
+</html>
+                
