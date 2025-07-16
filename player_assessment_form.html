@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Progress Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+            min-height: 100vh;
+            color: #212529;
+            line-height: 1.6;
+        }
+        
+        .app-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(108, 117, 125, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(134, 142, 150, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, transparent 0%, rgba(108, 117, 125, 0.02) 100%);
+            pointer-events: none;
+        }
+        
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 500px;
+                margin: 20px auto;
+                border-radius: 24px;
+                box-shadow: 
+                    0 32px 64px rgba(0, 0, 0, 0.1),
+                    0 0 0 1px rgba(0, 0, 0, 0.05),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            }
+        }
+        
+        .hero-header {
+            padding: 20px 24px;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d5a3d 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            left: 24px;
+            filter: drop-shadow(0 8px 24px rgba(0, 255, 136, 0.4));
+            flex-shrink: 0;
+        }
+        
+        .logo svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .header-text {
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ff88 0%, #ffffff 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .main-content {
+            padding: 24px;
+            position: relative;
+            z-index: 2;
+            background: #ffffff;
+        }
+        
+        .card {
+            background: #ffffff;
+            border: 2px solid #e9ecef;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: #adb5bd;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #00ff88 0%, #2d5a3d 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.25);
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #212529;
+            letter-spacing: -0.01em;
+        }
+        
+        .form-grid {
+            display: grid;
+            gap: 16px;
+        }
+        
+        .form-field {
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: #495057;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            color: #212529;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #00ff88;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+        }
+        
+        .form-input::placeholder {
+            color: #6c757d;
+        }
+        
+        .traffic-light-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .traffic-light-option {
+            padding: 12px 8px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: 700;
+            color: #6c757d;
+            line-height: 1.3;
+            background: #f8f9fa;
+        }
+        
+        .traffic-light-option:hover {
+            transform: translateY(-2px);
+        }
+        
+        .traffic-light-option.red {
+            border-color: #dc3545;
+            background: rgba(220, 53, 69, 0.1);
+            color: #721c24;
+        }
+        
+        .traffic-light-option.red.selected {
+            background: rgba(220, 53, 69, 0.2);
+            border-width: 3px;
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        .traffic-light-option.amber {
+            border-color: #ffc107;
+            background: rgba(255, 193, 7, 0.1);
+            color: #664d03;
+        }
+        
+        .traffic-light-option.amber.selected {
+            background: rgba(255, 193, 7, 0.2);
+            border-width: 3px;
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        .traffic-light-option.green {
+            border-color: #198754;
+            background: rgba(25, 135, 84, 0.1);
+            color: #0f5132;
+        }
+        
+        .traffic-light-option.green.selected {
+            background: rgba(25, 135, 84, 0.2);
+            border-width: 3px;
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #495057;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .skill-item {
+            margin-bottom: 16px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .skill-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 8px;
+        }
+        
+        .action-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #00ff88 0%, #2d5a3d 100%);
+            border: none;
+            border-radius: 16px;
+            color: #000;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+            letter-spacing: -0.01em;
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+        }
+        
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 255, 136, 0.4);
+        }
+        
+        .action-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .success-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #495057;
+            border: 2px solid #dee2e6;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            z-index: 1000;
+            animation: slideInRight 0.3s ease-out;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="background-pattern"></div>
+        
+        <div class="hero-header">
+            <div class="logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#2d5a3d" stroke="#00ff88" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="35" fill="#ffffff" stroke="#2d5a3d" stroke-width="1"/>
+                    <g transform="translate(50, 50) scale(0.8)">
+                        <ellipse cx="0" cy="-15" rx="4" ry="5" fill="#1a1a1a"/>
+                        <ellipse cx="0" cy="-5" rx="6" ry="8" fill="#1a1a1a"/>
+                        <ellipse cx="-8" cy="-8" rx="2.5" ry="6" fill="#1a1a1a" transform="rotate(-30)"/>
+                        <ellipse cx="8" cy="-8" rx="2.5" ry="6" fill="#1a1a1a" transform="rotate(30)"/>
+                        <ellipse cx="-3" cy="8" rx="2.5" ry="8" fill="#1a1a1a" transform="rotate(-15)"/>
+                        <ellipse cx="5" cy="5" rx="2.5" ry="8" fill="#1a1a1a" transform="rotate(45)"/>
+                        <circle cx="12" cy="2" r="3" fill="#1a1a1a"/>
+                        <circle cx="12" cy="2" r="3" fill="none" stroke="#ffffff" stroke-width="0.5"/>
+                        <path d="M10,2 L14,2 M12,0 L12,4" stroke="#ffffff" stroke-width="0.5"/>
+                    </g>
+                    <path id="topArc" d="M 15 50 A 35 35 0 0 1 85 50" fill="none"/>
+                    <text font-size="6" font-weight="bold" fill="#ffffff">
+                        <textPath href="#topArc" startOffset="50%" text-anchor="middle">ROEHAMPTON ELITE</textPath>
+                    </text>
+                    <path id="bottomArc" d="M 85 50 A 35 35 0 0 1 15 50" fill="none"/>
+                    <text font-size="6" font-weight="bold" fill="#ffffff">
+                        <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">FOOTBALL CLUB</textPath>
+                    </text>
+                    <text x="18" y="55" font-size="5" font-weight="bold" fill="#ffffff">20</text>
+                    <text x="78" y="55" font-size="5" font-weight="bold" fill="#ffffff">24</text>
+                </svg>
+            </div>
+            <div class="header-text">
+                <h1 class="hero-title">Player Assessment</h1>
+                <p class="hero-subtitle">Progress Report Form</p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Player Information -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📋</div>
+                    <h2 class="card-title">Player Information</h2>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="form-label">Player Name</label>
+                        <input type="text" id="playerName" class="form-input" placeholder="Enter player's full name">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="form-label">Coach's Name</label>
+                        <input type="text" id="coachName" class="form-input" placeholder="Enter coach's name">
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="form-label">Age</label>
+                        <select id="playerAge" class="form-select">
+                            <option value="">Select Age</option>
+                            <option value="6">6 years old</option>
+                            <option value="7">7 years old</option>
+                            <option value="8">8 years old</option>
+                            <option value="9">9 years old</option>
+                            <option value="10">10 years old</option>
+                            <option value="11">11 years old</option>
+                            <option value="12">12 years old</option>
+                            <option value="13">13 years old</option>
+                            <option value="14">14 years old</option>
+                            <option value="15">15 years old</option>
+                            <option value="16">16 years old</option>
+                            <option value="17">17 years old</option>
+                            <option value="18">18 years old</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="form-label">Centre</label>
+                        <select id="centre" class="form-select">
+                            <option value="">Select Centre</option>
+                            <option value="Richmond Park Academy">Richmond Park Academy</option>
+                            <option value="St Paul's School">St Paul's School</option>
+                            <option value="Roehampton Elite Centre">Roehampton Elite Centre</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-field">
+                        <label class="form-label">Assessment Date</label>
+                        <input type="date" id="assessmentDate" class="form-input">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Techniques -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">⚽</div>
+                    <h2 class="card-title">Techniques</h2>
+                </div>
+                
+                <div class="section-title">Technical Skills Assessment</div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Range of Passing</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="passing" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="passing" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="passing" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Striking/Finishing</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="striking" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="striking" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="striking" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Defending</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="defending" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="defending" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="defending" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">First Touch</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="firstTouch" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="firstTouch" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="firstTouch" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Non-Dominant Foot</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="nonDominantFoot" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="nonDominantFoot" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="nonDominantFoot" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Characteristics -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🧠</div>
+                    <h2 class="card-title">Characteristics</h2>
+                </div>
+                
+                <div class="section-title">Mental & Leadership Assessment</div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Game Awareness</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="gameAwareness" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="gameAwareness" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="gameAwareness" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Game Understanding</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="gameUnderstanding" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="gameUnderstanding" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="gameUnderstanding" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Decision Making</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="decisionMaking" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="decisionMaking" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="decisionMaking" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Concentration</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="concentration" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="concentration" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="concentration" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Leadership</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="leadership" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="leadership" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="leadership" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Desire</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="desire" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="desire" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="desire" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Maturity</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="maturity" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="maturity" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="maturity" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Physical Attributes -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💪</div>
+                    <h2 class="card-title">Physical Attributes</h2>
+                </div>
+                
+                <div class="section-title">Physical Development Assessment</div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Speed/Acceleration</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="speed" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="speed" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="speed" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Movement</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="movement" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="movement" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="movement" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Balance</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="balance" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="balance" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="balance" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Power</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="power" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="power" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="power" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Strength</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="strength" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="strength" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="strength" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Agility</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="agility" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="agility" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="agility" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Coordination</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="coordination" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="coordination" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="coordination" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Notes -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📝</div>
+                    <h2 class="card-title">Additional Notes</h2>
+                </div>
+                
+                <div class="form-field">
+                    <label class="form-label">Coach Comments</label>
+                    <textarea id="coachComments" class="form-textarea" placeholder="Add any additional observations, recommendations, or notes about the player's development..."></textarea>
+                </div>
+                
+                <div class="form-field">
+                    <label class="form-label">Areas for Development</label>
+                    <textarea id="developmentAreas" class="form-textarea" placeholder="Specific skills or attributes to focus on in future training sessions..."></textarea>
+                </div>
+                
+                <div class="form-field">
+                    <label class="form-label">Strengths to Build Upon</label>
+                    <textarea id="strengthsAreas" class="form-textarea" placeholder="Key strengths that should be further developed and utilized..."></textarea>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button class="action-button" onclick="saveAssessment()">
+                Save Player Assessment
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let assessmentData = {};
+
+        // Set today's date
+        document.getElementById('assessmentDate').valueAsDate = new Date();
+
+        // Traffic light selection functionality
+        document.querySelectorAll('.traffic-light-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const skill = option.dataset.skill;
+                const value = option.dataset.value;
+                
+                // Remove selected class from all options for this skill
+                document.querySelectorAll(`[data-skill="${skill}"]`).forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                option.classList.add('selected');
+                
+                // Store the assessment
+                assessmentData[skill] = value;
+                
+                updateButtonState();
+            });
+        });
+
+        function updateButtonState() {
+            const button = document.querySelector('.action-button');
+            const requiredFields = [
+                'playerName', 'coachName', 'playerAge', 'centre', 'assessmentDate'
+            ];
+            
+            const basicInfoComplete = requiredFields.every(field => {
+                const element = document.getElementById(field);
+                return element && element.value.trim() !== '';
+            });
+            
+            const assessmentsCount = Object.keys(assessmentData).length;
+            const totalSkills = 22; // Total number of skills to assess
+            
+            if (basicInfoComplete && assessmentsCount >= totalSkills) {
+                button.disabled = false;
+                button.textContent = 'Save Player Assessment';
+            } else {
+                button.disabled = true;
+                button.textContent = `Complete Assessment (${assessmentsCount}/${totalSkills} skills rated)`;
+            }
+        }
+
+        // Update button state when form fields change
+        document.querySelectorAll('input, select, textarea').forEach(element => {
+            element.addEventListener('input', updateButtonState);
+            element.addEventListener('change', updateButtonState);
+        });
+
+        function saveAssessment() {
+            const formData = {
+                playerInfo: {
+                    name: document.getElementById('playerName').value,
+                    coach: document.getElementById('coachName').value,
+                    age: document.getElementById('playerAge').value,
+                    centre: document.getElementById('centre').value,
+                    date: document.getElementById('assessmentDate').value
+                },
+                assessments: assessmentData,
+                notes: {
+                    coachComments: document.getElementById('coachComments').value,
+                    developmentAreas: document.getElementById('developmentAreas').value,
+                    strengthsAreas: document.getElementById('strengthsAreas').value
+                },
+                timestamp: new Date().toISOString()
+            };
+
+            // Store in localStorage (in a real app, this would be sent to a server)
+            const assessmentId = `assessment_${Date.now()}`;
+            localStorage.setItem(assessmentId, JSON.stringify(formData));
+            localStorage.setItem('lastAssessment', assessmentId);
+
+            // Show success notification
+            const notification = document.createElement('div');
+            notification.className = 'success-notification';
+            notification.textContent = `Assessment saved for ${formData.playerInfo.name}!`;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+                // In a real app, this would redirect to the results page
+                window.location.href = 'player-assessment-results.html';
+            }, 2000);
+        }
+
+        // Initialize button state
+        updateButtonState();
+    </script>
+</body>
+</html>">
+                    <div class="skill-name">Dribbling</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="dribbling" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="dribbling" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="dribbling" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Ball Mastery</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="ballMastery" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="ballMastery" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="ballMastery" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-name">Running with the Ball</div>
+                    <div class="traffic-light-grid">
+                        <div class="traffic-light-option red" data-skill="runningWithBall" data-value="red">
+                            🔴 Area for improvement
+                        </div>
+                        <div class="traffic-light-option amber" data-skill="runningWithBall" data-value="amber">
+                            🟡 Good
+                        </div>
+                        <div class="traffic-light-option green" data-skill="runningWithBall" data-value="green">
+                            🟢 Excellent
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-item
