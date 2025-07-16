@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Rodriguez - Assessment Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #00ff88 0%, #ffffff 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+        
+        .header-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d5a3d 100%);
+        }
+        
+        .logo-glow {
+            filter: drop-shadow(0 8px 24px rgba(0, 255, 136, 0.4));
+        }
+
+        .traffic-light-red {
+            background: rgba(220, 53, 69, 0.1);
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+
+        .traffic-light-amber {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid #ffc107;
+            color: #664d03;
+        }
+
+        .traffic-light-green {
+            background: rgba(25, 135, 84, 0.1);
+            border: 2px solid #198754;
+            color: #0f5132;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .assessment-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-md mx-auto bg-white min-h-screen">
+        <!-- Header -->
+        <div class="p-6 text-white header-bg">
+            <div class="flex items-center gap-4">
+                <!-- Player Avatar -->
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-20 h-20">
+                    <path d="M20 35 Q15 25 25 20 Q35 15 50 18 Q65 15 75 20 Q85 25 80 35 Q82 40 78 45 Q75 50 70 48 Q65 52 50 50 Q35 52 30 48 Q25 50 22 45 Q18 40 20 35 Z" fill="#8B5A3C"/>
+                    <ellipse cx="50" cy="50" rx="25" ry="28" fill="#F4D1A6"/>
+                    <ellipse cx="42" cy="45" rx="2" ry="4" fill="#4A4A4A"/>
+                    <ellipse cx="58" cy="45" rx="2" ry="4" fill="#4A4A4A"/>
+                    <ellipse cx="50" cy="52" rx="1.5" ry="2" fill="#E6C193"/>
+                    <path d="M45 58 Q50 62 55 58" stroke="#D4A574" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="25" cy="50" rx="4" ry="6" fill="#F4D1A6"/>
+                    <ellipse cx="75" cy="50" rx="4" ry="6" fill="#F4D1A6"/>
+                    <rect x="40" y="75" width="20" height="15" fill="#F4D1A6"/>
+                    <path d="M25 85 Q30 80 40 82 L40 100 L60 100 L60 82 Q70 80 75 85 L75 100 L25 100 Z" fill="#00B894"/>
+                    <path d="M40 82 Q50 78 60 82 L60 88 Q50 84 40 88 Z" fill="#00A085"/>
+                </svg>
+                
+                <div class="flex-1">
+                    <h1 class="text-2xl font-bold gradient-text">Alex Rodriguez</h1>
+                    <p class="text-white/80 text-sm">Midfielder • #10</p>
+                    <p class="text-white/80 text-sm">Roehampton Elite FC U10</p>
+                </div>
+                
+                <div class="w-12 h-12 logo-glow">
+                    <svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="48" fill="#2d5a3d" stroke="#00ff88" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="35" fill="#ffffff" stroke="#2d5a3d" stroke-width="1"/>
+                        <g transform="translate(50, 50) scale(0.8)">
+                            <ellipse cx="0" cy="-15" rx="4" ry="5" fill="#1a1a1a"/>
+                            <ellipse cx="0" cy="-5" rx="6" ry="8" fill="#1a1a1a"/>
+                            <ellipse cx="-8" cy="-8" rx="2.5" ry="6" fill="#1a1a1a" transform="rotate(-30)"/>
+                            <ellipse cx="8" cy="-8" rx="2.5" ry="6" fill="#1a1a1a" transform="rotate(30)"/>
+                            <ellipse cx="-3" cy="8" rx="2.5" ry="8" fill="#1a1a1a" transform="rotate(-15)"/>
+                            <ellipse cx="5" cy="5" rx="2.5" ry="8" fill="#1a1a1a" transform="rotate(45)"/>
+                            <circle cx="12" cy="2" r="3" fill="#1a1a1a"/>
+                            <circle cx="12" cy="2" r="3" fill="none" stroke="#ffffff" stroke-width="0.5"/>
+                            <path d="M10,2 L14,2 M12,0 L12,4" stroke="#ffffff" stroke-width="0.5"/>
+                        </g>
+                        <path id="topArc" d="M 15 50 A 35 35 0 0 1 85 50" fill="none"/>
+                        <text font-size="6" font-weight="bold" fill="#ffffff">
+                            <textPath href="#topArc" startOffset="50%" text-anchor="middle">ROEHAMPTON ELITE</textPath>
+                        </text>
+                        <path id="bottomArc" d="M 85 50 A 35 35 0 0 1 15 50" fill="none"/>
+                        <text font-size="6" font-weight="bold" fill="#ffffff">
+                            <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">FOOTBALL CLUB</textPath>
+                        </text>
+                        <text x="18" y="55" font-size="5" font-weight="bold" fill="#ffffff">20</text>
+                        <text x="78" y="55" font-size="5" font-weight="bold" fill="#ffffff">24</text>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Assessment Overview -->
+            <div class="mt-6 bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-bold text-lg">Latest Assessment</h3>
+                    <span class="text-white/80 text-sm">17 Jul 2025</span>
+                </div>
+                <div class="text-white/80 text-sm mb-3">Coach: Sarah Johnson • Richmond Park Academy</div>
+                
+                <div class="grid grid-cols-3 gap-3 text-center">
+                    <div class="bg-white/10 rounded-lg py-2 px-1">
+                        <div class="text-green-300 text-lg font-bold" id="greenCount">12</div>
+                        <div class="text-xs text-white/70">Excellent</div>
+                    </div>
+                    <div class="bg-white/10 rounded-lg py-2 px-1">
+                        <div class="text-yellow-300 text-lg font-bold" id="amberCount">8</div>
+                        <div class="text-xs text-white/70">Good</div>
+                    </div>
+                    <div class="bg-white/10 rounded-lg py-2 px-1">
+                        <div class="text-red-300 text-lg font-bold" id="redCount">2</div>
+                        <div class="text-xs text-white/70">Area for improvement</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex border-b border-gray-200 bg-white sticky top-0 z-10 shadow-sm">
+            <button class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-blue-600 border-b-2 border-blue-600 bg-blue-50" data-tab="assessment">
+                Assessment
+            </button>
+            <button class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-tab="progress">
+                Progress
+            </button>
+            <button class="tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-tab="notes">
+                Notes
+            </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="p-4">
+            <!-- Assessment Tab -->
+            <div id="assessment-tab" class="tab-content space-y-6">
+                <!-- Techniques Section -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        ⚽ Techniques
+                        <span class="text-sm font-normal text-gray-600">(8 skills)</span>
+                    </h3>
+                    <div class="grid gap-3" id="techniquesGrid">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Characteristics Section -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        🧠 Characteristics
+                        <span class="text-sm font-normal text-gray-600">(7 skills)</span>
+                    </h3>
+                    <div class="grid gap-3" id="characteristicsGrid">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Physical Section -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        💪 Physical Attributes
+                        <span class="text-sm font-normal text-gray-600">(7 skills)</span>
+                    </h3>
+                    <div class="grid gap-3" id="physicalGrid">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Tab -->
+            <div id="progress-tab" class="tab-content space-y-6 hidden">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4">Assessment History</h3>
+                    <div class="space-y-3">
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="font-medium text-gray-900">Latest Assessment</div>
+                                <div class="text-sm text-gray-600">17 Jul 2025</div>
+                            </div>
+                            <div class="text-sm text-gray-700 mb-2">Coach: Sarah Johnson</div>
+                            <div class="flex gap-2">
+                                <span class="assessment-badge traffic-light-green">🟢 12 Excellent</span>
+                                <span class="assessment-badge traffic-light-amber">🟡 8 Good</span>
+                                <span class="assessment-badge traffic-light-red">🔴 2 Area for improvement</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-gray-300">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="font-medium text-gray-900">Previous Assessment</div>
+                                <div class="text-sm text-gray-600">15 May 2025</div>
+                            </div>
+                            <div class="text-sm text-gray-700 mb-2">Coach: Mark Thompson</div>
+                            <div class="flex gap-2">
+                                <span class="assessment-badge traffic-light-green">🟢 10 Excellent</span>
+                                <span class="assessment-badge traffic-light-amber">🟡 9 Good</span>
+                                <span class="assessment-badge traffic-light-red">🔴 3 Area for improvement</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4">Improvement Trends</h3>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-green-600">📈</span>
+                                <span class="font-medium text-gray-900">Improved Skills</span>
+                            </div>
+                            <div class="text-sm text-gray-700">Range of Passing, Decision Making</div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-blue-600">➡️</span>
+                                <span class="font-medium text-gray-900">Maintained Excellence</span>
+                            </div>
+                            <div class="text-sm text-gray-700">Game Awareness, Desire, First Touch</div>
+                        </div>
+                        
+                        <div class="bg-white p-3 rounded-lg">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-orange-600">⚠️</span>
+                                <span class="font-medium text-gray-900">Focus Areas</span>
+                            </div>
+                            <div class="text-sm text-gray-700">Non-Dominant Foot, Strength</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes Tab -->
+            <div id="notes-tab" class="tab-content space-y-6 hidden">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4">Coach Comments</h3>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-700 leading-relaxed">
+                            Alex continues to demonstrate exceptional game intelligence and technical ability. His vision and passing range have improved significantly since the last assessment. He consistently makes smart decisions under pressure and shows great leadership qualities on the pitch. His positive attitude in training is exemplary and sets a great example for his teammates.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4">Areas for Development</h3>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start gap-2">
+                                <span class="text-orange-500 mt-1">•</span>
+                                <span>Continue working on non-dominant foot technique through dedicated practice sessions</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-orange-500 mt-1">•</span>
+                                <span>Focus on strength and conditioning appropriate for age group</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-orange-500 mt-1">•</span>
+                                <span>Work on defensive positioning in small-sided games</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-gray-900 mb-4">Strengths to Build Upon</h3>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500 mt-1">•</span>
+                                <span>Exceptional game awareness and vision - continue to develop playmaking role</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500 mt-1">•</span>
+                                <span>Natural leadership qualities - consider captain responsibilities</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500 mt-1">•</span>
+                                <span>Excellent first touch and ball control - build advanced technical skills</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-green-500 mt-1">•</span>
+                                <span>Strong desire and work ethic - maintain motivation and enjoyment</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-4 border-2 border-blue-200">
+                    <h3 class="font-bold text-gray-900 mb-3">📋 Next Assessment</h3>
+                    <p class="text-sm text-gray-700 mb-3">Scheduled for: <strong>October 2025</strong></p>
+                    <p class="text-sm text-gray-600">
+                        Focus areas for next assessment period: Non-dominant foot development, 
+                        strength progression, and continued leadership development.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample assessment data
+        const assessmentData = {
+            techniques: {
+                'Dribbling': 'green',
+                'Ball Mastery': 'green',
+                'Running with Ball': 'amber',
+                'Range of Passing': 'green',
+                'Striking/Finishing': 'amber',
+                'Defending': 'amber',
+                'First Touch': 'green',
+                'Non-Dominant Foot': 'red'
+            },
+            characteristics: {
+                'Game Awareness': 'green',
+                'Game Understanding': 'green',
+                'Decision Making': 'green',
+                'Concentration': 'amber',
+                'Leadership': 'green',
+                'Desire': 'green',
+                'Maturity': 'amber'
+            },
+            physical: {
+                'Speed/Acceleration': 'amber',
+                'Movement': 'green',
+                'Balance': 'green',
+                'Power': 'amber',
+                'Strength': 'red',
+                'Agility': 'green',
+                'Coordination': 'amber'
+            }
+        };
+
+        function getTrafficLightDisplay(rating) {
+            switch(rating) {
+                case 'green':
+                    return { emoji: '🟢', text: 'Excellent', class: 'traffic-light-green' };
+                case 'amber':
+                    return { emoji: '🟡', text: 'Good', class: 'traffic-light-amber' };
+                case 'red':
+                    return { emoji: '🔴', text: 'Area for improvement', class: 'traffic-light-red' };
+                default:
+                    return { emoji: '⚪', text: 'Not Rated', class: 'bg-gray-100 border-gray-300 text-gray-600' };
+            }
+        }
+
+        function createSkillDisplay(skillName, rating) {
+            const display = getTrafficLightDisplay(rating);
+            return `
+                <div class="flex items-center justify-between bg-white p-3 rounded-lg border ${display.class}">
+                    <span class="font-medium text-gray-900">${skillName}</span>
+                    <span class="font-bold flex items-center gap-1">
+                        ${display.emoji} ${display.text}
+                    </span>
+                </div>
+            `;
+        }
+
+        function populateAssessments() {
+            // Populate Techniques
+            const techniquesGrid = document.getElementById('techniquesGrid');
+            techniquesGrid.innerHTML = Object.entries(assessmentData.techniques)
+                .map(([skill, rating]) => createSkillDisplay(skill, rating))
+                .join('');
+
+            // Populate Characteristics
+            const characteristicsGrid = document.getElementById('characteristicsGrid');
+            characteristicsGrid.innerHTML = Object.entries(assessmentData.characteristics)
+                .map(([skill, rating]) => createSkillDisplay(skill, rating))
+                .join('');
+
+            // Populate Physical
+            const physicalGrid = document.getElementById('physicalGrid');
+            physicalGrid.innerHTML = Object.entries(assessmentData.physical)
+                .map(([skill, rating]) => createSkillDisplay(skill, rating))
+                .join('');
+
+            // Update summary counts
+            updateSummaryCounts();
+        }
+
+        function updateSummaryCounts() {
+            let greenCount = 0;
+            let amberCount = 0;
+            let redCount = 0;
+
+            // Count all ratings across all categories
+            Object.values(assessmentData).forEach(category => {
+                Object.values(category).forEach(rating => {
+                    switch(rating) {
+                        case 'green': greenCount++; break;
+                        case 'amber': amberCount++; break;
+                        case 'red': redCount++; break;
+                    }
+                });
+            });
+
+            document.getElementById('greenCount').textContent = greenCount;
+            document.getElementById('amberCount').textContent = amberCount;
+            document.getElementById('redCount').textContent = redCount;
+        }
+
+        function initTabs() {
+            document.querySelectorAll('.tab-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabName = button.getAttribute('data-tab');
+                    
+                    // Update button states
+                    document.querySelectorAll('.tab-btn').forEach(btn => {
+                        btn.className = 'tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-gray-600 hover:text-blue-600 hover:bg-gray-50';
+                    });
+                    button.className = 'tab-btn flex-1 py-3 px-4 text-sm font-medium transition-all text-blue-600 border-b-2 border-blue-600 bg-blue-50';
+                    
+                    // Update content visibility
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(tabName + '-tab').classList.remove('hidden');
+                });
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            populateAssessments();
+            initTabs();
+        });
+    </script>
+</body>
+</html>
