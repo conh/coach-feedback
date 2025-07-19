@@ -677,6 +677,9 @@
                 <div class="skill-item">
                     <div class="skill-name">Movement</div>
                     <div class="traffic-light-grid">
+                        <div class="traffic-light-option" data-skill="movement" data-value="red">
+                            <span style="color: #dc3545;">●</span> Area for improvement
+                        </div>
                         <div class="traffic-light-option" data-skill="movement" data-value="amber">
                             <span style="color: #f59e0b;">●</span> Good
                         </div>
@@ -893,54 +896,63 @@
                 <head>
                     <title>Player Assessment Report - ${data.playerInfo.name}</title>
                     <style>
-                        body { font-family: Arial, sans-serif; margin: 20px; }
-                        .header { text-align: center; margin-bottom: 30px; }
-                        .section { margin-bottom: 20px; }
-                        .skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-                        .skill-item { display: flex; justify-content: space-between; padding: 5px; border-bottom: 1px solid #eee; }
-                        .rating { font-weight: bold; }
-                        .green { color: #00ff88; }
-                        .amber { color: #f59e0b; }
-                        .red { color: #dc3545; }
+                        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+                        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 20px; }
+                        .section { margin-bottom: 25px; }
+                        .skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+                        .skill-item { display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #eee; }
+                        .rating { font-weight: bold; padding: 4px 8px; border-radius: 4px; }
+                        .green { color: #00ff88; background: rgba(0, 255, 136, 0.1); }
+                        .amber { color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
+                        .red { color: #dc3545; background: rgba(220, 53, 69, 0.1); }
+                        .notes { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 10px; }
+                        h3 { color: #2d5a3d; border-bottom: 1px solid #00ff88; padding-bottom: 5px; }
                     </style>
                 </head>
                 <body>
                     <div class="header">
                         <h1>Player Assessment Report</h1>
                         <h2>${data.playerInfo.name}</h2>
-                        <p>Coach: ${data.playerInfo.coach} | Age: ${data.playerInfo.age} | Centre: ${data.playerInfo.centre}</p>
-                        <p>Assessment Date: ${data.playerInfo.date}</p>
+                        <p><strong>Coach:</strong> ${data.playerInfo.coach} | <strong>Age:</strong> ${data.playerInfo.age} | <strong>Centre:</strong> ${data.playerInfo.centre}</p>
+                        <p><strong>Assessment Date:</strong> ${data.playerInfo.date}</p>
                     </div>
                     
                     <div class="section">
-                        <h3>Technical Skills</h3>
+                        <h3>Technical Skills Assessment</h3>
                         <div class="skill-grid">
-                            ${Object.entries(data.assessments).map(([skill, rating]) => 
-                                `<div class="skill-item">
-                                    <span>${skill.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</span>
-                                    <span class="rating ${rating}">${rating.charAt(0).toUpperCase() + rating.slice(1)}</span>
-                                </div>`
-                            ).join('')}
+                            ${Object.entries(data.assessments).map(([skill, rating]) => {
+                                const skillName = skill.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                                const ratingText = rating.charAt(0).toUpperCase() + rating.slice(1);
+                                return `<div class="skill-item">
+                                    <span>${skillName}</span>
+                                    <span class="rating ${rating}">${ratingText}</span>
+                                </div>`;
+                            }).join('')}
                         </div>
                     </div>
                     
                     ${data.notes.coachComments ? `
                     <div class="section">
                         <h3>Coach Comments</h3>
-                        <p>${data.notes.coachComments}</p>
+                        <div class="notes">${data.notes.coachComments}</div>
                     </div>` : ''}
                     
                     ${data.notes.developmentAreas ? `
                     <div class="section">
                         <h3>Areas for Development</h3>
-                        <p>${data.notes.developmentAreas}</p>
+                        <div class="notes">${data.notes.developmentAreas}</div>
                     </div>` : ''}
                     
                     ${data.notes.strengthsAreas ? `
                     <div class="section">
                         <h3>Strengths to Build Upon</h3>
-                        <p>${data.notes.strengthsAreas}</p>
+                        <div class="notes">${data.notes.strengthsAreas}</div>
                     </div>` : ''}
+                    
+                    <div class="section" style="margin-top: 40px; text-align: center; color: #666; font-size: 12px;">
+                        <p>Generated by Roehampton Elite FC Player Assessment System</p>
+                        <p>Report generated on: ${new Date().toLocaleDateString()}</p>
+                    </div>
                 </body>
                 </html>
             `);
@@ -951,7 +963,4 @@
         updateButtonState();
     </script>
 </body>
-</html>value="red">
-                            <span style="color: #dc3545;">●</span> Area for improvement
-                        </div>
-                        <div class="traffic-light-option" data-skill="movement" data-
+</html>
