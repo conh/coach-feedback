@@ -57,9 +57,9 @@
                 </svg>
                 
                 <div class="flex-1">
-                    <h1 class="text-2xl font-bold gradient-text">Mike Thompson</h1>
+                    <h1 class="text-2xl font-bold gradient-text">Alex Salt</h1>
                     <p class="text-white/80 text-sm">Head Coach</p>
-                    <p class="text-white/80 text-sm">Roehampton Elite FC U10</p>
+                    <p class="text-white/80 text-sm">Roehampton Elite FC U8</p>
                 </div>
                 
                 <div class="w-12 h-12 logo-glow">
@@ -105,7 +105,7 @@
                     <div class="text-xs text-white/80">FA Badge</div>
                 </div>
                 <div class="bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 h-16 flex flex-col justify-center">
-                    <div class="text-lg font-bold">18</div>
+                    <div class="text-lg font-bold">10</div>
                     <div class="text-xs text-white/80">Squad Size</div>
                 </div>
             </div>
@@ -224,9 +224,9 @@
                         <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
                             <div class="flex items-center justify-between">
                                 <div class="flex-1">
-                                    <div class="font-medium text-gray-900">Roehampton Elite FC U10</div>
+                                    <div class="font-medium text-gray-900">Roehampton Elite FC U8</div>
                                     <div class="text-sm text-gray-600">Head Coach • 2023-Present</div>
-                                    <div class="text-sm text-gray-600">18 players • 3 training sessions/week</div>
+                                    <div class="text-sm text-gray-600">10 players • 3 training sessions/week</div>
                                 </div>
                                 <div class="text-right">
                                     <div class="text-lg font-bold text-green-600">Active</div>
@@ -257,9 +257,9 @@
                         <div class="bg-white p-4 rounded-lg">
                             <div class="flex items-center justify-between">
                                 <div class="flex-1">
-                                    <div class="font-medium text-gray-900">Roehampton Elite FC U9</div>
+                                    <div class="font-medium text-gray-900">Roehampton Elite FC U7</div>
                                     <div class="text-sm text-gray-600">Head Coach • 2022-2023</div>
-                                    <div class="text-sm text-gray-600">16 players</div>
+                                    <div class="text-sm text-gray-600">12 players</div>
                                 </div>
                                 <div class="text-right">
                                     <div class="text-sm font-medium text-gray-900">League Champions</div>
@@ -270,9 +270,9 @@
                         <div class="bg-white p-4 rounded-lg">
                             <div class="flex items-center justify-between">
                                 <div class="flex-1">
-                                    <div class="font-medium text-gray-900">Wandsworth Youth FC U8</div>
+                                    <div class="font-medium text-gray-900">Wandsworth Youth FC U6</div>
                                     <div class="text-sm text-gray-600">Assistant Coach • 2021-2022</div>
-                                    <div class="text-sm text-gray-600">14 players</div>
+                                    <div class="text-sm text-gray-600">10 players</div>
                                 </div>
                                 <div class="text-right">
                                     <div class="text-sm font-medium text-gray-900">Cup Runners-up</div>
@@ -303,7 +303,7 @@
             <div id="players-tab" class="tab-content space-y-6 hidden">
                 <div class="bg-gray-50 rounded-lg p-4">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-gray-900">Current Squad (18 players)</h3>
+                        <h3 class="font-bold text-gray-900">Current Squad (10 players)</h3>
                         <select class="text-sm border border-gray-300 rounded px-2 py-1" id="sortPlayers">
                             <option value="name">Sort by Name</option>
                             <option value="position">Sort by Position</option>
@@ -345,7 +345,7 @@
                                 <div>
                                     <div class="font-medium text-gray-900">Technical Skills</div>
                                     <div class="text-sm text-gray-600">Monday 4:30 PM • Completed</div>
-                                    <div class="text-sm text-gray-600">16/18 players attended</div>
+                                    <div class="text-sm text-gray-600">9/10 players attended</div>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Completed</span>
@@ -536,24 +536,16 @@
     <script>
         // Sample player data
         const playersData = [
-            { id: 1, name: "Alex Rodriguez", position: "Midfielder", number: 10, rating: 85, attendance: 95, lastAssessment: "2 weeks ago" },
-            { id: 2, name: "Emma Thompson", position: "Forward", number: 9, rating: 78, attendance: 88, lastAssessment: "1 week ago" },
-            { id: 3, name: "James Wilson", position: "Defender", number: 5, rating: 82, attendance: 92, lastAssessment: "3 weeks ago" },
-            { id: 4, name: "Sophie Chen", position: "Goalkeeper", number: 1, rating: 80, attendance: 100, lastAssessment: "1 week ago" },
-            { id: 5, name: "Marcus Johnson", position: "Midfielder", number: 8, rating: 75, attendance: 85, lastAssessment: "2 weeks ago" },
-            { id: 6, name: "Lily Patel", position: "Forward", number: 11, rating: 77, attendance: 90, lastAssessment: "1 week ago" },
-            { id: 7, name: "Ryan O'Connor", position: "Defender", number: 3, rating: 79, attendance: 87, lastAssessment: "3 weeks ago" },
-            { id: 8, name: "Zoe Williams", position: "Midfielder", number: 6, rating: 83, attendance: 93, lastAssessment: "2 weeks ago" },
-            { id: 9, name: "Noah Brown", position: "Forward", number: 7, rating: 76, attendance: 89, lastAssessment: "1 week ago" },
-            { id: 10, name: "Mia Davis", position: "Defender", number: 4, rating: 81, attendance: 91, lastAssessment: "2 weeks ago" },
-            { id: 11, name: "Ethan Taylor", position: "Midfielder", number: 15, rating: 74, attendance: 86, lastAssessment: "3 weeks ago" },
-            { id: 12, name: "Grace Miller", position: "Forward", number: 12, rating: 78, attendance: 94, lastAssessment: "1 week ago" },
-            { id: 13, name: "Logan Smith", position: "Defender", number: 2, rating: 80, attendance: 88, lastAssessment: "2 weeks ago" },
-            { id: 14, name: "Ava Jones", position: "Midfielder", number: 14, rating: 82, attendance: 96, lastAssessment: "1 week ago" },
-            { id: 15, name: "Lucas Garcia", position: "Forward", number: 13, rating: 75, attendance: 84, lastAssessment: "3 weeks ago" },
-            { id: 16, name: "Chloe Martinez", position: "Defender", number: 16, rating: 77, attendance: 90, lastAssessment: "2 weeks ago" },
-            { id: 17, name: "Oliver Lee", position: "Midfielder", number: 17, rating: 79, attendance: 92, lastAssessment: "1 week ago" },
-            { id: 18, name: "Isabella White", position: "Forward", number: 18, rating: 76, attendance: 87, lastAssessment: "2 weeks ago" }
+            { id: 1, name: "Charlie Smith", position: "Forward", number: 9, rating: 75, attendance: 95, lastAssessment: "2 weeks ago", avatar: "👦" },
+            { id: 2, name: "Emma Wilson", position: "Midfielder", number: 8, rating: 78, attendance: 88, lastAssessment: "1 week ago", avatar: "👧" },
+            { id: 3, name: "Jack Brown", position: "Defender", number: 5, rating: 72, attendance: 92, lastAssessment: "3 weeks ago", avatar: "👦" },
+            { id: 4, name: "Lily Chen", position: "Goalkeeper", number: 1, rating: 70, attendance: 100, lastAssessment: "1 week ago", avatar: "👧" },
+            { id: 5, name: "Oscar Johnson", position: "Midfielder", number: 6, rating: 73, attendance: 85, lastAssessment: "2 weeks ago", avatar: "👦" },
+            { id: 6, name: "Mia Taylor", position: "Forward", number: 11, rating: 76, attendance: 90, lastAssessment: "1 week ago", avatar: "👧" },
+            { id: 7, name: "Noah Davis", position: "Defender", number: 3, rating: 71, attendance: 87, lastAssessment: "3 weeks ago", avatar: "👦" },
+            { id: 8, name: "Zoe Miller", position: "Midfielder", number: 7, rating: 74, attendance: 93, lastAssessment: "2 weeks ago", avatar: "👧" },
+            { id: 9, name: "Lucas Garcia", position: "Forward", number: 10, rating: 77, attendance: 89, lastAssessment: "1 week ago", avatar: "👦" },
+            { id: 10, name: "Chloe White", position: "Defender", number: 4, rating: 72, attendance: 91, lastAssessment: "2 weeks ago", avatar: "👧" }
         ];
 
         function getPositionEmoji(position) {
@@ -576,8 +568,8 @@
             return `
                 <div class="player-card bg-white p-4 rounded-lg cursor-pointer border hover:border-blue-300" onclick="openPlayerModal(${player.id})">
                     <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span class="text-lg">${getPositionEmoji(player.position)}</span>
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-2xl">
+                            ${player.avatar}
                         </div>
                         <div class="flex-1">
                             <div class="flex items-center gap-2">
@@ -630,8 +622,8 @@
             modal.innerHTML = `
                 <div class="bg-white rounded-lg p-6 max-w-sm w-full">
                     <div class="text-center mb-4">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <span class="text-2xl">${getPositionEmoji(player.position)}</span>
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 text-3xl">
+                            ${player.avatar}
                         </div>
                         <h3 class="text-xl font-bold text-gray-900">${player.name}</h3>
                         <p class="text-gray-600">${player.position} • #${player.number}</p>
