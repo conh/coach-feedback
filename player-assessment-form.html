@@ -129,20 +129,6 @@
             margin-bottom: 20px;
         }
         
-        .card-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #00ff88 0%, #2d5a3d 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            color: #000;
-            font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.25);
-        }
-        
         .card-title {
             font-size: 20px;
             font-weight: 800;
@@ -192,8 +178,10 @@
             box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
         }
         
-        .form-input::placeholder {
-            color: #6c757d;
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: #adb5bd;
+            font-size: 14px;
+            font-weight: 400;
         }
         
         .traffic-light-grid {
@@ -258,29 +246,30 @@
         .action-button {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, #00ff88 0%, #2d5a3d 100%);
+            background: #6c757d;
             border: none;
             border-radius: 16px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: not-allowed;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+            letter-spacing: -0.01em;
+        }
+        
+        .action-button.enabled {
+            background: linear-gradient(135deg, #00ff88 0%, #2d5a3d 100%);
             color: #000;
             font-size: 18px;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 24px;
-            letter-spacing: -0.01em;
             box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
         }
         
-        .action-button:hover {
+        .action-button.enabled:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 24px rgba(0, 255, 136, 0.4);
-        }
-        
-        .action-button:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
         }
         
         .success-notification {
@@ -353,7 +342,6 @@
             <!-- Player Information -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon">📋</div>
                     <h2 class="card-title">Player Information</h2>
                 </div>
                 
@@ -408,7 +396,6 @@
             <!-- Techniques -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon">⚽</div>
                     <h2 class="card-title">Techniques</h2>
                 </div>
                 
@@ -538,7 +525,6 @@
             <!-- Characteristics -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon">🧠</div>
                     <h2 class="card-title">Characteristics</h2>
                 </div>
                 
@@ -653,7 +639,6 @@
             <!-- Physical Attributes -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon">💪</div>
                     <h2 class="card-title">Physical Attributes</h2>
                 </div>
                 
@@ -768,7 +753,6 @@
             <!-- Additional Notes -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon">📝</div>
                     <h2 class="card-title">Additional Notes</h2>
                 </div>
                 
@@ -838,9 +822,11 @@
             
             if (basicInfoComplete && assessmentsCount >= totalSkills) {
                 button.disabled = false;
+                button.className = 'action-button enabled';
                 button.textContent = 'Save Player Assessment';
             } else {
                 button.disabled = true;
+                button.className = 'action-button';
                 button.textContent = `Complete Assessment (${assessmentsCount}/${totalSkills} skills rated)`;
             }
         }
